@@ -1,28 +1,43 @@
 # volumes:
 volumes:
-    postgres-data:
-        external: true
+  postgres-data:
+    external: true
+  pg-admin:
+    external: true
 services:
   postgres:
-        build:
-            context: ./relational-data
-            dockerfile: ./Dockerfile.dev
-        volumes:
-            - postgres-data:/var/lib/postgresql/data
-        environment:
-            - POSTGRES_MULTIPLE_DATABASES= Users, Recipes
-            - POSTGRES_PASSWORD=test-databases
-        ports:
-            - 15432:5432
-  fastapi:
     build:
-      context: sample_service
+      context: ./relational-data
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES= users, recipes
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 15432:5432
+  recipes-service:
+    build:
+      context: ./recipes_service
       dockerfile: Dockerfile.dev
     ports:
       - 8000:8000
     volumes:
-      - ./sample_service:/app
-
+      - ./recipes_service:/app
+    environment:
+      DATABASE_URL: postgresql://recipes:password@postgres/recipes
+      WAIT_HOSTS: postgres:5432
+  users-service:
+    build:
+      context: ./users_service
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "8100:8000"
+    volumes:
+      - ./users_service:/app
+    environment:
+      DATABASE_URL: postgresql://users:password@postgres/users
+      WAIT_HOSTS: postgres:5432
   ghi:
     image: node:lts-bullseye
     command: /bin/bash run.sh
@@ -37,3 +52,13 @@ services:
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
       REACT_APP_SAMPLE_SERVICE_API_HOST: http://localhost:8000
+  pg-admin:
+    image: dpage/pgadmin4
+    volumes:
+      - pg-admin:/var/lib/pgadmin
+    ports:
+      - 8082:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: test@test.com
+      PGADMIN_DEFAULT_PASSWORD: 1234
+      PGADMIN_DISABLE_POSTFIX: 1
