@@ -12,31 +12,20 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_MULTIPLE_DATABASES= users, recipes
+      - POSTGRES_MULTIPLE_DATABASES=panplan
       - POSTGRES_PASSWORD=password
     ports:
       - 15432:5432
-  recipes-service:
+  panplan-service:
     build:
-      context: ./recipes_service
+      context: ./panplan_service
       dockerfile: Dockerfile.dev
     ports:
       - 8000:8000
     volumes:
-      - ./recipes_service:/app
+      - ./panplan_service:/app
     environment:
-      DATABASE_URL: postgresql://recipes:password@postgres/recipes
-      WAIT_HOSTS: postgres:5432
-  users-service:
-    build:
-      context: ./users_service
-      dockerfile: ./Dockerfile.dev
-    ports:
-      - "8100:8000"
-    volumes:
-      - ./users_service:/app
-    environment:
-      DATABASE_URL: postgresql://users:password@postgres/users
+      DATABASE_URL: postgresql://panplan:password@postgres/panplan
       WAIT_HOSTS: postgres:5432
   ghi:
     image: node:lts-bullseye
