@@ -5,6 +5,7 @@ from queries.users import (
     UserOut,
     UserRepository,
     UserIn,
+    UsersOut,
 )
 
 router = APIRouter()
@@ -17,3 +18,10 @@ def create_user(
 ):
     # response.status_code = 400
     return repo.create_user(user)
+
+
+@router.get("/users", response_model=UsersOut)
+def users_list(repo: UserRepository = Depends()):
+    return {
+        "users": repo.get_all_users(),
+    }
