@@ -48,7 +48,7 @@ class UserRepository:
         old_data = user.dict()
         return UserOut(id=id, **old_data)
 
-    def delete_user(self, user_id: int) -> bool:
+    def delete(self, user_id: int) -> bool:
         try:
             #connect with database
             with pool.connection() as conn:
@@ -65,7 +65,8 @@ class UserRepository:
         except Exception as e:
             print(e)
             return False
-    def update_user(self, user_id: int, user: UserIn) -> Union[UserOut, Error]:
+
+    def update(self, user_id: int, user: UserIn) -> Union[UserOut, Error]:
         try:
             # connect the database
             with pool.connection() as conn:
@@ -73,7 +74,7 @@ class UserRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        UPDATE vacations
+                        UPDATE users
                         SET username = %s
                           , password = %s
                         WHERE id = %s
