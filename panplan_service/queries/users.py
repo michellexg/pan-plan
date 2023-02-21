@@ -48,6 +48,48 @@ class UserRepository:
         old_data = user.dict()
         return UserOut(id=id, **old_data)
 
+    def delete_user(self, user_id: int) -> bool:
+        try:
+            #connect with database
+            with pool.connection() as conn:
+                #get a cursor
+                with conn,cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM users
+                        WHERE id = %s
+                        """
+                        [user_id]
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return False
+    def update_user(self, user_id: int, user: UserIn) -> Union[UserOut, Error]:
+        try:
+            # connect the database
+            with pool.connection() as conn:
+                # get a cursor (something to run SQL with)
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE vacations
+                        SET username = %s
+                          , password = %s
+                        WHERE id = %s
+                        """,
+                        [
+                            user.username,
+                            user.password,
+                            user_id
+                        ]
+                    )
+                    # old_data = user.dict()
+                    # return UserOut(id=user_id, **old_data)
+                    return self.user_in_to_out(user_id, user)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update that user"}
     def get_all_users(self) -> Union[Error, UsersOut]:
         try:
             with pool.connection() as conn:
