@@ -48,6 +48,34 @@ class UserRepository:
         old_data = user.dict()
         return UserOut(id=id, **old_data)
 
+    def get_user(self, id):
+        try:
+            # connect to the database
+            with pool.connection() as conn:
+                # get a cursor (use to run SQL)
+                with conn.cursor() as db:
+                    # Run the select statement
+                    db.execute(
+                        """
+                        SELECT id, username
+                        FROM users
+                        WHERE id = %s
+                        """,
+                        [id],
+                    )
+                    record = None
+                    row = db.fetchone()
+                    if row is not None:
+                        record = {}
+                        for i, column in enumerate(db.description):
+                            record[column.name] = row[i]
+
+                    return record
+        except Exception as e:
+            print("Error is:", e)
+            return {"message": "Could not get user"}
+
+
     def delete(self, user_id: int) -> bool:
         try:
             #connect with database
@@ -91,6 +119,7 @@ class UserRepository:
         except Exception as e:
             print(e)
             return {"message": "Could not update that user"}
+
     def get_all_users(self) -> Union[Error, UsersOut]:
         try:
             with pool.connection() as conn:

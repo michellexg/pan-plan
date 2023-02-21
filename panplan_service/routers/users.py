@@ -19,6 +19,18 @@ def create_user(
     # response.status_code = 400
     return repo.create_user(user)
 
+@router.get("/users/${id}", response_model=Union[UserOut, Error])
+def get_user(
+    user_id: int,
+    response: Response,
+    queries: UserRepository = Depends(),
+):
+    record = queries.get_user(user_id)
+    if record is None:
+        response.status_code = 404
+    else:
+        return record
+
 @router.delete("/users/{user_id}", response_model=bool)
 def delete_user(
     user_id: int,
