@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from typing import List, Optional, Union
 from datetime import date
 from queries.pool import pool
+from queries.users import UserOut
 
 class Error(BaseModel):
     message: str
@@ -20,6 +21,18 @@ class RecipeOut(BaseModel):
     ingredients: str
     steps: str
     creator_id: int
+
+#Created new recipe out class including user dict, this method allows us to associated username with recipe easily
+class RecipeOutWithUserDict(BaseModel):
+    id: int
+    name: str
+    image_url: str
+    ingredients: str
+    steps: str
+    creator: UserOut
+
+class RecipesOut(BaseModel):
+    recipes = list[RecipeOutWithUserDict]
 
 class RecipeRepository:
     def create_recipe(self, recipe: RecipeIn) -> Union[RecipeOut, Error]:
@@ -53,3 +66,56 @@ class RecipeRepository:
     def recipe_in_to_out(self, id: int, recipe: RecipeIn):
         old_data = recipe.dict()
         return RecipeOut(id=id, **old_data)
+
+    def recipe_record_to_dict(self, row, description):
+        recipe = None
+        if row is not None:
+            recipe = {}
+            recipe_fields = [
+                "recipe_id",
+                "name",
+                "image_url",
+                "ingredients",
+                "steps",
+            ]
+            for i, column in enumerate(description):
+                if column.name in recipe_fields:
+                    recipe[column.name] = row[i]
+            recipe["id"] = recipe["recipe_id"]
+            del recipe["recipe_id"]
+
+            creator = {}
+            creator_fields = [
+                "user_id",
+                "username",
+            ]
+            for i, column in enumerate(description):
+                if column.name in creator_fields:
+                    creator[column.name] = row[i]
+            creator["id"] = creator["user_id"]
+            del creator["user_id"]
+            recipe["creator"] = creator
+        return recipe
+
+    def get_recipes(self):
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT users.id as user_id, users.username, recipes.id as recipe_id,
+                        recipes.name, recipes.image_url, recipes.ingredients, recipes.steps
+                        FROM users
+                        JOIN recipes ON(users.id = recipes.creator_id)
+                        ORDER BY users.id;
+                        """
+                    )
+                    recipes = []
+                    rows = db.fetchall()
+                    for row in rows:
+                        recipe = self.recipe_record_to_dict(row,db.description)
+                        recipes.append(recipe)
+                    return recipes
+
+        except Exception as e:
+            return {"message":"Could not get recipes :("}

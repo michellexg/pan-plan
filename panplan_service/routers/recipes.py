@@ -5,6 +5,7 @@ from queries.recipes import (
     RecipeOut,
     RecipeRepository,
     RecipeIn,
+    RecipesOut,
 )
 
 router = APIRouter()
@@ -17,3 +18,8 @@ def create_recipe(
 ):
     # response.status_code = 400
     return repo.create_recipe(recipe)
+
+@router.get("/recipes")#, response_model=Union[RecipesOut, Error])
+def get_all_recipes(repo: RecipeRepository = Depends()):
+    recipes = repo.get_recipes()
+    return {"recipes": recipes}
