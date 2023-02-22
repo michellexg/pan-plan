@@ -121,6 +121,22 @@ class MealRepository:
             print(e)
             return {"message": "Could not get user meals"}
 
+    def delete_meal(self, meal_id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM meals
+                        WHERE id = %s
+                        """,
+                        [meal_id]
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return False
+
     def record_to_meal_out(self, record):
         return MealOut(
             id=record[0],

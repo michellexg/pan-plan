@@ -30,3 +30,10 @@ def get_user_meals(
     repo: MealRepository = Depends(),
 ):
     return repo.get_by_user_id(user_id)
+
+@router.delete("/meals/{meal_id}", response_model=bool)
+def delete_meal(
+    meal_id: int,
+    repo: MealRepository = Depends(),
+) -> bool:
+    return repo.delete_meal(meal_id)
