@@ -81,12 +81,12 @@ class UserRepository:
             #connect with database
             with pool.connection() as conn:
                 #get a cursor
-                with conn,cursor() as db:
+                with conn.cursor() as db:
                     db.execute(
                         """
                         DELETE FROM users
                         WHERE id = %s
-                        """
+                        """,
                         [user_id]
                     )
                     return True

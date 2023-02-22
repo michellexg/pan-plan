@@ -19,6 +19,17 @@ def create_recipe(
     # response.status_code = 400
     return repo.create_recipe(recipe)
 
+@router.get("/recipes/{id}")#, response_model=Optional[RecipeOut])
+def get_one_recipe(
+    recipe_id: int,
+    response: Response,
+    repo: RecipeRepository = Depends(),
+):
+    recipe = repo.get_one_recipe(recipe_id)
+    if recipe is None:
+        response.status_code = 404
+    return recipe
+
 @router.get("/recipes")#, response_model=Union[RecipesOut, Error])
 def get_all_recipes(repo: RecipeRepository = Depends()):
     recipes = repo.get_recipes()

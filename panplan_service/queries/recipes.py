@@ -119,3 +119,41 @@ class RecipeRepository:
 
         except Exception as e:
             return {"message":"Could not get recipes :("}
+
+    def get_one_recipe(self, recipe_id: int): # -> Optional[RecipeOut]:
+        try:
+            # connect the database
+            with pool.connection() as conn:
+                # get a cursor (something to run SQL with)
+                with conn.cursor() as db:
+                    # Run our SELECT statement
+                    result = db.execute(
+                        """
+                        SELECT id
+                            , name
+                            , image_url
+                            , ingredients
+                            , steps
+                            , creator_id
+                        FROM recipes
+                        WHERE id = %s
+                        """,
+                        [recipe_id]
+                    )
+                    record = result.fetchone()
+                    if record is None:
+                        return None
+                    return self.record_to_recipe_out(record)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get that recipe"}
+
+    def record_to_recipe_out(self, record):
+        return RecipeOut(
+            id=record[0],
+            name=record[1],
+            image_url=record[2],
+            ingredients=record[3],
+            steps=record[4],
+            creator_id=record[5]
+        )
