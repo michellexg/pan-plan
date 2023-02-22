@@ -23,3 +23,10 @@ def get_all(
     repo: MealRepository = Depends(),
 ):
     return repo.get_all()
+
+@router.get("/meals/{user_id}", response_model=Union[List[MealOut], Error])
+def get_user_meals(
+    user_id: int,
+    repo: MealRepository = Depends(),
+):
+    return repo.get_by_user_id(user_id)

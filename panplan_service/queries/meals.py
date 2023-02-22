@@ -85,6 +85,42 @@ class MealRepository:
             print(e)
             return {"message": "Could not get all meals"}
 
+    def get_by_user_id(self, user_id: int) -> Union[Error, List[MealOut]]:
+        try:
+            # connect the database
+            with pool.connection() as conn:
+                # get a cursor (something to run SQL with)
+                with conn.cursor() as db:
+                    # Run our SELECT statement
+                    result = db.execute(
+                        """
+                        SELECT id, date_int, date, recipe_id, user_id
+                        FROM meals
+                        WHERE user_id = %s
+                        ORDER BY date_int;
+                        """,
+                        [user_id]
+                    )
+                    # result = []
+                    # for record in db:
+                    #     meal = MealsOut(
+                    #         id=record[0],
+                    #         date_int=record[1],
+                    #         date=record[2],
+                    #         recipe_id=record[3],
+                    #         user_id=record[4],
+                    #     )
+                    #     result.append(meal)
+                    # return result
+
+                    return [
+                        self.record_to_meal_out(record)
+                        for record in result
+                    ]
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get user meals"}
+
     def record_to_meal_out(self, record):
         return MealOut(
             id=record[0],
