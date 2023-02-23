@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from typing import List, Optional, Union
 from datetime import date
 from queries.pool import pool
-from queries.users import UserOut
+from queries.accounts import AccountOut
 
 class Error(BaseModel):
     message: str
@@ -22,17 +22,17 @@ class RecipeOut(BaseModel):
     steps: str
     creator_id: int
 
-#Created new recipe out class including user dict, this method allows us to associated username with recipe easily
-class RecipeOutWithUserDict(BaseModel):
+#Created new recipe out class including account dict, this method allows us to associated username with recipe easily
+class RecipeOutWithAccountDict(BaseModel):
     id: int
     name: str
     image_url: str
     ingredients: str
     steps: str
-    creator: UserOut
+    creator: AccountOut
 
 class RecipesOut(BaseModel):
-    recipes = list[RecipeOutWithUserDict]
+    recipes = list[RecipeOutWithAccountDict]
 
 class RecipeRepository:
     def create_recipe(self, recipe: RecipeIn) -> Union[RecipeOut, Error]:
@@ -86,14 +86,14 @@ class RecipeRepository:
 
             creator = {}
             creator_fields = [
-                "user_id",
+                "account_id",
                 "username",
             ]
             for i, column in enumerate(description):
                 if column.name in creator_fields:
                     creator[column.name] = row[i]
-            creator["id"] = creator["user_id"]
-            del creator["user_id"]
+            creator["id"] = creator["account_id"]
+            del creator["account_id"]
             recipe["creator"] = creator
         return recipe
 
@@ -103,11 +103,11 @@ class RecipeRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT users.id as user_id, users.username, recipes.id as recipe_id,
+                        SELECT accounts.id as account_id, accounts.username, recipes.id as recipe_id,
                         recipes.name, recipes.image_url, recipes.ingredients, recipes.steps
-                        FROM users
-                        JOIN recipes ON(users.id = recipes.creator_id)
-                        ORDER BY users.id;
+                        FROM accounts
+                        JOIN recipes ON(accounts.id = recipes.creator_id)
+                        ORDER BY accounts.id;
                         """
                     )
                     recipes = []

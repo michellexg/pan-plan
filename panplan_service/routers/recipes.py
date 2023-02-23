@@ -7,6 +7,7 @@ from queries.recipes import (
     RecipeIn,
     RecipesOut,
 )
+from .auth import authenticator
 
 router = APIRouter()
 
@@ -15,8 +16,11 @@ def create_recipe(
     recipe: RecipeIn,
     response: Response,
     repo: RecipeRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     # response.status_code = 400
+    print(account_data)
+
     return repo.create_recipe(recipe)
 
 @router.get("/recipes/{id}")#, response_model=Optional[RecipeOut])

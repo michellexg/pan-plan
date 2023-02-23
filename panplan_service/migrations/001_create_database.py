@@ -2,7 +2,7 @@ steps = [
     [
         # "Up" SQL statement
         """
-        CREATE TABLE users (
+        CREATE TABLE accounts (
             id SERIAL PRIMARY KEY NOT NULL,
             username VARCHAR(100) NOT NULL UNIQUE,
             password VARCHAR(100) NOT NULL
@@ -10,7 +10,7 @@ steps = [
         """,
         # "Down" SQL statement
         """
-        DROP TABLE users;
+        DROP TABLE accounts;
         """
     ],
     [
@@ -22,7 +22,7 @@ steps = [
             image_url TEXT,
             ingredients TEXT NOT NULL,
             steps TEXT NOT NULL,
-            creator_id INTEGER REFERENCES users("id") NOT NULL
+            creator_id INTEGER REFERENCES accounts("id") NOT NULL
         );
         """,
         # "Down" SQL statement
@@ -38,7 +38,7 @@ steps = [
             date_int INTEGER NOT NULL,
             date DATE,
             recipe_id INTEGER REFERENCES recipes("id") NOT NULL,
-            user_id INTEGER REFERENCES users("id") NOT NULL
+            account_id INTEGER REFERENCES accounts("id") NOT NULL
         );
         """,
         # "Down" SQL statement

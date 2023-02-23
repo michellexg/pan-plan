@@ -6,20 +6,30 @@ from queries.pool import pool
 class Error(BaseModel):
     message: str
 
-class UserIn(BaseModel):
+class AccountIn(BaseModel):
     username: str
     password: str
 
-class UserOut(BaseModel):
+class AccountOut(BaseModel):
     id: int
     username: str
 
-class UsersOut(BaseModel):
-    users: list[UserOut]
 
+class AccountOutWithPassword(AccountOut):
+    hashed_password: str
 
-class UserRepository:
-    def create_user(self, user: UserIn) -> Union[UserOut, Error]:
+class AccountsOut(BaseModel):
+    accounts: list[AccountOut]
+
+class DuplicateAccountError(ValueError):
+    pass
+
+class AccountRepository:
+    def create(self, account: AccountIn, hashed_password: str) -> Union[AccountOutWithPassword, Error]:
+        # hashed_password = authenticator.hash_password(account.password)
+        # print(hashed_password)
+        # props = account.dict()
+        # props["password"] = hashed_password
         try:
             # connect the database
             with pool.connection() as conn:
@@ -28,27 +38,27 @@ class UserRepository:
                     # Run our INSERT statement
                     result = db.execute(
                         """
-                        INSERT INTO users
+                        INSERT INTO accounts
                             (username, password)
                         VALUES
                             (%s, %s)
                         RETURNING id;
                         """,
                         [
-                            user.username,
-                            user.password,
+                            account.username,
+                            hashed_password,
                         ]
                     )
                     id = result.fetchone()[0]
-                    return self.user_in_to_out(id, user)
+                    return self.account_in_to_out(id, account)
         except Exception:
             return {"message": "Create did not work"}
 
-    def user_in_to_out(self, id: int, user: UserIn):
-        old_data = user.dict()
-        return UserOut(id=id, **old_data)
+    def account_in_to_out(self, id: int, account: AccountIn):
+        old_data = account.dict()
+        return AccountOutWithPassword(id=id, username=old_data["username"], hashed_password=old_data["password"])
 
-    def get_user(self, id):
+    def get_account(self, id):
         try:
             # connect to the database
             with pool.connection() as conn:
@@ -58,7 +68,7 @@ class UserRepository:
                     db.execute(
                         """
                         SELECT id, username
-                        FROM users
+                        FROM accounts
                         WHERE id = %s
                         """,
                         [id],
@@ -72,11 +82,38 @@ class UserRepository:
 
                     return record
         except Exception as e:
-            print("Error is:", e)
-            return {"message": "Could not get user"}
+            print("Error is in get_account:", e)
+            return {"message": "Could not get account"}
+
+    def get_account_by_username(self, username):
+        try:
+            # connect to the database
+            with pool.connection() as conn:
+                # get a cursor (use to run SQL)
+                with conn.cursor() as db:
+                    # Run the select statement
+                    db.execute(
+                        """
+                        SELECT id, username, password
+                        FROM accounts
+                        WHERE username = %s
+                        """,
+                        [username],
+                    )
+                    record = None
+                    row = db.fetchone()
+                    if row is not None:
+                        record = {}
+                        for i, column in enumerate(db.description):
+                            record[column.name] = row[i]
+
+                    return record
+        except Exception as e:
+            print("Error is in get_account:", e)
+            return {"message": "Could not get account"}
 
 
-    def delete(self, user_id: int) -> bool:
+    def delete(self, account_id: int) -> bool:
         try:
             #connect with database
             with pool.connection() as conn:
@@ -84,17 +121,17 @@ class UserRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        DELETE FROM users
+                        DELETE FROM accounts
                         WHERE id = %s
                         """,
-                        [user_id]
+                        [account_id]
                     )
                     return True
         except Exception as e:
             print(e)
             return False
 
-    def update(self, user_id: int, user: UserIn) -> Union[UserOut, Error]:
+    def update(self, account_id: int, account: AccountIn) -> Union[AccountOut, Error]:
         try:
             # connect the database
             with pool.connection() as conn:
@@ -102,32 +139,32 @@ class UserRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        UPDATE users
+                        UPDATE accounts
                         SET username = %s
                           , password = %s
                         WHERE id = %s
                         """,
                         [
-                            user.username,
-                            user.password,
-                            user_id
+                            account.username,
+                            account.password,
+                            account_id
                         ]
                     )
-                    # old_data = user.dict()
-                    # return UserOut(id=user_id, **old_data)
-                    return self.user_in_to_out(user_id, user)
+                    # old_data = account.dict()
+                    # return AccountOut(id=account_id, **old_data)
+                    return self.account_in_to_out(account_id, account)
         except Exception as e:
             print(e)
-            return {"message": "Could not update that user"}
+            return {"message": "Could not update that account"}
 
-    def get_all_users(self) -> Union[Error, UsersOut]:
+    def get_all_accounts(self) -> Union[Error, AccountsOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
                         """
                         SELECT id, username
-                        FROM users
+                        FROM accounts
                         ORDER BY id
                         """
                     )
@@ -140,5 +177,5 @@ class UserRepository:
                     return results
 
         except Exception as e:
-            print("Error is:", e)
-            return {"message": "Could not get all users"}
+            print("Error is in get_all_accounts:", e)
+            return {"message": "Could not get all accounts"}

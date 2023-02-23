@@ -10,14 +10,14 @@ class MealIn(BaseModel):
     date_int: int
     date: Optional[date]
     recipe_id: int
-    user_id: int
+    account_id: int
 
 class MealOut(BaseModel):
     id: int
     date_int: int
     date: Optional[date]
     recipe_id: int
-    user_id: int
+    account_id: int
 
 class MealRepository:
     def create_meal(self, meal: MealIn) -> Union[MealOut, Error]:
@@ -30,7 +30,7 @@ class MealRepository:
                     result = db.execute(
                         """
                         INSERT INTO meals
-                            (date_int, date, recipe_id, user_id)
+                            (date_int, date, recipe_id, account_id)
                         VALUES
                             (%s, %s, %s, %s)
                         RETURNING id;
@@ -39,7 +39,7 @@ class MealRepository:
                             meal.date_int,
                             meal.date,
                             meal.recipe_id,
-                            meal.user_id,
+                            meal.account_id,
                         ]
                     )
                     id = result.fetchone()[0]
@@ -60,7 +60,7 @@ class MealRepository:
                     # Run our SELECT statement
                     result = db.execute(
                         """
-                        SELECT id, date_int, date, recipe_id, user_id
+                        SELECT id, date_int, date, recipe_id, account_id
                         FROM meals
                         ORDER BY id;
                         """
@@ -72,7 +72,7 @@ class MealRepository:
                     #         date_int=record[1],
                     #         date=record[2],
                     #         recipe_id=record[3],
-                    #         user_id=record[4],
+                    #         account_id=record[4],
                     #     )
                     #     result.append(meal)
                     # return result
@@ -85,7 +85,7 @@ class MealRepository:
             print(e)
             return {"message": "Could not get all meals"}
 
-    def get_by_user_id(self, user_id: int) -> Union[Error, List[MealOut]]:
+    def get_by_account_id(self, account_id: int) -> Union[Error, List[MealOut]]:
         try:
             # connect the database
             with pool.connection() as conn:
@@ -94,12 +94,12 @@ class MealRepository:
                     # Run our SELECT statement
                     result = db.execute(
                         """
-                        SELECT id, date_int, date, recipe_id, user_id
+                        SELECT id, date_int, date, recipe_id, account_id
                         FROM meals
-                        WHERE user_id = %s
+                        WHERE account_id = %s
                         ORDER BY date_int;
                         """,
-                        [user_id]
+                        [account_id]
                     )
                     # result = []
                     # for record in db:
@@ -108,7 +108,7 @@ class MealRepository:
                     #         date_int=record[1],
                     #         date=record[2],
                     #         recipe_id=record[3],
-                    #         user_id=record[4],
+                    #         account_id=record[4],
                     #     )
                     #     result.append(meal)
                     # return result
@@ -119,7 +119,7 @@ class MealRepository:
                     ]
         except Exception as e:
             print(e)
-            return {"message": "Could not get user meals"}
+            return {"message": "Could not get meals"}
 
     def delete_meal(self, meal_id: int) -> bool:
         try:
@@ -143,5 +143,5 @@ class MealRepository:
             date_int=record[1],
             date=record[2],
             recipe_id=record[3],
-            user_id=record[4],
+            account_id=record[4],
         )

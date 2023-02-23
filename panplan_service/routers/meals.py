@@ -24,12 +24,12 @@ def get_all(
 ):
     return repo.get_all()
 
-@router.get("/meals/{user_id}", response_model=Union[List[MealOut], Error])
-def get_user_meals(
-    user_id: int,
+@router.get("/meals/{account_id}", response_model=Union[List[MealOut], Error])
+def get_account_meals(
+    account_id: int,
     repo: MealRepository = Depends(),
 ):
-    return repo.get_by_user_id(user_id)
+    return repo.get_by_account_id(account_id)
 
 @router.delete("/meals/{meal_id}", response_model=bool)
 def delete_meal(
