@@ -13,6 +13,37 @@ Today, I worked on:
 ## Feb 15, 2023
 
 Today, I worked on:
-    - worked on docker-compose.yaml
-    - discussed schemas and tables
+    - created databases
+    - docker up and running
+    - started endpoints
+## Feb 16, 2023
+
+Today, I worked on:
+    - created endpoints
+
+## Feb 21, 2023
+
+Today, I worked on:
+    - resolved blockers with docker containers exiting
+    - ghi and pan-plan service kept exiting
+    - finished endpoints
+    - worked through merge requests
+
+## Feb 22, 2023
+
+Today, I worked on:
+    - implementd signup flow
+    - discussed front end styling
+
+## Feb 23, 2023
+
+Today, I worked on:
+    - make sign up and login forms(not functionality)
+    - worked on BE auth briefly
+    - helped Senna debug code
+
+## Feb 24, 2023
+
+Today, I worked on:
+    - corrected Lint errors in the whole project
     -
