@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 
 function Login() {
@@ -14,43 +14,41 @@ function Login() {
 
 	return (
 		<>
-		<div className="wrapper">
-			<div className="logo">
-			{/* <img src={***CHANGE***} alt="" /> */}
-			</div>
-			<div className="text-center mt-4 name">PanPlan</div>
+		<div className="row">
+			<div className="mx-auto col-10 col-md-8 col-lg-6">
 			{/* <form> */}
 			<form className="p-3 mt-3" onSubmit={Login}>
-			<div className="form-field d-flex align-items-center">
-				<span className="***CHANGE***"></span>
-				<input
-				value={username}
-				type="username"
-				onChange={(e) => setUsername(e.target.value)}
-				className="form-control"
-				id="username"
-				aria-describedby="username"
-				placeholder="Enter username"
-				/>
-			</div>
-			<div className="form-field d-flex align-items-center">
-				<span className="***CHANGE***"></span>
-				<input
-				value={password}
-				type="password"
-				onChange={(e) => setPassword(e.target.value)}
-				className="form-control"
-				id="password"
-				aria-describedby="password"
-				placeholder="Enter Password"
-				/>
-			</div>
-			<button className="btn mt-3">Login</button>
+				<label htmlFor="username" className="col-sm-2 col-form-label">Username</label>
+				<div className="form-field d-flex align-items-center">
+					<input
+					value={username}
+					type="username"
+					onChange={(e) => setUsername(e.target.value)}
+					className="form-control"
+					id="username"
+					aria-describedby="username"
+					placeholder="Enter username"
+					/>
+				</div>
+				<label htmlFor="Password" className="col-sm-2 col-form-label">Password</label>
+				<div className="form-field d-flex align-items-center">
+					<input
+					value={password}
+					type="password"
+					onChange={(e) => setPassword(e.target.value)}
+					className="form-control"
+					id="password"
+					aria-describedby="password"
+					placeholder="Enter Password"
+					/>
+				</div>
+				<button className="btn mt-3">Login</button>
 			</form>
             <div className="text-center fs-6">
                 <a href="/raddit-new/signup">Not a user? Sign up now</a>
             </div>
-		</div>
+			</div>
+			</div>
 		</>
 	);
 }

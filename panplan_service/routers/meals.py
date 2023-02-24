@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, Response
-from typing import List, Optional, Union
+from typing import List, Union
 from queries.meals import (
     Error,
     MealIn,
@@ -8,6 +8,7 @@ from queries.meals import (
 )
 
 router = APIRouter()
+
 
 @router.post("/meals", response_model=Union[MealOut, Error])
 def create_meal(
@@ -18,11 +19,13 @@ def create_meal(
     # response.status_code = 400
     return repo.create_meal(meal)
 
+
 @router.get("/meals", response_model=Union[List[MealOut], Error])
 def get_all(
     repo: MealRepository = Depends(),
 ):
     return repo.get_all()
+
 
 @router.get("/meals/{account_id}", response_model=Union[List[MealOut], Error])
 def get_account_meals(
@@ -30,6 +33,7 @@ def get_account_meals(
     repo: MealRepository = Depends(),
 ):
     return repo.get_by_account_id(account_id)
+
 
 @router.delete("/meals/{meal_id}", response_model=bool)
 def delete_meal(
