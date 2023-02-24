@@ -127,12 +127,14 @@ class RecipeRepository:
                     recipes = []
                     rows = db.fetchall()
                     for row in rows:
-                        recipe = self.recipe_record_to_dict(row.db.description)
+                        recipe = self.recipe_record_to_dict(
+                            row, db.description
+                            )
                         recipes.append(recipe)
                     return recipes
 
-        # except Exception as e:
-        except Exception:
+        except Exception as e:
+            print(e)
             return {"message": "Could not get recipes :("}
 
     def get_one_recipe(self, recipe_id: int):  # -> Optional[RecipeOut]:
