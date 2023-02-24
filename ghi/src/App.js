@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Nav from "./Nav"
 import MainPage from "./MainPage";
@@ -9,17 +9,7 @@ import SignupForm from "./SignupForm.js";
 
 
 function App() {
-  const [accountInfo, setAccountInfo] = useState([])
   const [recipes, setRecipes] = useState([])
-
-  const fetchAccountInfo = async () => {
-    const url = 'http://localhost:8000/token'
-    const response = await fetch(url)
-
-    if (response.ok) {
-      const data = await response.json()
-    }
-  }
 
   const fetchRecipes = async () => {
     const url = 'http://localhost:8000/recipes'
@@ -32,11 +22,9 @@ function App() {
   }
 
   useEffect(() => {
-    fetchAccountInfo()
     fetchRecipes()
   }, [])
 
-  console.log(recipes)
 
   return (
     <BrowserRouter>
