@@ -1,11 +1,13 @@
 from pydantic import BaseModel
-from typing import List, Optional, Union
-from datetime import date
+from typing import Union
+# from datetime import date
 from queries.pool import pool
 from queries.accounts import AccountOut
 
+
 class Error(BaseModel):
     message: str
+
 
 class RecipeIn(BaseModel):
     name: str
@@ -13,6 +15,7 @@ class RecipeIn(BaseModel):
     ingredients: str
     steps: str
     creator_id: int
+
 
 class RecipeOut(BaseModel):
     id: int
@@ -22,7 +25,10 @@ class RecipeOut(BaseModel):
     steps: str
     creator_id: int
 
-#Created new recipe out class including account dict, this method allows us to associated username with recipe easily
+
+# Created new recipe out class including account dict,
+#      this method allows us to associate
+#      username with recipe easily
 class RecipeOutWithAccountDict(BaseModel):
     id: int
     name: str
@@ -31,8 +37,10 @@ class RecipeOutWithAccountDict(BaseModel):
     steps: str
     creator: AccountOut
 
+
 class RecipesOut(BaseModel):
     recipes = list[RecipeOutWithAccountDict]
+
 
 class RecipeRepository:
     def create_recipe(self, recipe: RecipeIn) -> Union[RecipeOut, Error]:
@@ -101,10 +109,16 @@ class RecipeRepository:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    result = db.execute(
+                    # result = db.execute(
+                    db.execute(
                         """
-                        SELECT accounts.id as account_id, accounts.username, recipes.id as recipe_id,
-                        recipes.name, recipes.image_url, recipes.ingredients, recipes.steps
+                        SELECT accounts.id as account_id
+                        , accounts.username
+                        , recipes.id as recipe_id
+                        , recipes.name
+                        , recipes.image_url
+                        , recipes.ingredients
+                        , recipes.steps
                         FROM accounts
                         JOIN recipes ON(accounts.id = recipes.creator_id)
                         ORDER BY accounts.id;
@@ -118,9 +132,10 @@ class RecipeRepository:
                     return recipes
 
         except Exception as e:
-            return {"message":"Could not get recipes :("}
+            print(e)
+            return {"message": "Could not get recipes :("}
 
-    def get_one_recipe(self, recipe_id: int): # -> Optional[RecipeOut]:
+    def get_one_recipe(self, recipe_id: int):  # -> Optional[RecipeOut]:
         try:
             # connect the database
             with pool.connection() as conn:

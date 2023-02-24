@@ -3,8 +3,10 @@ from typing import List, Optional, Union
 from datetime import date
 from queries.pool import pool
 
+
 class Error(BaseModel):
     message: str
+
 
 class MealIn(BaseModel):
     date_int: int
@@ -12,12 +14,14 @@ class MealIn(BaseModel):
     recipe_id: int
     account_id: int
 
+
 class MealOut(BaseModel):
     id: int
     date_int: int
     date: Optional[date]
     recipe_id: int
     account_id: int
+
 
 class MealRepository:
     def create_meal(self, meal: MealIn) -> Union[MealOut, Error]:
@@ -85,7 +89,10 @@ class MealRepository:
             print(e)
             return {"message": "Could not get all meals"}
 
-    def get_by_account_id(self, account_id: int) -> Union[Error, List[MealOut]]:
+    def get_by_account_id(
+            self,
+            account_id: int
+            ) -> Union[Error, List[MealOut]]:
         try:
             # connect the database
             with pool.connection() as conn:
