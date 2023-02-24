@@ -19,28 +19,32 @@ function Nav() {
           </NavLink>
         </li>
         <li className="nav-item">
-          (
           <NavLink
           className="nav-link text-dark" to="/Nav">
             Nav
           </NavLink>
-          )
             </li>
+			<li className="nav-item ms-auto">
+				<NavLink className="nav-link text-dark" to="signup">
+					SignUp
+				</NavLink>
+			</li>
+			<li className="nav-item ms-auto">
+				<NavLink className="nav-link text-dark" to="login">
+					Login
+				</NavLink>
+			</li>
             <li className="nav-item">
-              (
               <NavLink
                 className="nav-link text-dark" to="/Mealsplaceholder">
                 Meals
               </NavLink>
-              )
             </li>
             <li className="nav-item">
-              (
               <NavLink
                 className="nav-link text-dark" to="/Recipesplaceholder">
                 Recipes
               </NavLink>
-              )
             </li>
       </ul>
     </nav>
@@ -49,4 +53,3 @@ function Nav() {
 )
 }
  export default Nav;
-
