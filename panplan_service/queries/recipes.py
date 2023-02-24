@@ -127,7 +127,9 @@ class RecipeRepository:
                     recipes = []
                     rows = db.fetchall()
                     for row in rows:
-                        recipe = self.recipe_record_to_dict(row, db.description)
+                        recipe = self.recipe_record_to_dict(
+                            row, db.description
+                            )
                         recipes.append(recipe)
                     return recipes
 
