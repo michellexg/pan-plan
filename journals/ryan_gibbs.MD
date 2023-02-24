@@ -6,6 +6,8 @@ Each team member is required to keep a development journal, which should be a si
 
 Recommended naming convention is `first_last.md`.
 
+02/23/23
+Finished up authorization/authentication, successfully protected one endpoint, simple process so didn't completely protect all endpoints to give others a chance to work on that. Started working on front end, page to allow users to see a recipes details. Big aha when trying to create dynamic links, realized I could map through the array of recipes and create a route for each one off of the ID. Took awhile to get there. Very fun to complete this.
 
 02/22/23
 Today we all worked together on authorization. It was a major pain in the butt and we got stuck with the login right after the user is created. We were successfully creating the user but logging in and receiving the token was not working.
