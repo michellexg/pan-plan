@@ -73,6 +73,7 @@ function App() {
                 element={<DisplayRecipeDetails recipe={recipe} />}
               />
             ))}
+            <Route path="/meals" element={<MealList />} />
           </Routes>
         </div>
       </AuthProvider>

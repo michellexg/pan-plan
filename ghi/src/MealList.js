@@ -23,6 +23,7 @@ function MealList() {
         accountId = account_id
 
     }
+    console.log(accountId)
 
     const getMeals = async () => {
         const response = await fetch(`${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/meals`);
