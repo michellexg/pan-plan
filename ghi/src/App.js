@@ -50,6 +50,7 @@ function App() {
   return (
     <BrowserRouter>
       <div>
+        <Nav />
         <Routes>
           <Route path="/recipes" element={<RecipeList recipes={recipes} />} />
           <Route path="signup" element={<SignupForm />} />

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/esm/Card";
-import Nav from "./Nav.js";
 function RecipeList(props) {
   const [searchName, setSearchName] = useState("");
   return (
