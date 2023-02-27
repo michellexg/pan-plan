@@ -1,17 +1,17 @@
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 
 function SignupForm(props) {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
-	// const navigate = useNavigate();
+	const navigate = useNavigate();
 
 
 	async function Signup(e) {
-		// e.preventDefault();
-		const url = 'http:localhost:8000/accounts'
+		e.preventDefault();
+		const url = 'http://localhost:8000/accounts';
 		const response = await fetch(url, {
 		method: "post",
 		body: JSON.stringify({
@@ -25,10 +25,10 @@ function SignupForm(props) {
 		});
 		let jsonResponse = await response.json();
 		if (response.ok && jsonResponse !== null) {
-		setUsername("");
-		setPassword("");
-		setConfirmPassword("");
-		// navigate("/login");
+			setUsername("");
+			setPassword("");
+			setConfirmPassword("");
+			navigate("/login");
 		} else {
 		alert(
 			"Your signup failed. The most likely reason is you tried a username that is taken."
@@ -42,11 +42,8 @@ function SignupForm(props) {
 
 	return (
 		<>
-		{/* <div className="form-group-row">
-			<div className="text-center mt-4 name">PanPlan Signup</div> */}
 			<form className="p-3 mt-3" onSubmit={Signup}>
 				<label htmlFor="username" className="col-sm-2 col-form-label">Username</label>
-				{/* <div className="form-field d-flex align-items-center"> */}
 				<div className="form-group row">
 					<input
 					value={username}
@@ -86,7 +83,6 @@ function SignupForm(props) {
 			</form>
 			<div className="text-center fs-6">
 			<a href="/login">Log in</a>
-			{/* </div> */}
 		</div>
 		</>
 	);
