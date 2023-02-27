@@ -2,15 +2,15 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 let internalToken = null;
-let account_info = null;
+// let account_info = null;
 
 export function getToken() {
   return internalToken;
 }
 
 export async function getTokenInternal() {
-//   const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
-  const url = `http://localhost:8000/token`;
+  const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
+  // const url = `http://localhost:8000/token`;
   try {
     const response = await fetch(url, {
       credentials: "include",
@@ -18,8 +18,9 @@ export async function getTokenInternal() {
     if (response.ok) {
       const data = await response.json();
       internalToken = data.access_token;
-      account_info = data.account.id;
-      return [internalToken, account_info];
+      // account_info = data.account.id;
+      return internalToken;
+      // return [internalToken, account_info];
     }
   } catch (e) {}
   return false;
@@ -79,8 +80,8 @@ export function useToken() {
 
   async function logout() {
     if (token) {
-        // const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
-        const url = `http://localhost:8000/token`;
+        const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
+        // const url = `http://localhost:8000/token`;
       await fetch(url, { method: "delete", credentials: "include" });
       internalToken = null;
       setToken(null);
@@ -89,8 +90,8 @@ export function useToken() {
   }
 
   async function login(username, password) {
-    // const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
-    const url = `http://localhost:8000/token`;
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
+    // const url = `http://localhost:8000/token`;
 
     const form = new FormData();
     form.append("username", username);
@@ -111,8 +112,8 @@ export function useToken() {
   }
 
   async function signup(username, password) {
-    // const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/sign_up`;
-    const url = `http://localhost:8000/accounts`;
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/sign_up`;
+    // const url = `http://localhost:8000/accounts`;
     const response = await fetch(url, {
       method: "post",
       body: JSON.stringify({
@@ -130,8 +131,8 @@ export function useToken() {
   }
 
   async function update(username, password) {
-    // const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/accounts`;
-    const url = `http://localhost:8000/accounts`;
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/accounts`;
+    // const url = `http://localhost:8000/accounts`;
     const response = await fetch(url, {
       method: "patch",
       body: JSON.stringify({
@@ -151,28 +152,28 @@ export function useToken() {
   return { token, login, logout, signup, update };
 }
 
-// export const useUser = (token) => {
-//   const [user, setUser] = useState();
+export const useUser = (token) => {
+  const [user, setUser] = useState();
 
-//   useEffect(() => {
-//     if (!token) {
-//       return;
-//     }
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
 
-//     async function getUser() {
-//     //   const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/current_user`;
-//       const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/current_user`;
-//       const response = await fetch(url, {
-//         credentials: "include",
-//       });
-//       if (response.ok) {
-//         const newUser = await response.json();
-//         setUser(newUser);
-//       }
-//     }
+    async function get_account() {
+      const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/accounts/{account_id}`;
+      // const url = `http://localhost:8000/current_user`;
+      const response = await fetch(url, {
+        credentials: "include",
+      });
+      if (response.ok) {
+        const newUser = await response.json();
+        setUser(newUser);
+      }
+    }
 
-//     getUser();
-//   }, [token]);
+    get_account();
+  }, [token]);
 
-//   return user;
-// }
+  return user;
+}

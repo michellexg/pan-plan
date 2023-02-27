@@ -36,13 +36,13 @@ function Nav() {
 			</li>
             <li className="nav-item">
               <NavLink
-                className="nav-link text-dark" to="/Mealsplaceholder">
+                className="nav-link text-dark" to="/home">
                 Meals
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
-                className="nav-link text-dark" to="/Recipesplaceholder">
+                className="nav-link text-dark" to="/recipes">
                 Recipes
               </NavLink>
             </li>
