@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider, useToken } from "./Auth";
-import Construct from './Construct.js'
 import RecipeList from "./RecipeList.js";
 import "./App.css";
 import Nav from "./Nav";
@@ -10,7 +9,6 @@ import Login from "./LoginForm";
 import DisplayRecipeDetails from "./common/RecipeDetails";
 import SignupForm from "./SignupForm.js";
 import MealList from './MealList.js';
-import { AuthProvider, useToken } from './Auth.js';
 
 function GetToken() {
   console.log("I/M HERE??????")

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Card from "react-bootstrap/esm/Card";
+import Card from "react-bootstrap/Card";
 function RecipeList(props) {
   const [searchName, setSearchName] = useState("");
   return (
