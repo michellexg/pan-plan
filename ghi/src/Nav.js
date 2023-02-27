@@ -6,9 +6,9 @@ function Nav() {
     <>
       <div className="container-sm">
 
-      <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
-        <div class="subnav w-100 h-5 p-3 shadow mb-5 mt-0 navbar position-sticky">
-          <div class="list-group list-group-flush mx-3 mt-4">
+      <nav id="sidebarMenu" className="collapse d-lg-block sidebar collapse bg-white">
+        <div className="subnav w-100 h-5 p-3 shadow mb-5 mt-0 navbar position-sticky">
+          <div className="list-group list-group-flush mx-3 mt-4">
           <h1 className="text-black">PanPlan</h1>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
