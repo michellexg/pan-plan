@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
-import Card from "react-bootstrap/Card";
+import React, { useState } from "react";
+import Card from "react-bootstrap/esm/Card";
+import { NavLink } from "react-router-dom";
+
 function RecipeList(props) {
   const [searchName, setSearchName] = useState("");
   return (
@@ -11,9 +13,11 @@ function RecipeList(props) {
           setSearchName(event.target.value);
         }}
       />
+      <div></div>
+      <NavLink to="new">Create new recipe</NavLink>
       {props.recipes
         .filter((val) => {
-          if (searchName == "") {
+          if (searchName === "") {
             return val;
           } else if (val.name.includes(searchName)) {
             return val;
@@ -28,7 +32,9 @@ function RecipeList(props) {
               </Card.Body>
               <Card.Footer className="text-muted">
                 {recipe.creator.username}
-                <a href={`/recipes/${recipe.id}`}>Details</a>
+                <NavLink to={`/recipes/${recipe.id}`}>
+                  Details
+                </NavLink>
               </Card.Footer>
             </Card>
           );

@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import logo from './assets/logo.png'
 // import { useToken } from "./Auth";
 
@@ -17,7 +16,7 @@ function Login() {
 		<>
 		<div className="wrapper">
 			<div className="logo">
-			{<img src={logo} height="100"/>}PanPlan
+			{<img src={logo}  alt="RANDOM INPUT" height="100"/>}PanPlan
 			</div>
 			<form className="p-3 mt-3" onSubmit={Login}>
 			<div className="form-field d-flex align-items-center">
