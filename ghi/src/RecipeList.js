@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/esm/Card";
+import Nav from "./Nav.js";
 function RecipeList(props) {
   const [searchName, setSearchName] = useState("");
   return (
@@ -28,6 +29,7 @@ function RecipeList(props) {
               </Card.Body>
               <Card.Footer className="text-muted">
                 {recipe.creator.username}
+                <a href={`/recipes/${recipe.id}`}>Details</a>
               </Card.Footer>
             </Card>
           );
