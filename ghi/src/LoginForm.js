@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import logo from './assets/logo.png'
 
 function Login() {
@@ -16,7 +15,7 @@ function Login() {
 		<>
 		<div className="wrapper">
 			<div className="logo">
-			{<img src={logo} height="100"/>}PanPlan
+			{<img src={logo}  alt="RANDOM INPUT" height="100"/>}PanPlan
 			</div>
 			{/* <form> */}
 			<form className="p-3 mt-3" onSubmit={Login}>
