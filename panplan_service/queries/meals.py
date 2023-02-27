@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from typing import List, Optional, Union
 from datetime import date
 from queries.pool import pool
+from queries.recipes import RecipeOut
 
 class Error(BaseModel):
     message: str
@@ -12,11 +13,22 @@ class MealIn(BaseModel):
     recipe_id: int
     account_id: int
 
+class RecipeOutWithName(BaseModel):
+    id: int
+    name: str
+
 class MealOut(BaseModel):
     id: int
     date_int: int
     date: Optional[date]
     recipe_id: int
+    account_id: int
+
+class MealOutWithRecipeName(BaseModel):
+    id: int
+    date_int: int
+    date: Optional[date]
+    recipe_id: RecipeOutWithName
     account_id: int
 
 class MealRepository:
@@ -51,7 +63,7 @@ class MealRepository:
         old_data = meal.dict()
         return MealOut(id=id, **old_data)
 
-    def get_all(self) -> Union[Error, List[MealOut]]:
+    def get_all(self):
         try:
             # connect the database
             with pool.connection() as conn:
@@ -60,30 +72,68 @@ class MealRepository:
                     # Run our SELECT statement
                     result = db.execute(
                         """
-                        SELECT id, date_int, date, recipe_id, account_id
-                        FROM meals
-                        ORDER BY id;
+                        SELECT recipes.id as recipe_id, recipes.name, meals.id as meal_id, meals.date_int, meals.date, meals.account_id
+                        FROM recipes
+                        JOIN meals ON(recipes.id = meals.recipe_id)
+                        ORDER BY recipes.id;
                         """
                     )
-                    # result = []
-                    # for record in db:
-                    #     meal = MealsOut(
-                    #         id=record[0],
-                    #         date_int=record[1],
-                    #         date=record[2],
-                    #         recipe_id=record[3],
-                    #         account_id=record[4],
-                    #     )
-                    #     result.append(meal)
-                    # return result
 
-                    return [
-                        self.record_to_meal_out(record)
-                        for record in result
-                    ]
+                    meals = []
+                    rows = db.fetchall()
+                    print("xxx", rows)
+                    for row in rows:
+                        meal = self.meal_record_to_dict(row, db.description)
+                        print(meal)
+                        meals.append(meal)
+                    # print(meals)
+                    return meals
         except Exception as e:
             print(e)
             return {"message": "Could not get all meals"}
+
+    def meal_record_to_dict(self, row, description):
+        meal = None
+        print("what is description", description)
+        if row is not None:
+            meal = {}
+            meal_fields = [
+                "meal_id",
+                "date_int",
+                "date",
+                "account_id",
+            ]
+            for i, column in enumerate(description):
+                print("---------------")
+                print("LOOP:", i)
+                print("COLUMN:", column)
+                if column.name in meal_fields:
+                    print("COLUMN NAME:", column.name)
+                    meal[column.name] = row[i]
+                print("MEAL AFTER THIS LOOP:", meal)
+            meal["id"] = meal["meal_id"]
+            print("MEAL", meal)
+            del meal["meal_id"]
+
+            recipe = {}
+            recipe_fields = [
+                "recipe_id",
+                "name",
+            ]
+            print("------START TO LOOP OVER RECIPES-------")
+            for i, column in enumerate(description):
+                print("LOOP:", i)
+                print("COLUMN:", column)
+                if column.name in recipe_fields:
+                    recipe[column.name] = row[i]
+                print("RECIPE AFTER THIS LOOP", recipe)
+            recipe["id"] = recipe["recipe_id"]
+            print("RECIPE", recipe)
+            del recipe["recipe_id"]
+
+            meal["recipe_id"] = recipe
+            print("MEAL AFTER ADDING RECIPE", meal)
+        return meal
 
     def get_by_account_id(self, account_id: int) -> Union[Error, List[MealOut]]:
         try:
@@ -120,6 +170,7 @@ class MealRepository:
         except Exception as e:
             print(e)
             return {"message": "Could not get meals"}
+
 
     def delete_meal(self, meal_id: int) -> bool:
         try:

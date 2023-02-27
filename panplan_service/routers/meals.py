@@ -5,6 +5,7 @@ from queries.meals import (
     MealIn,
     MealOut,
     MealRepository,
+    MealOutWithRecipeName,
 )
 
 router = APIRouter()
@@ -18,7 +19,7 @@ def create_meal(
     # response.status_code = 400
     return repo.create_meal(meal)
 
-@router.get("/meals", response_model=Union[List[MealOut], Error])
+@router.get("/meals", response_model=Union[List[MealOutWithRecipeName], Error])
 def get_all(
     repo: MealRepository = Depends(),
 ):
