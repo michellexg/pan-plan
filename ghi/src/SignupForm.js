@@ -42,11 +42,8 @@ function SignupForm(props) {
 
 	return (
 		<>
-		{/* <div className="form-group-row">
-			<div className="text-center mt-4 name">PanPlan Signup</div> */}
 			<form className="p-3 mt-3" onSubmit={Signup}>
 				<label htmlFor="username" className="col-sm-2 col-form-label">Username</label>
-				{/* <div className="form-field d-flex align-items-center"> */}
 				<div className="form-group row">
 					<input
 					value={username}
@@ -86,7 +83,6 @@ function SignupForm(props) {
 			</form>
 			<div className="text-center fs-6">
 			<a href="/login">Log in</a>
-			{/* </div> */}
 		</div>
 		</>
 	);

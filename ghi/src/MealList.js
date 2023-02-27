@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
-import { useAuthContext } from './Auth';
 import { useToken } from './Auth';
 
 

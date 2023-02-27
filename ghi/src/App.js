@@ -11,7 +11,6 @@ import SignupForm from "./SignupForm.js";
 import MealList from './MealList.js';
 
 function GetToken() {
-  console.log("I/M HERE??????")
   useToken();
   return null
 }
