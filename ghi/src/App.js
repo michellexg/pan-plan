@@ -9,6 +9,14 @@ import MainPage from "./MainPage";
 import Login from "./LoginForm";
 import DisplayRecipeDetails from "./common/RecipeDetails";
 import SignupForm from "./SignupForm.js";
+import MealList from './MealList.js';
+import { AuthProvider, useToken } from './Auth.js';
+
+function GetToken() {
+  console.log("I/M HERE??????")
+  useToken();
+  return null
+}
 
 function App() {
   const [launch_info, setLaunchInfo] = useState([]);
@@ -49,22 +57,26 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div>
+      <AuthProvider>
+        <GetToken />
         <Nav />
-        <Routes>
-          <Route path="/recipes" element={<RecipeList recipes={recipes} />} />
-          <Route path="signup" element={<SignupForm />} />
-          <Route path="login" element={<Login />} />
-          <Route path="/" element={<MainPage />} />
-          {recipes.map((recipe) => (
-            <Route
-              key={recipe.id}
-              path={`recipes/${recipe.id}`}
-              element={<DisplayRecipeDetails recipe={recipe} />}
-            />
-          ))}
-        </Routes>
-      </div>
+        <div>
+          <Routes>
+            <Route path="/recipes" element={<RecipeList recipes={recipes} />} />
+            <Route path="signup" element={<SignupForm />} />
+            <Route path="login" element={<Login />} />
+            <Route path="/" element={<MainPage />} />
+            {recipes.map((recipe) => (
+              <Route
+                key={recipe.id}
+                path={`recipes/${recipe.id}`}
+                element={<DisplayRecipeDetails recipe={recipe} />}
+              />
+            ))}
+            <Route path="/meals" element={<MealList />} />
+          </Routes>
+        </div>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
