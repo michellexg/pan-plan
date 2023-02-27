@@ -5,7 +5,10 @@ function Nav() {
   return (
     <>
       <div className="container-sm">
-        <nav className="subnav w-100 h-5 p-3 shadow mb-5 mt-0 navbar">
+
+      <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+        <div class="subnav w-100 h-5 p-3 shadow mb-5 mt-0 navbar position-sticky">
+          <div class="list-group list-group-flush mx-3 mt-4">
           <h1 className="text-black">PanPlan</h1>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
@@ -22,12 +25,12 @@ function Nav() {
                 Nav
               </NavLink>
             </li>
-            <li className="nav-item ms-auto">
+            <li className="nav-item">
               <NavLink className="nav-link text-dark" to="signup">
                 SignUp
               </NavLink>
             </li>
-            <li className="nav-item ms-auto">
+            <li className="nav-item">
               <NavLink className="nav-link text-dark" to="login">
                 Login
               </NavLink>
@@ -43,6 +46,8 @@ function Nav() {
               </NavLink>
             </li>
           </ul>
+      </div>
+      </div>
         </nav>
       </div>
     </>
