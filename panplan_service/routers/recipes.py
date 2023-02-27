@@ -1,15 +1,15 @@
 from fastapi import APIRouter, Depends, Response
-from typing import List, Optional, Union
+from typing import Union
 from queries.recipes import (
     Error,
     RecipeOut,
     RecipeRepository,
     RecipeIn,
-    RecipesOut,
 )
 from .auth import authenticator
 
 router = APIRouter()
+
 
 @router.post("/recipes", response_model=Union[RecipeOut, Error])
 def create_recipe(
@@ -23,7 +23,8 @@ def create_recipe(
 
     return repo.create_recipe(recipe)
 
-@router.get("/recipes/{id}")#, response_model=Optional[RecipeOut])
+
+@router.get("/recipes/{id}")  # , response_model=Optional[RecipeOut])
 def get_one_recipe(
     recipe_id: int,
     response: Response,
@@ -34,7 +35,8 @@ def get_one_recipe(
         response.status_code = 404
     return recipe
 
-@router.get("/recipes")#, response_model=Union[RecipesOut, Error])
+
+@router.get("/recipes")  # , response_model=Union[RecipesOut, Error])
 def get_all_recipes(repo: RecipeRepository = Depends()):
     recipes = repo.get_recipes()
     return {"recipes": recipes}

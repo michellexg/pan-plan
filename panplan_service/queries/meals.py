@@ -4,8 +4,10 @@ from datetime import date
 from queries.pool import pool
 from queries.recipes import RecipeOut
 
+
 class Error(BaseModel):
     message: str
+
 
 class MealIn(BaseModel):
     date_int: int

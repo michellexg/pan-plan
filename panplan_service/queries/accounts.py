@@ -1,14 +1,17 @@
 from pydantic import BaseModel
-from typing import List, Optional, Union
-from datetime import date
+from typing import Union
+# from datetime import date
 from queries.pool import pool
+
 
 class Error(BaseModel):
     message: str
 
+
 class AccountIn(BaseModel):
     username: str
     password: str
+
 
 class AccountOut(BaseModel):
     id: int
@@ -18,14 +21,21 @@ class AccountOut(BaseModel):
 class AccountOutWithPassword(AccountOut):
     hashed_password: str
 
+
 class AccountsOut(BaseModel):
     accounts: list[AccountOut]
+
 
 class DuplicateAccountError(ValueError):
     pass
 
+
 class AccountRepository:
-    def create(self, account: AccountIn, hashed_password: str) -> Union[AccountOutWithPassword, Error]:
+    def create(
+            self,
+            account: AccountIn,
+            hashed_password: str
+            ) -> Union[AccountOutWithPassword, Error]:
         # hashed_password = authenticator.hash_password(account.password)
         # print(hashed_password)
         # props = account.dict()
@@ -56,7 +66,11 @@ class AccountRepository:
 
     def account_in_to_out(self, id: int, account: AccountIn):
         old_data = account.dict()
-        return AccountOutWithPassword(id=id, username=old_data["username"], hashed_password=old_data["password"])
+        return AccountOutWithPassword(
+            id=id,
+            username=old_data["username"],
+            hashed_password=old_data["password"]
+            )
 
     def get_account(self, id):
         try:
@@ -112,12 +126,11 @@ class AccountRepository:
             print("Error is in get_account:", e)
             return {"message": "Could not get account"}
 
-
     def delete(self, account_id: int) -> bool:
         try:
-            #connect with database
+            # connect with database
             with pool.connection() as conn:
-                #get a cursor
+                # get a cursor
                 with conn.cursor() as db:
                     db.execute(
                         """
@@ -131,7 +144,11 @@ class AccountRepository:
             print(e)
             return False
 
-    def update(self, account_id: int, account: AccountIn) -> Union[AccountOut, Error]:
+    def update(
+            self,
+            account_id: int,
+            account: AccountIn
+            ) -> Union[AccountOut, Error]:
         try:
             # connect the database
             with pool.connection() as conn:

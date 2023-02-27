@@ -6,7 +6,7 @@ from fastapi import (
     APIRouter,
     Request,
 )
-from typing import List, Optional, Union
+from typing import Union
 from jwtdown_fastapi.authentication import Token
 from .auth import authenticator
 from queries.accounts import (
@@ -15,20 +15,21 @@ from queries.accounts import (
     AccountRepository,
     AccountIn,
     AccountsOut,
-    AccountOutWithPassword,
     DuplicateAccountError
 )
 from pydantic import BaseModel
 
-import inspect
 
 class AccountToken(Token):
     account: AccountOut
 
+
 class HttpError(BaseModel):
     detail: str
 
+
 router = APIRouter()
+
 
 @router.post("/accounts", response_model=Union[AccountToken, Error])
 async def create_account(
@@ -54,6 +55,7 @@ async def create_account(
 
     return AccountToken(account=account, **token.dict())
 
+
 @router.get("/accounts/${id}", response_model=Union[AccountOut, Error])
 def get_account(
     account_id: int,
@@ -66,12 +68,14 @@ def get_account(
     else:
         return record
 
+
 @router.delete("/accounts/{account_id}", response_model=bool)
 def delete_account(
     account_id: int,
     repo: AccountRepository = Depends(),
 ) -> bool:
     return repo.delete(account_id)
+
 
 @router.put("/accounts/{account_id}", response_model=Union[AccountOut, Error])
 def update_account(
@@ -81,20 +85,29 @@ def update_account(
 ) -> Union[Error, AccountOut]:
     return repo.update(account_id, account)
 
+
 @router.get("/accounts", response_model=AccountsOut)
 def accounts_list(repo: AccountRepository = Depends()):
     return {
         "accounts": repo.get_all_accounts(),
     }
 
-@router.get("/token", response_model= AccountToken | None)
+
+@router.get("/token", response_model=AccountToken | None)
 async def get_token(
     request: Request,
     account: AccountOut = Depends(authenticator.try_get_current_account_data)
 ) -> AccountToken | None:
     if account and authenticator.cookie_name in request.cookies:
-            return {
-                "access_token": request.cookies[authenticator.cookie_name],
-                "type": "Bearer",
-                "account": account,
-            }
+        return {
+            "access_token": request.cookies[authenticator.cookie_name],
+            "type": "Bearer",
+            "account": account,
+        }
+
+
+@router.get("/protected", response_model=bool)
+async def get_protected(
+    account_data: dict = Depends(authenticator.get_current_account_data),
+):
+    return True

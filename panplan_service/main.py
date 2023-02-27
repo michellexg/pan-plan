@@ -3,8 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from routers import recipes, accounts, meals, auth
 
-
-
 app = FastAPI()
 app.include_router(recipes.router)
 app.include_router(accounts.router)
