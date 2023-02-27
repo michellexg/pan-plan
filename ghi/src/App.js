@@ -46,17 +46,20 @@ function App() {
   //   </BrowserRouter>
   // );
   return (
-    <AuthProvider>
-      <BrowserRouter>
+
+    <BrowserRouter>
+      <AuthProvider>
         <GetToken />
+        <Nav />
         <div className='container'>
           <Routes>
             <Route path="/meals" element={<MealList />} />
+
           </Routes>
         </div>
-      </BrowserRouter>
-      {/* All of your other components, here */}
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter >
+
   );
 }
 
