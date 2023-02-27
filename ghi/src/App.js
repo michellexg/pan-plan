@@ -2,8 +2,13 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 //import Construct from './Construct.js'
 //import ErrorNotification from "./ErrorNotification";
-import "./App.css";
 import RecipeList from "./RecipeList.js";
+import "./App.css";
+import Nav from "./Nav";
+import MainPage from "./MainPage";
+import Login from "./LoginForm";
+import DisplayRecipeDetails from "./common/RecipeDetails";
+import SignupForm from "./SignupForm.js";
 
 function App() {
   const [launch_info, setLaunchInfo] = useState([]);
@@ -33,13 +38,11 @@ function App() {
     const response = await fetch(url);
 
     if (response.ok) {
-      console.log("ok response");
       const data = await response.json();
-      const recipes = data.recipes;
-      console.log(recipes);
-      setRecipes(recipes);
+      setRecipes(data.recipes);
     }
   };
+
   useEffect(() => {
     fetchRecipes();
   }, []);
@@ -49,10 +52,19 @@ function App() {
       <div>
         <Routes>
           <Route path="/recipes" element={<RecipeList recipes={recipes} />} />
+          <Route path="signup" element={<SignupForm />} />
+          <Route path="login" element={<Login />} />
+          <Route path="/" element={<MainPage />} />
+          {recipes.map((recipe) => (
+            <Route
+              key={recipe.id}
+              path={`recipes/${recipe.id}`}
+              element={<DisplayRecipeDetails recipe={recipe} />}
+            />
+          ))}
         </Routes>
       </div>
     </BrowserRouter>
   );
 }
-
 export default App;
