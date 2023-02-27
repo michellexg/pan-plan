@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
-
+import logo from './assets/logo.png'
 
 function SignupForm(props) {
 	const [username, setUsername] = useState("");
@@ -42,6 +42,11 @@ function SignupForm(props) {
 
 	return (
 		<>
+        <div className="wrapper">
+			<div className="logo">
+                {<img src={logo} alt="RANDOM INPUT" height="100"/>}PanPlan
+			</div>
+
 			<form className="p-3 mt-3" onSubmit={Signup}>
 				<label htmlFor="username" className="col-sm-2 col-form-label">Username</label>
 				<div className="form-group row">
@@ -83,6 +88,7 @@ function SignupForm(props) {
 			</form>
 			<div className="text-center fs-6">
 			<a href="/login">Log in</a>
+		</div>
 		</div>
 		</>
 	);
