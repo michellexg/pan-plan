@@ -58,7 +58,7 @@ function CreateRecipeForm(props){
       }
       const splitIngredients = combinedIngredients.split(",")
       splitIngredients.pop()
-      combinedIngredients = splitIngredients.join()
+      combinedIngredients = splitIngredients.join("@#$")
 
       let combinedSteps = ""
       for (let step of stepsList) {
@@ -66,7 +66,7 @@ function CreateRecipeForm(props){
       }
       const splitSteps = combinedSteps.split(",")
       splitSteps.pop()
-      combinedSteps = splitSteps.join()
+      combinedSteps = splitSteps.join("@#$")
 
       data.name = name
       data.image_url = URL
