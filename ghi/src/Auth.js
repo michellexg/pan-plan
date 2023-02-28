@@ -121,8 +121,6 @@ export function useToken() {
                 "Content-Type": "application/json",
             },
         });
-        console.log('response:')
-        console.log(response)
         if (response.ok) {
             await login(username, password);
         }
