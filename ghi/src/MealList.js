@@ -5,7 +5,6 @@ import UpdateMeal from './Modal';
 import Card from "react-bootstrap/esm/Card"
 
 
-
 function MealList() {
     const [mondayMeals, setMondayMeals] = useState([]);
     const [tuesdayMeals, setTuesdayMeals] = useState([]);
@@ -24,62 +23,6 @@ function MealList() {
         accountId = account_id
         console.log(accountId)
     }
-
-    // const getMeals = async () => {
-    //     const response = await fetch(`${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/meals`);
-    //     if (response.ok) {
-    //         const meals = await response.json();
-    //         let mondayMeals = [];
-    //         let tuesdayMeals = [];
-    //         let wednesdayMeals = [];
-    //         let thursdayMeals = [];
-    //         let fridayMeals = [];
-    //         let saturdayMeals = [];
-    //         let sundayMeals = [];
-
-    //         for (let meal of meals) {
-
-    //             if (meal.date_int === 1 && meal.account_id === accountId) {
-    //                 mondayMeals.push(meal)
-    //             }
-
-    //             if (meal.date_int === 2 && meal.account_id === accountId) {
-    //                 tuesdayMeals.push(meal)
-    //             }
-
-    //             if (meal.date_int === 3 && meal.account_id === accountId) {
-    //                 wednesdayMeals.push(meal)
-    //             }
-
-    //             if (meal.date_int === 4 && meal.account_id === accountId) {
-    //                 thursdayMeals.push(meal)
-    //             }
-
-    //             if (meal.date_int === 5 && meal.account_id === accountId) {
-    //                 fridayMeals.push(meal)
-    //             }
-
-    //             if (meal.date_int === 6 && meal.account_id === accountId) {
-    //                 saturdayMeals.push(meal)
-    //             }
-
-    //             if (meal.date_int === 7 && meal.account_id === accountId) {
-    //                 sundayMeals.push(meal)
-    //             }
-
-    //         }
-    //         setMondayMeals(mondayMeals)
-    //         setTuesdayMeals(tuesdayMeals)
-    //         setWednesdayMeals(wednesdayMeals)
-    //         setThursdayMeals(thursdayMeals)
-    //         setFridayMeals(fridayMeals)
-    //         setSaturdayMeals(saturdayMeals)
-    //         setSundayMeals(sundayMeals)
-    //         console.log("-----IM HERE------")
-    //     } else {
-    //         console.error(response)
-    //     }
-    // }
 
     useEffect(() => {
         const getMeals = async () => {
