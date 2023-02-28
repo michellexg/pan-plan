@@ -46,10 +46,10 @@ function App() {
           <Route path="recipes/" element={<RecipeList recipes={recipes} />} />
           <Route path="recipes/new/" element={<CreateRecipeForm fetchRecipes={fetchRecipes} />} />
           {recipes.map((recipe) => (
-          <Route
-            key={recipe.id}
-            path={`recipes/${recipe.id}`}
-            element={<DisplayRecipeDetails recipe={recipe} />}
+            <Route
+              key={recipe.id}
+              path={`recipes/${recipe.id}`}
+              element={<DisplayRecipeDetails recipe={recipe} />}
             />
           ))}
         </Routes>

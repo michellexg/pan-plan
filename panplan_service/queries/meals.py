@@ -111,7 +111,6 @@ class MealRepository:
                 "account_id",
             ]
             for i, column in enumerate(description):
-
                 if column.name in meal_fields:
                     meal[column.name] = row[i]
             meal["id"] = meal["meal_id"]
@@ -123,7 +122,6 @@ class MealRepository:
                 "name",
             ]
             for i, column in enumerate(description):
-
                 if column.name in recipe_fields:
                     recipe[column.name] = row[i]
             recipe["id"] = recipe["recipe_id"]
@@ -149,17 +147,6 @@ class MealRepository:
                         """,
                         [account_id]
                     )
-                    # result = []
-                    # for record in db:
-                    #     meal = MealsOut(
-                    #         id=record[0],
-                    #         date_int=record[1],
-                    #         date=record[2],
-                    #         recipe_id=record[3],
-                    #         account_id=record[4],
-                    #     )
-                    #     result.append(meal)
-                    # return result
 
                     return [
                         self.record_to_meal_out(record)
