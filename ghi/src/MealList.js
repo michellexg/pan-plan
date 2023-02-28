@@ -15,7 +15,6 @@ function MealList() {
     const [saturdayMeals, setSaturdayMeals] = useState([]);
     const [sundayMeals, setSundayMeals] = useState([]);
     const { token } = useToken()
-    console.log("what is token", token)
 
     var accountId
     if (token) {
