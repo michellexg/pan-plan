@@ -44,6 +44,10 @@ function Login() {
 				/>
 			</div>
 			<button className="btn mt-3">Login</button>
+			{/* <button className="btn mt-3" onClick={()=> {
+				login(username, password);
+			}}>Login
+			</button> */}
 			</form>
             <div className="text-center fs-6">
                 <a href="./signup">Not a user? Sign up now</a>
