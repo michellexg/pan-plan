@@ -42,7 +42,7 @@ function App() {
         <Routes>
           <Route path="signup" element={<SignupForm />} />
           <Route path="login" element={<Login />} />
-          <Route path="/" element={<MealList />} />
+          <Route path="/" element={<MealList recipes={recipes} />} />
           <Route path="recipes/" element={<RecipeList recipes={recipes} />} />
           <Route path="recipes/new/" element={<CreateRecipeForm fetchRecipes={fetchRecipes} />} />
           {recipes.map((recipe) => (
