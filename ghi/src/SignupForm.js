@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import logo from './assets/logo.png'
-// import { useToken } from "./Auth";
-import login from './Auth'
+import { useToken } from "./Auth";
+// import login from './Auth'
 
 
 function SignupForm(props) {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
-    // const [login, setLogin] = useToken()[0];
+	const {token, login} = useToken();
 	const navigate = useNavigate();
 
 
@@ -30,6 +30,7 @@ function SignupForm(props) {
 		});
 		let jsonResponse = await response.json();
 		if (response.ok && jsonResponse !== null) {
+			login(username, password)
 			setUsername("");
 			setPassword("");
 			setConfirmPassword("");

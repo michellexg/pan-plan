@@ -77,7 +77,7 @@ export function useToken() {
 
     async function logout() {
         if (token) {
-            const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
+            const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/token`;
             await fetch(url, { method: "delete", credentials: "include" });
             internalToken = null;
             setToken(null);
@@ -86,7 +86,7 @@ export function useToken() {
     }
 
     async function login(username, password) {
-        const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
+        const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/token`;
 
         const form = new FormData();
         form.append("username", username);
@@ -107,7 +107,7 @@ export function useToken() {
     }
 
     async function signup(username, password) {
-        const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/sign_up`;
+        const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/sign_up`;
         const response = await fetch(url, {
             method: "post",
             body: JSON.stringify({
@@ -125,7 +125,7 @@ export function useToken() {
     }
 
   async function update(username, password) {
-    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/accounts`;
+    const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`;
     const response = await fetch(url, {
       method: "patch",
       body: JSON.stringify({
@@ -154,7 +154,7 @@ export const useUser = (token) => {
         }
 
         async function get_account() {
-            const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/accounts/{account_id}`;
+            const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts/{account_id}`;
             const response = await fetch(url, {
                 credentials: "include",
             });
