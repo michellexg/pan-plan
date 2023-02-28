@@ -9,11 +9,10 @@ import MainPage from "./MainPage";
 import Login from "./LoginForm";
 import DisplayRecipeDetails from "./common/RecipeDetails";
 import SignupForm from "./SignupForm.js";
-import MealList from './MealList.js';
+import MealList from "./MealList.js";
 import { AuthProvider, useToken } from './Auth.js';
 
 function GetToken() {
-  console.log("I/M HERE??????")
   useToken();
   return null
 }

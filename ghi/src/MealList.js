@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
-import { useAuthContext } from './Auth';
 import { useToken } from './Auth';
+import UpdateMeal from './Modal';
+import Card from "react-bootstrap/esm/Card"
+
 
 
 function MealList() {
@@ -23,7 +24,6 @@ function MealList() {
         accountId = account_id
 
     }
-    console.log(accountId)
 
     const getMeals = async () => {
         const response = await fetch(`${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/meals`);
@@ -36,41 +36,34 @@ function MealList() {
             let fridayMeals = [];
             let saturdayMeals = [];
             let sundayMeals = [];
+
             for (let meal of meals) {
-                console.log("MEAL", meal)
 
                 if (meal.date_int === 1 && meal.account_id === accountId) {
-                    console.log("MADE HERE")
                     mondayMeals.push(meal)
                 }
 
                 if (meal.date_int === 2 && meal.account_id === accountId) {
-                    console.log("MADE HERE")
                     tuesdayMeals.push(meal)
                 }
 
                 if (meal.date_int === 3 && meal.account_id === accountId) {
-                    console.log("MADE HERE")
                     wednesdayMeals.push(meal)
                 }
 
                 if (meal.date_int === 4 && meal.account_id === accountId) {
-                    console.log("MADE HERE")
                     thursdayMeals.push(meal)
                 }
 
                 if (meal.date_int === 5 && meal.account_id === accountId) {
-                    console.log("MADE HERE")
                     fridayMeals.push(meal)
                 }
 
                 if (meal.date_int === 6 && meal.account_id === accountId) {
-                    console.log("MADE HERE")
                     saturdayMeals.push(meal)
                 }
 
                 if (meal.date_int === 7 && meal.account_id === accountId) {
-                    console.log("MADE HERE")
                     sundayMeals.push(meal)
                 }
 
@@ -82,7 +75,6 @@ function MealList() {
             setFridayMeals(fridayMeals)
             setSaturdayMeals(saturdayMeals)
             setSundayMeals(sundayMeals)
-            console.log(mondayMeals)
         } else {
             console.error(response)
         }
@@ -95,91 +87,108 @@ function MealList() {
     return (
         <div className='container'>
             <div className='row'>
+
                 <div className='col-sm'>
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">Monday</h5>
+                    <Card className="text-center">
+                        <Card.Body>
+                            <Card.Title>Monday</Card.Title>
                             {mondayMeals.map((mondayMeal) => {
                                 return (
-                                    <div key={mondayMeal.id}>{mondayMeal.recipe_id.name}</div>
+                                    <Card.Text key={mondayMeal.id}>
+                                        {mondayMeal.recipe_id.name}
+                                    </Card.Text>
                                 )
                             })}
-                        </div>
-                    </div>
+                            <UpdateMeal date_int={1} />
+                        </Card.Body>
+                    </Card>
                 </div>
+
                 <div className='col-sm'>
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">Tuesday</h5>
+                    <Card className="text-center">
+                        <Card.Body>
+                            <Card.Title>Tuesday</Card.Title>
                             {tuesdayMeals.map((tuesdayMeal) => {
                                 return (
-                                    <div key={tuesdayMeal.id}>{tuesdayMeal.recipe_id.name}</div>
+                                    <Card.Text key={tuesdayMeal.id}>{tuesdayMeal.recipe_id.name}</Card.Text>
                                 )
                             })}
-                        </div>
-                    </div>
+                            <UpdateMeal date_int={2} />
+                        </Card.Body>
+                    </Card>
                 </div>
+
                 <div className='col-sm'>
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">Wednesday</h5>
+                    <Card className="text-center">
+                        <Card.Body>
+                            <Card.Title>Wednesday</Card.Title>
                             {wednesdayMeals.map((wednesdayMeal) => {
                                 return (
-                                    <div key={wednesdayMeal.id}>{wednesdayMeal.recipe_id.name}</div>
+                                    <Card.Text key={wednesdayMeal.id}>{wednesdayMeal.recipe_id.name}</Card.Text>
                                 )
                             })}
-                        </div>
-                    </div>
+                            <UpdateMeal date_int={3} />
+                        </Card.Body>
+                    </Card>
                 </div>
+
                 <div className='col-sm'>
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">Thursday</h5>
+                    <Card className="text-center">
+                        <Card.Body>
+                            <Card.Title>Thursday</Card.Title>
                             {thursdayMeals.map((thursdayMeal) => {
                                 return (
-                                    <div key={thursdayMeal.id}>{thursdayMeal.recipe_id.name}</div>
+                                    <Card.Text key={thursdayMeal.id}>{thursdayMeal.recipe_id.name}</Card.Text>
                                 )
                             })}
-                        </div>
-                    </div>
+                            <UpdateMeal date_int={4} />
+                        </Card.Body>
+                    </Card>
                 </div>
+
             </div>
+
             <div className='row'>
                 <div className='col-sm'>
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">Friday</h5>
+                    <Card className="text-center">
+                        <Card.Body>
+                            <Card.Title>Friday</Card.Title>
                             {fridayMeals.map((fridayMeal) => {
                                 return (
-                                    <div key={fridayMeal.id}>{fridayMeal.recipe_id.name}</div>
+                                    <Card.Text key={fridayMeal.id}>{fridayMeal.recipe_id.name}</Card.Text>
                                 )
                             })}
-                        </div>
-                    </div>
+                            <UpdateMeal date_int={5} />
+                        </Card.Body>
+                    </Card>
                 </div>
+
                 <div className='col-sm'>
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">Saturday</h5>
+                    <Card className="text-center">
+                        <Card.Body>
+                            <Card.Title>Saturday</Card.Title>
                             {saturdayMeals.map((saturdayMeal) => {
                                 return (
-                                    <div key={saturdayMeal.id}>{saturdayMeal.recipe_id.name}</div>
+                                    <Card.Text key={saturdayMeal.id}>{saturdayMeal.recipe_id.name}</Card.Text>
                                 )
                             })}
-                        </div>
-                    </div>
+                            <UpdateMeal date_int={6} />
+                        </Card.Body>
+                    </Card>
                 </div>
+
                 <div className='col-sm'>
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">Sunday</h5>
+                    <Card className="text-center">
+                        <Card.Body>
+                            <Card.Title>Sunday</Card.Title>
                             {sundayMeals.map((sundayMeal) => {
                                 return (
-                                    <div key={sundayMeal.id}>{sundayMeal.recipe_id.name}</div>
+                                    <Card.Text key={sundayMeal.id}>{sundayMeal.recipe_id.name}</Card.Text>
                                 )
                             })}
-                        </div>
-                    </div>
+                            <UpdateMeal date_int={7} />
+                        </Card.Body>
+                    </Card>
                 </div>
             </div>
         </div>

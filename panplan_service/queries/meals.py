@@ -106,15 +106,9 @@ class MealRepository:
                 "account_id",
             ]
             for i, column in enumerate(description):
-                print("---------------")
-                print("LOOP:", i)
-                print("COLUMN:", column)
                 if column.name in meal_fields:
-                    print("COLUMN NAME:", column.name)
                     meal[column.name] = row[i]
-                print("MEAL AFTER THIS LOOP:", meal)
             meal["id"] = meal["meal_id"]
-            print("MEAL", meal)
             del meal["meal_id"]
 
             recipe = {}
@@ -122,19 +116,14 @@ class MealRepository:
                 "recipe_id",
                 "name",
             ]
-            print("------START TO LOOP OVER RECIPES-------")
+
             for i, column in enumerate(description):
-                print("LOOP:", i)
-                print("COLUMN:", column)
                 if column.name in recipe_fields:
                     recipe[column.name] = row[i]
-                print("RECIPE AFTER THIS LOOP", recipe)
             recipe["id"] = recipe["recipe_id"]
-            print("RECIPE", recipe)
             del recipe["recipe_id"]
 
             meal["recipe_id"] = recipe
-            print("MEAL AFTER ADDING RECIPE", meal)
         return meal
 
     def get_by_account_id(self, account_id: int) -> Union[Error, List[MealOut]]:
