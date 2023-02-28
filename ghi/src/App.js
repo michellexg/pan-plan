@@ -4,7 +4,7 @@ import { AuthProvider, useToken } from "./Auth";
 import RecipeList from "./RecipeList.js";
 import "./App.css";
 import Nav from "./Nav";
-import Login from "./LoginForm";
+import LoginForm from "./LoginForm";
 import CreateRecipeForm from './common/CreateRecipeForm';
 import DisplayRecipeDetails from './common/RecipeDetails';
 import SignupForm from "./SignupForm.js";
@@ -41,7 +41,7 @@ function App() {
         <Nav />
         <Routes>
           <Route path="signup" element={<SignupForm />} />
-          <Route path="login" element={<Login />} />
+          <Route path="login" element={<LoginForm />} />
           <Route path="/" element={<MealList />} />
           <Route path="recipes/" element={<RecipeList recipes={recipes} />} />
           <Route path="recipes/new/" element={<CreateRecipeForm fetchRecipes={fetchRecipes} />} />
