@@ -9,7 +9,7 @@ function SignupForm(props) {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
-	const {token, login} = useToken();
+	const {login} = useToken();
 	const navigate = useNavigate();
 
 
