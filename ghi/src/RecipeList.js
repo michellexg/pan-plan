@@ -18,6 +18,7 @@ function RecipeList(props) {
           } else if (val.name.includes(searchName)) {
             return val;
           }
+          return false;
         })
         .map((recipe, key) => {
           return (
