@@ -34,7 +34,7 @@ function SignupForm(props) {
 			setUsername("");
 			setPassword("");
 			setConfirmPassword("");
-			navigate("/home");
+			navigate("/");
 		} else {
 		alert(
 			"Your signup failed. The most likely reason is you tried a username that is taken."
