@@ -1,7 +1,10 @@
 import { NavLink } from "react-router-dom";
 import "./index.css";
+import { useToken } from "./Auth";
 
 function Nav() {
+  const [token,,logout] = useToken();
+
   return (
     <>
       <div className="container-sm">
@@ -23,16 +26,7 @@ function Nav() {
                     Nav
                   </NavLink>
                 </li> */}
-                <li className="nav-item">
-                  <NavLink className="nav-link text-dark" to="signup">
-                    SignUp
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link text-dark" to="login">
-                    Login
-                  </NavLink>
-                </li>
+
                 {/* <li className="nav-item">
                   <NavLink className="nav-link text-dark" to="/meals">
                     Meals
@@ -42,6 +36,33 @@ function Nav() {
                   <NavLink className="nav-link text-dark" to="/recipes">
                     Recipes
                   </NavLink>
+                </li>
+                <li className="nav-item">
+                {!token && (
+                  <NavLink className="nav-link text-dark" to="signup">
+                    SignUp
+                  </NavLink>
+                )}
+                </li>
+                <li className="nav-item">
+                {!token && (
+                  <NavLink className="nav-link text-dark" to="login">
+                    Login
+                  </NavLink>
+                 )}
+                </li>
+                <li className="nav-item">
+                  {token && (
+                    <span
+                      onClick={() => {
+                        logout();
+                      }}
+                      role={"button"}
+                      className="nav-link text-dark"
+                    >
+                      Logout
+                    </span>
+                  )}
                 </li>
               </ul>
             </div>

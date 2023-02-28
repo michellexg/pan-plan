@@ -51,9 +51,10 @@ export const AuthContext = createContext({
 
 export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(null);
 
     return (
-        <AuthContext.Provider value={{ token, setToken }}>
+        <AuthContext.Provider value={{ token, setToken, isLoggedIn, setIsLoggedIn }}>
             {children}
         </AuthContext.Provider>
     );
@@ -62,7 +63,7 @@ export const AuthProvider = ({ children }) => {
 export const useAuthContext = () => useContext(AuthContext);
 
 export function useToken() {
-    const { token, setToken } = useAuthContext();
+    const { token, setToken, setIsLoggedIn } = useAuthContext();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -100,14 +101,16 @@ export function useToken() {
         if (response.ok) {
             const token = await getTokenInternal();
             setToken(token);
+            setIsLoggedIn(true);
             return;
         }
         let error = await response.json();
+        setIsLoggedIn(false)
         return handleErrorMessage(error);
     }
 
     async function signup(username, password) {
-        const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/sign_up`;
+        const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`;
         const response = await fetch(url, {
             method: "post",
             body: JSON.stringify({
@@ -118,6 +121,8 @@ export function useToken() {
                 "Content-Type": "application/json",
             },
         });
+        console.log('response:')
+        console.log(response)
         if (response.ok) {
             await login(username, password);
         }
@@ -142,7 +147,7 @@ export function useToken() {
     return false;
   }
 
-    return { token, login, logout, signup, update };
+    return [ token, login, logout, signup, update ];
 }
 
 export const useUser = (token) => {

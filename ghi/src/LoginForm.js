@@ -1,16 +1,27 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"
 import logo from './assets/logo.png'
-// import { useToken } from "./Auth";
+import { useToken, useAuthContext } from "./Auth";
 
-function Login() {
+function LoginForm(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-//   const [login] = useToken();
+  const [,login] = useToken();
+  const {isLoggedIn} = useAuthContext();
+//   const {login} = useToken();
+  const navigate = useNavigate();
+//   console.log('required console log for lintr', token)
 
 
-
-
-
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		const error = await login(username, password);
+		if (error) {
+			isLoggedIn(false);
+		}
+			console.log(true);
+			navigate('/')
+	}
 
 	return (
 		<>
@@ -18,7 +29,8 @@ function Login() {
 			<div className="logo">
 			{<img src={logo}  alt="RANDOM INPUT" height="100"/>}PanPlan
 			</div>
-			<form className="p-3 mt-3" onSubmit={Login}>
+			{/* <form className="p-3 mt-3" onSubmit={login}> */}
+			<form className="p-3 mt-3">
 			<div className="form-field d-flex align-items-center">
 				<span className="***CHANGE***"></span>
 				<input
@@ -43,11 +55,13 @@ function Login() {
 				placeholder="Enter Password"
 				/>
 			</div>
-			<button className="btn mt-3">Login</button>
-			{/* <button className="btn mt-3" onClick={()=> {
-				login(username, password);
-			}}>Login
-			</button> */}
+			{/* <button className="btn mt-3">Login</button> */}
+			<button className="btn mt-3"
+				onClick= {handleSubmit}
+				type="button"
+			>
+				Login
+			</button>
 			</form>
             <div className="text-center fs-6">
                 <a href="./signup">Not a user? Sign up now</a>
@@ -57,4 +71,4 @@ function Login() {
 	);
 }
 
-export default Login;
+export default LoginForm;

@@ -9,38 +9,54 @@ function SignupForm(props) {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
-	const {login} = useToken();
+	const [,,,signup] = useToken();
 	const navigate = useNavigate();
 
 
-
-	async function Signup(e) {
+	async function handleSignUp(e){
 		e.preventDefault();
-		const url = 'http://localhost:8000/accounts';
-		const response = await fetch(url, {
-		method: "post",
-		body: JSON.stringify({
-			username,
-			password,
-			confirmPassword,
-		}),
-		headers: {
-			"Content-Type": "application/json",
-		},
-		});
-		let jsonResponse = await response.json();
-		if (response.ok && jsonResponse !== null) {
-			login(username, password)
-			setUsername("");
-			setPassword("");
-			setConfirmPassword("");
-			navigate("/");
+		const response = await signup(username, password)
+		console.log('hiiieieieieieieieieei@#$%^&*')
+		console.log(response)
+		if (!response) {
+			console.log('nothing here to see\ncould not signup')
 		} else {
-		alert(
-			"Your signup failed. The most likely reason is you tried a username that is taken."
-		);
+			navigate('/')
+			console.log('singed in')
 		}
 	}
+
+
+
+
+	// async function Signup(e) {
+	// 	e.preventDefault();
+		// const url = 'http://localhost:8000/accounts';
+    // 	const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`;
+	// 	const response = await fetch(url, {
+	// 	method: "post",
+	// 	body: JSON.stringify({
+	// 		username,
+	// 		password,
+	// 		confirmPassword,
+	// 	}),
+	// 	headers: {
+	// 		"Content-Type": "application/json",
+	// 	},
+	// 	});
+	// 	let jsonResponse = await response.json();
+	// 	if (response.ok && jsonResponse !== null) {
+	// 		login(username, password)
+	// 		setUsername("");
+	// 		setPassword("");
+	// 		setConfirmPassword("");
+	// 		navigate("/");
+	// 	} else {
+	// 	alert(
+	// 		"Your signup failed. The most likely reason is you tried a username that is taken."
+	// 	);
+	// 	}
+	// }
 
 
 
@@ -52,7 +68,7 @@ function SignupForm(props) {
 			<div className="logo">
                 {<img src={logo} alt="RANDOM INPUT" height="100"/>}PanPlan
 			</div>
-			<form className="p-3 mt-3" onSubmit={Signup}>
+			<form className="p-3 mt-3" onSubmit={handleSignUp}>
 				<label htmlFor="username" className="col-sm-2 col-form-label">Username</label>
 				<div className="form-group row">
 					<input
