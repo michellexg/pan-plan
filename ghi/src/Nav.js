@@ -18,11 +18,11 @@ function Nav() {
                     Home
                   </NavLink>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <NavLink className="nav-link text-dark" to="/Nav">
                     Nav
                   </NavLink>
-                </li>
+                </li> */}
                 <li className="nav-item">
                   <NavLink className="nav-link text-dark" to="signup">
                     SignUp
@@ -33,11 +33,11 @@ function Nav() {
                     Login
                   </NavLink>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <NavLink className="nav-link text-dark" to="/meals">
                     Meals
                   </NavLink>
-                </li>
+                </li> */}
                 <li className="nav-item">
                   <NavLink className="nav-link text-dark" to="/recipes">
                     Recipes
