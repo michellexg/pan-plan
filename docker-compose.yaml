@@ -1,14 +1,35 @@
 # volumes:
+volumes:
+  postgres-data:
+    external: true
+  pg-admin:
+    external: true
 services:
-  fastapi:
+  postgres:
     build:
-      context: sample_service
+      context: ./relational-data
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES=panplan
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 15432:5432
+  panplan-service:
+    build:
+      context: ./panplan_service
       dockerfile: Dockerfile.dev
     ports:
       - 8000:8000
     volumes:
-      - ./sample_service:/app
-      
+      - ./panplan_service:/app
+    environment:
+      DATABASE_URL: postgresql://panplan:password@postgres/panplan
+      WAIT_HOSTS: postgres:5432
+      SIGNING_KEY: 1021940343e79eb886c9b002b15ed08a97ef84b6
+      WAIT_BEFORE: 5
+      WAIT_TIMEOUT: 60
   ghi:
     image: node:lts-bullseye
     command: /bin/bash run.sh
@@ -23,4 +44,13 @@ services:
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
       REACT_APP_SAMPLE_SERVICE_API_HOST: http://localhost:8000
-            
+  pg-admin:
+    image: dpage/pgadmin4
+    volumes:
+      - pg-admin:/var/lib/pgadmin
+    ports:
+      - 8082:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: test@test.com
+      PGADMIN_DEFAULT_PASSWORD: 1234
+      PGADMIN_DISABLE_POSTFIX: 1
