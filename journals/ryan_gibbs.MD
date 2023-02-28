@@ -6,6 +6,12 @@ Each team member is required to keep a development journal, which should be a si
 
 Recommended naming convention is `first_last.md`.
 
+02/27/23
+Continued work on the front end. Performed a few merge requests while waiting to merge my code into main. Reconfigured some of the code to link functionality between the web pages. Took a look at the authentication on the front end with Mack, helped figure out the issue and proposed a soluton.
+
+02/24/23
+Completed page to allow users to create recipes. Big aha moment after realizing I did not config the fetch properly to include the credentials. Got it working.
+
 02/23/23
 Finished up authorization/authentication, successfully protected one endpoint, simple process so didn't completely protect all endpoints to give others a chance to work on that. Started working on front end, page to allow users to see a recipes details. Big aha when trying to create dynamic links, realized I could map through the array of recipes and create a route for each one off of the ID. Took awhile to get there. Very fun to complete this.
 
