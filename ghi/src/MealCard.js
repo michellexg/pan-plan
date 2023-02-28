@@ -13,7 +13,7 @@ function MealCard({ date_int, recipes }) {
     const [recipe, setRecipe] = useState('');
     const [meals, setMeals] = useState([]);
     const [newMeal, setNewMeal] = useState('');
-    const { token } = useToken()
+    const [token] = useToken();
 
     var accountId
     if (token) {
@@ -81,7 +81,6 @@ function MealCard({ date_int, recipes }) {
         getMeals();
     }, [newMeal, accountId, date_int])
 
-    // return
     return (
         <Card className="text-center">
             <Card.Body>
