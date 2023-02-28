@@ -2,7 +2,6 @@ from pydantic import BaseModel
 from typing import List, Optional, Union
 from datetime import date
 from queries.pool import pool
-from queries.recipes import RecipeOut
 
 
 class Error(BaseModel):
@@ -15,9 +14,11 @@ class MealIn(BaseModel):
     recipe_id: int
     account_id: int
 
+
 class RecipeOutWithName(BaseModel):
     id: int
     name: str
+
 
 class MealOut(BaseModel):
     id: int
@@ -26,12 +27,14 @@ class MealOut(BaseModel):
     recipe_id: int
     account_id: int
 
+
 class MealOutWithRecipeName(BaseModel):
     id: int
     date_int: int
     date: Optional[date]
     recipe_id: RecipeOutWithName
     account_id: int
+
 
 class MealRepository:
     def create_meal(self, meal: MealIn) -> Union[MealOut, Error]:
@@ -72,9 +75,10 @@ class MealRepository:
                 # get a cursor (something to run SQL with)
                 with conn.cursor() as db:
                     # Run our SELECT statement
-                    result = db.execute(
+                    db.execute(
                         """
-                        SELECT recipes.id as recipe_id, recipes.name, meals.id as meal_id, meals.date_int, meals.date, meals.account_id
+                        SELECT recipes.id as recipe_id, recipes.name
+                        , meals.id as meal_id, meals.date_int, meals.date, meals.account_id
                         FROM recipes
                         JOIN meals ON(recipes.id = meals.recipe_id)
                         ORDER BY recipes.id;
@@ -142,17 +146,6 @@ class MealRepository:
                         """,
                         [account_id]
                     )
-                    # result = []
-                    # for record in db:
-                    #     meal = MealsOut(
-                    #         id=record[0],
-                    #         date_int=record[1],
-                    #         date=record[2],
-                    #         recipe_id=record[3],
-                    #         account_id=record[4],
-                    #     )
-                    #     result.append(meal)
-                    # return result
 
                     return [
                         self.record_to_meal_out(record)
@@ -161,7 +154,6 @@ class MealRepository:
         except Exception as e:
             print(e)
             return {"message": "Could not get meals"}
-
 
     def delete_meal(self, meal_id: int) -> bool:
         try:
