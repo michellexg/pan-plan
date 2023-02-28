@@ -15,14 +15,14 @@ function MealList() {
     const [saturdayMeals, setSaturdayMeals] = useState([]);
     const [sundayMeals, setSundayMeals] = useState([]);
     const { token } = useToken()
-
+    console.log("what is token", token)
 
     var accountId
     if (token) {
         const decoded = jwt_decode(token);
         const account_id = decoded.account.id;
         accountId = account_id
-
+        console.log(accountId)
     }
 
     const getMeals = async () => {
@@ -75,6 +75,7 @@ function MealList() {
             setFridayMeals(fridayMeals)
             setSaturdayMeals(saturdayMeals)
             setSundayMeals(sundayMeals)
+            console.log("-----IM HERE------")
         } else {
             console.error(response)
         }
