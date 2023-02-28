@@ -78,7 +78,8 @@ class MealRepository:
                     db.execute(
                         """
                         SELECT recipes.id as recipe_id, recipes.name
-                        , meals.id as meal_id, meals.date_int, meals.date, meals.account_id
+                        , meals.id as meal_id, meals.date_int
+                        , meals.date, meals.account_id
                         FROM recipes
                         JOIN meals ON(recipes.id = meals.recipe_id)
                         ORDER BY recipes.id;
