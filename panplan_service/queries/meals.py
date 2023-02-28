@@ -131,7 +131,10 @@ class MealRepository:
             meal["recipe_id"] = recipe
         return meal
 
-    def get_by_account_id(self, account_id: int) -> Union[Error, List[MealOut]]:
+    def get_by_account_id(
+            self,
+            account_id: int
+            ) -> Union[Error, List[MealOut]]:
         try:
             # connect the database
             with pool.connection() as conn:
