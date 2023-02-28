@@ -38,18 +38,18 @@ function Nav() {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                {!token && (
-                  <NavLink className="nav-link text-dark" to="signup">
-                    SignUp
-                  </NavLink>
-                )}
+                  {!token && (
+                    <NavLink className="nav-link text-dark" to="signup">
+                      SignUp
+                    </NavLink>
+                  )}
                 </li>
                 <li className="nav-item">
-                {!token && (
-                  <NavLink className="nav-link text-dark" to="login">
-                    Login
-                  </NavLink>
-                 )}
+                  {!token && (
+                    <NavLink className="nav-link text-dark" to="login">
+                      Login
+                    </NavLink>
+                  )}
                 </li>
                 <li className="nav-item">
                   {token && (

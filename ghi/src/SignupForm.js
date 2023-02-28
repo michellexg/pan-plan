@@ -15,51 +15,9 @@ function SignupForm(props) {
 
 	async function handleSignUp(e){
 		e.preventDefault();
-		const response = await signup(username, password)
-		console.log('hiiieieieieieieieieei@#$%^&*')
-		console.log(response)
-		if (!response) {
-			console.log('nothing here to see\ncould not signup')
-		} else {
-			navigate('/')
-			console.log('singed in')
-		}
+		await signup(username, password)
+        navigate('/')
 	}
-
-
-
-
-	// async function Signup(e) {
-	// 	e.preventDefault();
-		// const url = 'http://localhost:8000/accounts';
-    // 	const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`;
-	// 	const response = await fetch(url, {
-	// 	method: "post",
-	// 	body: JSON.stringify({
-	// 		username,
-	// 		password,
-	// 		confirmPassword,
-	// 	}),
-	// 	headers: {
-	// 		"Content-Type": "application/json",
-	// 	},
-	// 	});
-	// 	let jsonResponse = await response.json();
-	// 	if (response.ok && jsonResponse !== null) {
-	// 		login(username, password)
-	// 		setUsername("");
-	// 		setPassword("");
-	// 		setConfirmPassword("");
-	// 		navigate("/");
-	// 	} else {
-	// 	alert(
-	// 		"Your signup failed. The most likely reason is you tried a username that is taken."
-	// 	);
-	// 	}
-	// }
-
-
-
 
 
 	return (

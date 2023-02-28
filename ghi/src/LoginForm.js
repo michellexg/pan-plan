@@ -8,9 +8,7 @@ function LoginForm(props) {
   const [password, setPassword] = useState("");
   const [,login] = useToken();
   const {isLoggedIn} = useAuthContext();
-//   const {login} = useToken();
   const navigate = useNavigate();
-//   console.log('required console log for lintr', token)
 
 
 	const handleSubmit = async (e) => {
@@ -29,7 +27,6 @@ function LoginForm(props) {
 			<div className="logo">
 			{<img src={logo}  alt="RANDOM INPUT" height="100"/>}PanPlan
 			</div>
-			{/* <form className="p-3 mt-3" onSubmit={login}> */}
 			<form className="p-3 mt-3">
 			<div className="form-field d-flex align-items-center">
 				<span className="***CHANGE***"></span>
@@ -55,7 +52,6 @@ function LoginForm(props) {
 				placeholder="Enter Password"
 				/>
 			</div>
-			{/* <button className="btn mt-3">Login</button> */}
 			<button className="btn mt-3"
 				onClick= {handleSubmit}
 				type="button"
