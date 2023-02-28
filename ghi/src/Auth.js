@@ -125,7 +125,6 @@ export function useToken() {
 
   async function update(username, password) {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/accounts`;
-    // const url = `http://localhost:8000/accounts`;
     const response = await fetch(url, {
       method: "patch",
       body: JSON.stringify({
@@ -154,8 +153,7 @@ export const useUser = (token) => {
     }
 
     async function get_account() {
-      const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/accounts/{account_id}`;
-      // const url = `http://localhost:8000/current_user`;
+      const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/accounts/{id}`;
       const response = await fetch(url, {
         credentials: "include",
       });

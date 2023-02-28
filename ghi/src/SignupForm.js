@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import logo from './assets/logo.png'
+// import { useToken } from "./Auth";
+import login from './Auth'
+
 
 function SignupForm(props) {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+    // const [login, setLogin] = useToken()[0];
 	const navigate = useNavigate();
+
 
 
 	async function Signup(e) {
@@ -28,7 +33,7 @@ function SignupForm(props) {
 			setUsername("");
 			setPassword("");
 			setConfirmPassword("");
-			navigate("/login");
+			navigate("/home");
 		} else {
 		alert(
 			"Your signup failed. The most likely reason is you tried a username that is taken."
@@ -46,7 +51,6 @@ function SignupForm(props) {
 			<div className="logo">
                 {<img src={logo} alt="RANDOM INPUT" height="100"/>}PanPlan
 			</div>
-
 			<form className="p-3 mt-3" onSubmit={Signup}>
 				<label htmlFor="username" className="col-sm-2 col-form-label">Username</label>
 				<div className="form-group row">
