@@ -79,7 +79,7 @@ function MealCard({ date_int, recipes }) {
             }
         };
         getMeals();
-    }, [newMeal, accountId])
+    }, [newMeal, accountId, date_int])
 
     // return
     return (
