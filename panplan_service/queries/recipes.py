@@ -113,12 +113,12 @@ class RecipeRepository:
                     db.execute(
                         """
                         SELECT accounts.id as account_id
-                        , accounts.username
-                        , recipes.id as recipe_id
-                        , recipes.name
-                        , recipes.image_url
-                        , recipes.ingredients
-                        , recipes.steps
+                            , accounts.username
+                            , recipes.id as recipe_id
+                            , recipes.name
+                            , recipes.image_url
+                            , recipes.ingredients
+                            , recipes.steps
                         FROM accounts
                         JOIN recipes ON(accounts.id = recipes.creator_id)
                         ORDER BY accounts.id;

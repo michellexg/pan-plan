@@ -77,9 +77,12 @@ class MealRepository:
                     # Run our SELECT statement
                     db.execute(
                         """
-                        SELECT recipes.id as recipe_id, recipes.name
-                        , meals.id as meal_id, meals.date_int
-                        , meals.date, meals.account_id
+                        SELECT recipes.id as recipe_id,
+                        recipes.name,
+                        meals.id as meal_id,
+                        meals.date_int,
+                        meals.date,
+                        meals.account_id
                         FROM recipes
                         JOIN meals ON(recipes.id = meals.recipe_id)
                         ORDER BY recipes.id;
@@ -88,10 +91,8 @@ class MealRepository:
 
                     meals = []
                     rows = db.fetchall()
-                    print("xxx", rows)
                     for row in rows:
                         meal = self.meal_record_to_dict(row, db.description)
-                        print(meal)
                         meals.append(meal)
                     # print(meals)
                     return meals
@@ -101,7 +102,6 @@ class MealRepository:
 
     def meal_record_to_dict(self, row, description):
         meal = None
-        print("what is description", description)
         if row is not None:
             meal = {}
             meal_fields = [
@@ -121,7 +121,6 @@ class MealRepository:
                 "recipe_id",
                 "name",
             ]
-
             for i, column in enumerate(description):
                 if column.name in recipe_fields:
                     recipe[column.name] = row[i]
@@ -131,10 +130,8 @@ class MealRepository:
             meal["recipe_id"] = recipe
         return meal
 
-    def get_by_account_id(
-            self,
-            account_id: int
-            ) -> Union[Error, List[MealOut]]:
+    def get_by_account_id(self, account_id: int) -> (
+            Union[Error, List[MealOut]]):
         try:
             # connect the database
             with pool.connection() as conn:
