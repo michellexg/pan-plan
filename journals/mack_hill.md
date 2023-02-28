@@ -46,4 +46,17 @@ Today, I worked on:
 
 Today, I worked on:
     - corrected Lint errors in the whole project
-    -
+    - FE auth sign up
+
+## Feb 27, 2023
+
+Today, I worked on:
+    - continued FE auth
+
+## Feb 28, 2023
+
+Today, I worked on:
+    - finished FE auth
+    - user can sign up and directly logs in
+    -user can log out
+    -user can log in
