@@ -50,7 +50,6 @@ async def create_account(
         )
 
     form = AccountIn(username=info.username, password=info.password)
-
     token = await authenticator.login(response, request, form, repo)
 
     return AccountToken(account=account, **token.dict())

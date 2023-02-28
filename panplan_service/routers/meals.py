@@ -20,6 +20,7 @@ def create_meal(
     # response.status_code = 400
     return repo.create_meal(meal)
 
+
 @router.get("/meals", response_model=Union[List[MealOutWithRecipeName], Error])
 def get_all(
     repo: MealRepository = Depends(),

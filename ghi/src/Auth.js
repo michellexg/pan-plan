@@ -18,7 +18,8 @@ export async function getTokenInternal() {
             internalToken = data.access_token;
             return internalToken;
         }
-    } catch (e) { }
+    }
+    catch (e) { }
     return false;
 }
 
@@ -63,6 +64,7 @@ export const useAuthContext = () => useContext(AuthContext);
 export function useToken() {
     const { token, setToken } = useAuthContext();
     const navigate = useNavigate();
+
     useEffect(() => {
         async function fetchToken() {
             const token = await getTokenInternal();
@@ -75,7 +77,7 @@ export function useToken() {
 
     async function logout() {
         if (token) {
-            const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/token`;
+            const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
             await fetch(url, { method: "delete", credentials: "include" });
             internalToken = null;
             setToken(null);
@@ -84,10 +86,12 @@ export function useToken() {
     }
 
     async function login(username, password) {
-        const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/token`;
+        const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
+
         const form = new FormData();
         form.append("username", username);
         form.append("password", password);
+
         const response = await fetch(url, {
             method: "post",
             credentials: "include",
@@ -102,16 +106,13 @@ export function useToken() {
         return handleErrorMessage(error);
     }
 
-    async function signup(username, password, email, firstName, lastName) {
-        const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/sign_up`;
+    async function signup(username, password) {
+        const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/sign_up`;
         const response = await fetch(url, {
             method: "post",
             body: JSON.stringify({
                 username,
                 password,
-                email,
-                first_name: firstName,
-                last_name: lastName,
             }),
             headers: {
                 "Content-Type": "application/json",
@@ -123,16 +124,14 @@ export function useToken() {
         return false;
     }
 
-    async function update(username, password, email, firstName, lastName) {
-        const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`;
+    async function update(username, password) {
+        const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/accounts`;
+        // const url = `http://localhost:8000/accounts`;
         const response = await fetch(url, {
             method: "patch",
             body: JSON.stringify({
                 username,
                 password,
-                email,
-                first_name: firstName,
-                last_name: lastName,
             }),
             headers: {
                 "Content-Type": "application/json",
@@ -147,27 +146,28 @@ export function useToken() {
     return { token, login, logout, signup, update };
 }
 
-// export const useUser = (token) => {
-//     const [user, setUser] = useState();
+export const useUser = (token) => {
+    const [user, setUser] = useState();
 
-//     useEffect(() => {
-//         if (!token) {
-//             return;
-//         }
+    useEffect(() => {
+        if (!token) {
+            return;
+        }
 
-//         async function getUser() {
-//             const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/current_user`;
-//             const response = await fetch(url, {
-//                 credentials: "include",
-//             });
-//             if (response.ok) {
-//                 const newUser = await response.json();
-//                 setUser(newUser);
-//             }
-//         }
+        async function get_account() {
+            const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/accounts/{account_id}`;
+            // const url = `http://localhost:8000/current_user`;
+            const response = await fetch(url, {
+                credentials: "include",
+            });
+            if (response.ok) {
+                const newUser = await response.json();
+                setUser(newUser);
+            }
+        }
 
-//         getUser();
-//     }, [token]);
+        get_account();
+    }, [token]);
 
-//     return user;
-// }
+    return user;
+}
