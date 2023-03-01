@@ -107,7 +107,7 @@ class MealRepository:
                 # get a cursor (something to run SQL with)
                 with conn.cursor() as db:
                     # Run our SELECT statement
-                    result = db.execute(
+                    db.execute(
                         """
                         SELECT recipes.id as recipe_id,
                         recipes.name,
@@ -162,8 +162,6 @@ class MealRepository:
 
             meal["recipe_id"] = recipe
         return meal
-
-
 
     def delete_meal(self, meal_id: int) -> bool:
         try:
