@@ -9,13 +9,14 @@ from queries.meals import (
 )
 
 router = APIRouter()
-
+from .auth import authenticator
 
 @router.post("/meals", response_model=Union[MealOut, Error])
 def create_meal(
     meal: MealIn,
     response: Response,
     repo: MealRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     # response.status_code = 400
     return repo.create_meal(meal)
@@ -24,6 +25,7 @@ def create_meal(
 @router.get("/meals", response_model=Union[List[MealOutWithRecipeName], Error])
 def get_all(
     repo: MealRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     return repo.get_all()
 
@@ -32,6 +34,7 @@ def get_all(
 def get_account_meals(
     account_id: int,
     repo: MealRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     return repo.get_by_account_id(account_id)
 
@@ -40,5 +43,6 @@ def get_account_meals(
 def delete_meal(
     meal_id: int,
     repo: MealRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> bool:
     return repo.delete_meal(meal_id)
