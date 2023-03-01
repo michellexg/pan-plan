@@ -3,7 +3,7 @@ import "./index.css";
 import { useToken } from "./Auth";
 
 function Nav() {
-  const [token,,logout] = useToken();
+  const [token, , logout] = useToken();
 
   return (
     <>
