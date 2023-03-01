@@ -82,7 +82,7 @@ export function useToken() {
             await fetch(url, { method: "delete", credentials: "include" });
             internalToken = null;
             setToken(null);
-            navigate("/");
+            navigate("/login");
         }
     }
 
@@ -127,25 +127,25 @@ export function useToken() {
         return false;
     }
 
-  async function update(username, password) {
-    const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`;
-    const response = await fetch(url, {
-      method: "patch",
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      await login(username, password);
+    async function update(username, password) {
+        const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`;
+        const response = await fetch(url, {
+            method: "patch",
+            body: JSON.stringify({
+                username,
+                password,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (response.ok) {
+            await login(username, password);
+        }
+        return false;
     }
-    return false;
-  }
 
-    return [ token, login, logout, signup, update ];
+    return [token, login, logout, signup, update];
 }
 
 export const useUser = (token) => {

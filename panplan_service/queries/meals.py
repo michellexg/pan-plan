@@ -94,11 +94,44 @@ class MealRepository:
                     for row in rows:
                         meal = self.meal_record_to_dict(row, db.description)
                         meals.append(meal)
-                    # print(meals)
                     return meals
         except Exception as e:
             print(e)
             return {"message": "Could not get all meals"}
+
+    def get_by_account_id(self, account_id: int) -> (
+            Union[Error, List[MealOutWithRecipeName]]):
+        try:
+            # connect the database
+            with pool.connection() as conn:
+                # get a cursor (something to run SQL with)
+                with conn.cursor() as db:
+                    # Run our SELECT statement
+                    result = db.execute(
+                        """
+                        SELECT recipes.id as recipe_id,
+                        recipes.name,
+                        meals.id as meal_id,
+                        meals.date_int,
+                        meals.date,
+                        meals.account_id
+                        FROM recipes
+                        JOIN meals ON(recipes.id = meals.recipe_id)
+                        WHERE meals.account_id = %s
+                        ORDER BY recipes.id;
+                        """,
+                        [account_id]
+                    )
+                    meals = []
+                    rows = db.fetchall()
+                    for row in rows:
+                        meal = self.meal_record_to_dict(row, db.description)
+                        meals.append(meal)
+                    return meals
+
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get meals"}
 
     def meal_record_to_dict(self, row, description):
         meal = None
@@ -130,31 +163,7 @@ class MealRepository:
             meal["recipe_id"] = recipe
         return meal
 
-    def get_by_account_id(self, account_id: int) -> (
-            Union[Error, List[MealOut]]):
-        try:
-            # connect the database
-            with pool.connection() as conn:
-                # get a cursor (something to run SQL with)
-                with conn.cursor() as db:
-                    # Run our SELECT statement
-                    result = db.execute(
-                        """
-                        SELECT id, date_int, date, recipe_id, account_id
-                        FROM meals
-                        WHERE account_id = %s
-                        ORDER BY date_int;
-                        """,
-                        [account_id]
-                    )
 
-                    return [
-                        self.record_to_meal_out(record)
-                        for record in result
-                    ]
-        except Exception as e:
-            print(e)
-            return {"message": "Could not get meals"}
 
     def delete_meal(self, meal_id: int) -> bool:
         try:
