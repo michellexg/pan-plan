@@ -39,7 +39,7 @@ class RecipeOutWithAccountDict(BaseModel):
 
 
 class RecipesOut(BaseModel):
-    recipes = list[RecipeOutWithAccountDict]
+    recipes: list[RecipeOutWithAccountDict]
 
 
 class RecipeRepository:
