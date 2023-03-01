@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+
 }
 
 .App-header {
@@ -14,6 +15,7 @@
 }
 .App {
   text-align: center;
+  background-color: aquamarine;
 }
 
 .App-header {
@@ -28,8 +30,8 @@
 }
 
 .logo {
-  max-width: 100px;
-  height: auto;
+  max-width: 10px;
+  height: 10px;
   align-self: center;
   text-align: center;
 }

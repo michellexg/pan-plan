@@ -9,6 +9,8 @@ import CreateRecipeForm from './common/CreateRecipeForm';
 import DisplayRecipeDetails from './common/RecipeDetails';
 import SignupForm from "./SignupForm.js";
 import MealList from './MealList.js';
+import logo from './assets/logo.png'
+
 
 function GetToken() {
   useToken();
@@ -35,6 +37,7 @@ function App() {
 
 
   return (
+    <div className="App">
     <BrowserRouter>
       <AuthProvider>
         <GetToken />
@@ -55,6 +58,7 @@ function App() {
         </Routes>
       </AuthProvider>
     </BrowserRouter>
+    </div>
   );
 }
 export default App;

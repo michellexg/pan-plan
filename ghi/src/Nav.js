@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import "./index.css";
 import { useToken } from "./Auth";
+import logo from './assets/logo.png'
 
 function Nav() {
   const [token, , logout] = useToken();
@@ -11,6 +12,7 @@ function Nav() {
         <nav id="sidebarMenu" className="collapse d-lg-block sidebar collapse bg-white">
           <div className="subnav w-100 h-5 p-3 shadow mb-5 mt-0 navbar position-sticky">
             <div className="list-group list-group-flush mx-3 mt-4">
+              <img src={logo} alt="Logo" className="pr-2" />
               <h1 className="text-black">PanPlan</h1>
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
