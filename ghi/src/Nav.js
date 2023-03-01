@@ -27,11 +27,11 @@ function Nav() {
                   </NavLink>
                 </li> */}
 
-                {/* <li className="nav-item">
-                  <NavLink className="nav-link text-dark" to="/meals">
-                    Meals
+                <li className="nav-item">
+                  <NavLink className="nav-link text-dark" to="/">
+                    Grocery List
                   </NavLink>
-                </li> */}
+                </li>
                 <li className="nav-item">
                   <NavLink className="nav-link text-dark" to="/recipes">
                     Recipes
