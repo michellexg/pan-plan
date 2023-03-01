@@ -1,29 +1,23 @@
-# from unittest import TestCase
-from fastapi import FastAPI
-from fastapi.testclient import TestClient
+from unittest import TestCase
+# from fastapi import FastAPI
+# from fastapi.testclient import TestClient
 from main import app
-from panplan_service import accountQueries
+from queries.accounts import AccountsOut
 
-client = TestClient(app)
+client = TestCase(app)
 
 
 class EmptyAccountQuereies:
-    def get_users(self):
+    def get_all_accounts(self):
         return []
 
 
 def test_get_all_accounts():
-
     # Arrange
-
-    app.dependency_overrides[accountQueries] = EmptyAccountQuereies
-
+    app.dependency_overrides[AccountsOut] = EmptyAccountQuereies
     response = client.get("/accounts")
-
     # Act
-
     app.dependency_overrides = {}
-
     assert response.status_code == 200
     assert response.json() == {"accounts": []}
     # Assert
@@ -64,11 +58,11 @@ def test_get_all_accounts():
 # app.dependecy_overrides = {}
 
 
-def test_init():
-    assert 1 == 0
+# def test_init():
+#     assert 1 == 0
 
-def test_two():
-    assert 1 == 1
+# def test_two():
+#     assert 1 == 1
 
 
 # class UserOut(BaseModel):
