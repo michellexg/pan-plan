@@ -4,6 +4,7 @@ import { useToken } from './Auth';
 import Card from "react-bootstrap/esm/Card"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { Link } from 'react-router-dom';
 
 
 function MealCard({ date_int, recipes }) {
@@ -62,20 +63,22 @@ function MealCard({ date_int, recipes }) {
 
     useEffect(() => {
         const getMeals = async () => {
-            const response = await fetch(`${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/meals`);
-            if (response.ok) {
-                const allMeals = await response.json();
-                let meals = [];
+            if (accountId) {
+                const response = await fetch(`${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/meals/${accountId}`);
+                if (response.ok) {
+                    const allMeals = await response.json();
+                    let meals = [];
 
-                for (let meal of allMeals) {
+                    for (let meal of allMeals) {
 
-                    if (meal.date_int === date_int && meal.account_id === accountId) {
-                        meals.push(meal)
+                        if (meal.date_int === date_int) {
+                            meals.push(meal)
+                        }
                     }
+                    setMeals(meals);
+                } else {
+                    console.error(response)
                 }
-                setMeals(meals);
-            } else {
-                console.error(response)
             }
         };
         getMeals();
@@ -92,9 +95,13 @@ function MealCard({ date_int, recipes }) {
                         </Card.Text>
                     )
                 })}
-                <Button variant="primary" onClick={handleShow}>
-                    Add a meal
-                </Button>
+                {token ?
+                    <Button variant="primary" onClick={handleShow}>
+                        Add a meal
+                    </Button> :
+                    <Link className='btn btn-secondary' to="login">Add a meal</Link>}
+
+
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Add a meal!</Modal.Title>
