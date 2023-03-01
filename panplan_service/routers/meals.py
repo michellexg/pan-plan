@@ -17,7 +17,7 @@ def create_meal(
     response: Response,
     repo: MealRepository = Depends(),
 ):
-    # response.status_code = 400
+    response.status_code = 400
     return repo.create_meal(meal)
 
 
@@ -28,7 +28,8 @@ def get_all(
     return repo.get_all()
 
 
-@router.get("/meals/{account_id}", response_model=Union[List[MealOut], Error])
+@router.get("/meals/{account_id}", response_model=Union[
+    List[MealOutWithRecipeName], Error])
 def get_account_meals(
     account_id: int,
     repo: MealRepository = Depends(),
