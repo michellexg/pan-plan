@@ -7,7 +7,6 @@ from queries.meals import (
     MealRepository,
     MealOutWithRecipeName,
 )
-from .auth import authenticator
 
 router = APIRouter()
 
