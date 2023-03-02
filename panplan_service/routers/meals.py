@@ -18,7 +18,6 @@ def create_meal(
     repo: MealRepository = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data),
 ):
-    response.status_code = 400
     return repo.create_meal(meal)
 
 
