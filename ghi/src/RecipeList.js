@@ -6,6 +6,7 @@ function RecipeList(props) {
   const [searchName, setSearchName] = useState("");
   return (
     <div>
+      <div style={{padding: "20px"}}>
       <input
         type="text"
         placeholder="Search recipe by name"
@@ -13,9 +14,13 @@ function RecipeList(props) {
           setSearchName(event.target.value);
         }}
       />
-      <div></div>
-      <NavLink to="new">Create new recipe</NavLink>
-      {props.recipes
+      </div>
+      <NavLink to="new" style={{padding: "20px"}}>Create new recipe</NavLink>
+      <div style={{padding: "20px"}}></div>
+
+      <div className="container">
+        <div className="row">
+          {props.recipes
         .filter((val) => {
           if (searchName === "") {
             return val;
@@ -26,7 +31,8 @@ function RecipeList(props) {
         })
         .map((recipe, key) => {
           return (
-            <Card className="text-center" style={{ width: "18rem" }} key={key}>
+            <div className="col-3" key={key} style={{padding: "20px"}}>
+            <Card className="text-center" style={{ width: "18rem", height: "18rem" }}>
               <Card.Header>{recipe.name}</Card.Header>
               <Card.Body>
                 <Card.Img variant="top" src={recipe.image_url} />
@@ -38,8 +44,11 @@ function RecipeList(props) {
                 </NavLink>
               </Card.Footer>
             </Card>
+            </div>
           );
         })}
+        </div>
+      </div>
     </div>
   );
 }
