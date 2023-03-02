@@ -17,7 +17,6 @@ def create_meal(
     response: Response,
     repo: MealRepository = Depends(),
 ):
-    response.status_code = 400
     return repo.create_meal(meal)
 
 
