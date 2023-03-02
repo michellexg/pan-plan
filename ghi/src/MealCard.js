@@ -61,10 +61,16 @@ function MealCard({ date_int, recipes }) {
         }
     }
 
+
+
     useEffect(() => {
         const getMeals = async () => {
             if (accountId) {
-                const response = await fetch(`${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/meals/${accountId}`);
+                const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/meals/${accountId}`;
+                const fetchConfig = {
+                    credentials: 'include',
+                }
+                const response = await fetch(url, fetchConfig);
                 if (response.ok) {
                     const allMeals = await response.json();
                     let meals = [];
@@ -80,6 +86,7 @@ function MealCard({ date_int, recipes }) {
                     console.error(response)
                 }
             }
+
         };
         getMeals();
     }, [newMeal, accountId, date_int])
@@ -91,7 +98,10 @@ function MealCard({ date_int, recipes }) {
                 {meals.map((meal) => {
                     return (
                         <Card.Text key={meal.id}>
-                            {meal.recipe_id.name}
+                            <Link to={`/recipes/${meal.recipe_id.id}`}>
+                                {meal.recipe_id.name}
+                            </Link>
+
                         </Card.Text>
                     )
                 })}
