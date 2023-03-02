@@ -4,38 +4,34 @@ from queries.accounts import AccountOut, AccountRepository
 
 client = TestClient(app)
 
-account_out = AccountOut(
-    id=5,
-    username="user"
-)
+# account_out = AccountOut(
+#     id=1,
+#     username="user"
+# )
 
-# account_out = {
-#     "id":5,
-#     "username":"user"
-# }
+account_out = {
+    "id":1,
+    "username":"user"
+}
+
+accounts = [account_out]
+
 class MockAccount:
-    def get_account(
-        self,
-        id,
-    ):
-        return account_out
+    def get_all_accounts(self):
+        return accounts
 
-    # def create(self, )
-
-
-def test_get_account():
+def test_accounts_list():
     app.dependency_overrides[AccountRepository] = MockAccount
-    response = client.get("/accounts/5")
+    response = client.get('/accounts')
     assert response.status_code == 200
-    assert response.json() == account_out
-
+    assert response.json() == {'accounts': accounts}
 app.dependency_overrides = {}
 
 
 
 
 
-
+    # def create(self, )
 
 # class EmptyAccountQuereies:
 #     def get_all_accounts(self):

@@ -55,7 +55,7 @@ async def create_account(
     return AccountToken(account=account, **token.dict())
 
 
-@router.get("/accounts/${id}", response_model=Union[AccountOut, Error])
+@router.get("/accounts/{account_id}", response_model=Union[AccountOut, Error])
 def get_account(
     account_id: int,
     response: Response,

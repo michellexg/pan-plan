@@ -15,7 +15,8 @@ function LoginForm(props) {
 		e.preventDefault();
 		const error = await login(username, password);
 		if (error) {
-			isLoggedIn(false);
+			alert('Incorrect login information')
+			// isLoggedIn(false);
 		}
 			console.log(true);
 			navigate('/')
