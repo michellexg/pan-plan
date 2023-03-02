@@ -61,6 +61,8 @@ function MealCard({ date_int, recipes }) {
         }
     }
 
+
+
     useEffect(() => {
         const getMeals = async () => {
             if (accountId) {
