@@ -7,9 +7,10 @@ from queries.meals import (
     MealRepository,
     MealOutWithRecipeName,
 )
+from .auth import authenticator
 
 router = APIRouter()
-from .auth import authenticator
+
 
 @router.post("/meals", response_model=Union[MealOut, Error])
 def create_meal(

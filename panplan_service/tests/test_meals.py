@@ -5,16 +5,16 @@ from routers.auth import authenticator
 
 client = TestClient(app)
 
+
 def fake_get_current_account_data():
     return True
-
 
 
 class FakeMealRepository:
     def get_all(self):
         return []
 
-    def get_by_account_id(self, account_id:int):
+    def get_by_account_id(self, account_id):
         return []
 
     def create_meal(self, meal):
@@ -40,6 +40,7 @@ def test_get_all_meals():
     print(response.json())
     assert response.status_code == 200
     assert response.json() == []
+
 
 def test_get_by_account_id():
     app.dependency_overrides[MealRepository] = FakeMealRepository
