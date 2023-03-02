@@ -63,26 +63,35 @@ export const AuthProvider = ({ children }) => {
 export const useAuthContext = () => useContext(AuthContext);
 
 export function useToken() {
-    const { token, setToken, setIsLoggedIn } = useAuthContext();
+    const { token, setToken, isLoggedIn, setIsLoggedIn } = useAuthContext();
     const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchToken() {
             const token = await getTokenInternal();
             setToken(token);
+            setIsLoggedIn(isLoggedIn);
         }
-        if (!token) {
+        if (!(token && isLoggedIn)) {
             fetchToken();
         }
-    }, [setToken, token]);
+    }, [setToken, token, setIsLoggedIn, isLoggedIn]);
 
     async function logout() {
         if (token) {
             const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/token`;
-            await fetch(url, { method: "delete", credentials: "include" });
-            internalToken = null;
-            setToken(null);
-            navigate("/login");
+            const response = await fetch(url, { method: "delete", credentials: "include" });
+            if (response.ok){
+
+                internalToken = null;
+                setToken(null);
+                setIsLoggedIn(false);
+
+                console.log('token logout: ')
+                console.log(token)
+                console.log(!token)
+                navigate("/login");
+            }
         }
     }
 
@@ -102,6 +111,8 @@ export function useToken() {
             const token = await getTokenInternal();
             setToken(token);
             setIsLoggedIn(true);
+            console.log('token login: ')
+            console.log(token)
             return;
         }
         let error = await response.json();

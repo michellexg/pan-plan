@@ -62,6 +62,7 @@ def get_account(
     queries: AccountRepository = Depends(),
 ):
     record = queries.get_account(account_id)
+    print(record)
     if record is None:
         response.status_code = 404
     else:
@@ -103,6 +104,8 @@ async def get_token(
             "type": "Bearer",
             "account": account,
         }
+
+
 
 
 @router.get("/protected", response_model=bool)

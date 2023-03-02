@@ -9,7 +9,9 @@ import CreateRecipeForm from './common/CreateRecipeForm';
 import DisplayRecipeDetails from './common/RecipeDetails';
 import SignupForm from "./SignupForm.js";
 import MealList from './MealList.js';
-import logo from './assets/logo.png'
+import logo from './assets/logo.png';
+// import background from './assets/panplanbackground.png';
+// import { ImageBackground} from 'react-native';
 
 
 function GetToken() {
@@ -37,7 +39,9 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App" >
+    {/* <div className="App" style={{backgroundImage:{background}}} > */}
+      {/* {<img src={background}  alt="RANDOM INPUT"/>} */}
     <BrowserRouter>
       <AuthProvider>
         <GetToken />

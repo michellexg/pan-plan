@@ -1,26 +1,56 @@
-from unittest import TestCase
-# from fastapi import FastAPI
-# from fastapi.testclient import TestClient
+from fastapi.testclient import TestClient
 from main import app
-from queries.accounts import AccountsOut
+from queries.accounts import AccountOut, AccountRepository
 
-client = TestCase(app)
+client = TestClient(app)
+
+account_out = AccountOut(
+    id=5,
+    username="user"
+)
+
+# account_out = {
+#     "id":5,
+#     "username":"user"
+# }
+class MockAccount:
+    def get_account(
+        self,
+        id,
+    ):
+        return account_out
+
+    # def create(self, )
 
 
-class EmptyAccountQuereies:
-    def get_all_accounts(self):
-        return []
-
-
-def test_get_all_accounts():
-    # Arrange
-    app.dependency_overrides[AccountsOut] = EmptyAccountQuereies
-    response = client.get("/accounts")
-    # Act
-    app.dependency_overrides = {}
+def test_get_account():
+    app.dependency_overrides[AccountRepository] = MockAccount
+    response = client.get("/accounts/5")
     assert response.status_code == 200
-    assert response.json() == {"accounts": []}
-    # Assert
+    assert response.json() == account_out
+
+app.dependency_overrides = {}
+
+
+
+
+
+
+
+# class EmptyAccountQuereies:
+#     def get_all_accounts(self):
+#         return []
+
+
+# def test_get_all_accounts():
+#     # Arrange
+#     app.dependency_overrides[AccountsOut] = EmptyAccountQuereies
+#     response = client.get("/accounts")
+#     # Act
+#     app.dependency_overrides = {}
+#     assert response.status_code == 200
+#     assert response.json() == {"accounts": []}
+#     # Assert
 
 
 
@@ -28,7 +58,6 @@ def test_get_all_accounts():
 # from routers.auth import authenticator
 # from main import app
 # from queries.recipes import RecipesOut
-
 
 # client = TestClient(app)
 
@@ -57,12 +86,6 @@ def test_get_all_accounts():
 
 # app.dependecy_overrides = {}
 
-
-# def test_init():
-#     assert 1 == 0
-
-# def test_two():
-#     assert 1 == 1
 
 
 # class UserOut(BaseModel):
