@@ -15,6 +15,7 @@ function MealCard({ date_int, recipes }) {
     const [meals, setMeals] = useState([]);
     const [newMeal, setNewMeal] = useState('');
     const [token] = useToken();
+    console.log(token)
 
     var accountId
     if (token) {
@@ -61,10 +62,13 @@ function MealCard({ date_int, recipes }) {
         }
     }
 
+
+
     useEffect(() => {
         const getMeals = async () => {
             if (accountId) {
                 const response = await fetch(`${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/meals/${accountId}`);
+                console.log(response)
                 if (response.ok) {
                     const allMeals = await response.json();
                     let meals = [];
