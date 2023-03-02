@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import logo from './assets/logo.png'
-import { useToken, useAuthContext } from "./Auth";
+import { useToken } from "./Auth";
 
 function LoginForm(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [,login] = useToken();
-  const {isLoggedIn} = useAuthContext();
   const navigate = useNavigate();
 
 
@@ -15,7 +14,8 @@ function LoginForm(props) {
 		e.preventDefault();
 		const error = await login(username, password);
 		if (error) {
-			isLoggedIn(false);
+			alert('Incorrect login information')
+			// isLoggedIn(false);
 		}
 			console.log(true);
 			navigate('/')

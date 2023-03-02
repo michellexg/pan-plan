@@ -35,6 +35,7 @@ function App() {
 
 
   return (
+    <div className="App" >
     <BrowserRouter>
       <AuthProvider>
         <GetToken />
@@ -55,6 +56,7 @@ function App() {
         </Routes>
       </AuthProvider>
     </BrowserRouter>
+    </div>
   );
 }
 export default App;
