@@ -7,6 +7,8 @@ from queries.meals import (
     MealRepository,
     MealOutWithRecipeName,
 )
+from .auth import authenticator
+
 
 router = APIRouter()
 
@@ -17,7 +19,6 @@ def create_meal(
     response: Response,
     repo: MealRepository = Depends(),
 ):
-    # response.status_code = 400
     return repo.create_meal(meal)
 
 
@@ -28,10 +29,12 @@ def get_all(
     return repo.get_all()
 
 
-@router.get("/meals/{account_id}", response_model=Union[List[MealOut], Error])
+@router.get("/meals/{account_id}", response_model=Union[
+    List[MealOutWithRecipeName], Error])
 def get_account_meals(
     account_id: int,
     repo: MealRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     return repo.get_by_account_id(account_id)
 
