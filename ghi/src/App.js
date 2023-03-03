@@ -9,6 +9,7 @@ import CreateRecipeForm from "./common/CreateRecipeForm";
 import DisplayRecipeDetails from "./common/RecipeDetails";
 import SignupForm from "./SignupForm.js";
 import MealList from "./MealList.js";
+import GroceryList from "./Groceries";
 
 const domain = /https:\/\/[^/]+/;
 const basename = process.env.PUBLIC_URL.replace(domain, "");
@@ -44,6 +45,10 @@ function App() {
             <Route path="signup" element={<SignupForm />} />
             <Route path="/" element={<MealList recipes={recipes} />} />
             <Route path="login" element={<LoginForm />} />
+            <Route
+              path="groceries"
+              element={<GroceryList recipes={recipes} />}
+            />
             <Route
               path="recipes/"
               element={
