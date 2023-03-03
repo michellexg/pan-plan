@@ -1,13 +1,47 @@
 import Card from 'react-bootstrap/Card';
+import { useState, useEffect } from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 
 function DisplayRecipeDetails(props) {
-  const steps = props.recipe.steps
-  const splitSteps = steps.split('@#$')
-  const ingredients = props.recipe.ingredients
-  const splitIngredients = ingredients.split('@#$')
+  const navigate = useNavigate()
+  const [creatorID, setCreatorID] = useState([])
+  const fetchToken = async () => {
+      const url = 'http://localhost:8000/token'
+      const fetchConfig = {
+        method: 'get',
+        credentials: 'include',
+      }
+      const response = await fetch(url,fetchConfig)
+      if (response.ok) {
+        const data = await response.json()
+        setCreatorID(data.account.id)
+      }
+    }
+
+    useEffect(() => {
+    fetchToken()
+  }, [])
+
+  const handleDelete = async (event) => {
+    const value = event.target.value
+
+    const url = `http://localhost:8000/${creatorID}/recipes/${value}`
+    const fetchConfig = {
+      method: 'delete',
+      credentials: 'include'
+    }
+    const response = await fetch(url, fetchConfig)
+    if (response.ok) {
+      props.fetchRecipes()
+      navigate('/recipes')
+    }
+  }
+    const steps = props.recipe.steps
+    const splitSteps = steps.split('@#$')
+    const ingredients = props.recipe.ingredients
+    const splitIngredients = ingredients.split('@#$')
 
   return (
     <Card style={{ width: '50%' }}>
@@ -15,7 +49,13 @@ function DisplayRecipeDetails(props) {
       <Card.Body>
         <Card.Title>{props.recipe.name}</Card.Title>
         <Card.Text>
-          Created by: {props.recipe.creator.username}
+            Created by: {props.recipe.creator.username}
+            <span>   </span>
+            {creatorID === props.recipe.creator.id ?
+                    <button onClick={handleDelete} value={props.recipe.id}>
+                      Delete
+                    </button>
+                  : <span></span>}
         </Card.Text>
       </Card.Body>
       <ListGroup className="list-group-flush">
