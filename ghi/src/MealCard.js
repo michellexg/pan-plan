@@ -68,8 +68,12 @@ function MealCard({ date_int, recipes }) {
         const fetchConfig = {
             method: "DELETE",
         }
-        const response = await fetch(url, fetchConfig)
-        setDelete(true)
+        const response = await fetch(url, fetchConfig);
+        if (response.ok) {
+            setDelete(true)
+        } else {
+            console.error(response)
+        }
         return
     }
 
