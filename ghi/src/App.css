@@ -15,6 +15,7 @@
 .App {
   text-align: center;
   background-image: url("./assets/panplanbackground.png");
+  min-height: 100vh;
 }
 
 .App-header {

@@ -44,13 +44,13 @@ function App() {
           <Route path="signup" element={<SignupForm />} />
           <Route path="/" element={<MealList recipes={recipes} />} />
           <Route path="login" element={<LoginForm />} />
-          <Route path="recipes/" element={<RecipeList recipes={recipes} />} />
+          <Route path="recipes/" element={<RecipeList fetchRecipes={fetchRecipes} recipes={recipes} />} />
           <Route path="recipes/new/" element={<CreateRecipeForm fetchRecipes={fetchRecipes} />} />
           {recipes.map((recipe) => (
             <Route
               key={recipe.id}
               path={`recipes/${recipe.id}`}
-              element={<DisplayRecipeDetails recipe={recipe} />}
+              element={<DisplayRecipeDetails recipe={recipe} fetchRecipes={fetchRecipes} />}
             />
           ))}
         </Routes>
