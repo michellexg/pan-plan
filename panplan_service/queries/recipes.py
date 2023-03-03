@@ -165,6 +165,43 @@ class RecipeRepository:
             print(e)
             return {"message": "Could not get that recipe"}
 
+    def delete_recipe(self, user_id: int, recipe_id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT id
+                        FROM recipes
+                        WHERE id = %s
+                        AND creator_id = %s
+                        """,
+                        [recipe_id, user_id]
+                    )
+                    record = result.fetchone()
+                    if record is None:
+                        print("recipe not found")
+                        return False
+                    else:
+                        db.execute(
+                            """
+                            DELETE FROM meals
+                            WHERE recipe_id = %s
+                            """,
+                            [recipe_id]
+                            )
+                        db.execute(
+                            """
+                            DELETE FROM recipes
+                            WHERE id = %s
+                            """,
+                            [recipe_id]
+                            )
+                        return True
+        except Exception as e:
+            print(e)
+            return False
+
     def record_to_recipe_out(self, record):
         return RecipeOut(
             id=record[0],
