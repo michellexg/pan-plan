@@ -38,6 +38,11 @@ function Nav() {
                   </NavLink>
                 </li>
                 <li className="nav-item">
+                  <NavLink className="nav-link text-dark" to="/Groceries">
+                    Groceries
+                  </NavLink>
+                </li>
+                <li className="nav-item">
                   {!token && (
                     <NavLink className="nav-link text-dark" to="signup">
                       SignUp
