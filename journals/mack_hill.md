@@ -60,3 +60,20 @@ Today, I worked on:
     - user can sign up and directly logs in
     -user can log out
     -user can log in
+
+## Mar 1, 2023
+
+Today, I worked on:
+    - started unit tests
+    - issues with docker containers
+
+## Mar 2, 2023
+
+Today, I worked on:
+    - finished unit tests
+    - worked on css
+
+## Mar 3, 2023
+
+Today, I worked on:
+    -
