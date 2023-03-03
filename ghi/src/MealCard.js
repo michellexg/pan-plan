@@ -5,6 +5,7 @@ import Card from "react-bootstrap/esm/Card"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Link } from 'react-router-dom';
+import { Trash3 } from 'react-bootstrap-icons';
 
 
 function MealCard({ date_int, recipes }) {
@@ -15,6 +16,7 @@ function MealCard({ date_int, recipes }) {
     const [meals, setMeals] = useState([]);
     const [newMeal, setNewMeal] = useState('');
     const [token] = useToken();
+    const [deleted, setDelete] = useState(false);
 
     var accountId
     if (token) {
@@ -61,6 +63,15 @@ function MealCard({ date_int, recipes }) {
         }
     }
 
+    async function handleDelete(id) {
+        const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/meals/${id}`;
+        const fetchConfig = {
+            method: "DELETE",
+        }
+        const response = await fetch(url, fetchConfig)
+        setDelete(true)
+        return
+    }
 
 
     useEffect(() => {
@@ -82,6 +93,7 @@ function MealCard({ date_int, recipes }) {
                         }
                     }
                     setMeals(meals);
+                    setDelete(false);
                 } else {
                     console.error(response)
                 }
@@ -89,27 +101,31 @@ function MealCard({ date_int, recipes }) {
 
         };
         getMeals();
-    }, [newMeal, accountId, date_int])
+    }, [newMeal, accountId, date_int, deleted])
 
     return (
-        <Card className="text-center">
+
+        <Card className="text-center" style={{ width: '18rem', height: '20rem' }}>
             <Card.Body>
                 <Card.Title>{day}</Card.Title>
                 {meals.map((meal) => {
                     return (
                         <Card.Text key={meal.id}>
-                            <Link to={`/recipes/${meal.recipe_id.id}`}>
+                            <Button className='btn-meal' href={`/recipes/${meal.recipe_id.id}`}>
                                 {meal.recipe_id.name}
+                            </Button>
+                            {' '}
+                            <Link onClick={() => handleDelete(meal.id)}>
+                                <Trash3 size={15} color="red" />
                             </Link>
-
                         </Card.Text>
                     )
                 })}
                 {token ?
-                    <Button variant="primary" onClick={handleShow}>
+                    <Button className='btn-add-meal' onClick={handleShow}>
                         Add a meal
                     </Button> :
-                    <Link className='btn btn-secondary' to="login">Add a meal</Link>}
+                    <Button className='btn btn-secondary' href="login">Add a meal</Button>}
 
 
                 <Modal show={show} onHide={handleClose}>
@@ -135,15 +151,12 @@ function MealCard({ date_int, recipes }) {
                                     )
                                 })}
                             </select>
-                            <button className='btn btn-primary' onClick={handleClose}>
+                            <Button className='btn-add-meal my-3' onClick={handleClose}>
                                 Save Changes
-                            </button>
+                            </Button>
+                            <button className='btn btn-secondary m-3' onClick={handleClose}>Cancel</button>
                         </form>
                     </Modal.Body>
-                    <Modal.Footer>
-                        <button className='btn btn-secondary' onClick={handleClose}>Cancel</button>
-
-                    </Modal.Footer>
                 </Modal>
             </Card.Body>
         </Card>
