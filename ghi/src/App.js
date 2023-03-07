@@ -12,9 +12,6 @@ import MealCalendar from "./common/Calendar";
 import MealList from "./MealList.js";
 import GroceryList from "./Groceries";
 
-const domain = /https:\/\/[^/]+/;
-const basename = process.env.PUBLIC_URL.replace(domain, "");
-
 function GetToken() {
   useToken();
   return null;
@@ -38,37 +35,34 @@ function App() {
   }, []);
 
   return (
-    <div className="bg">
-      <div className="App">
-        <BrowserRouter basename={basename}>
-          <AuthProvider>
-            <GetToken />
-            <Nav />
-            <Routes>
-              <Route path="signup" element={<SignupForm />} />
-              <Route path="/" element={<MealList recipes={recipes} />} />
-              <Route path="login" element={<LoginForm />} />
-              <Route path="groceries" element={<GroceryList recipes={recipes} />} />
-              <Route path="recipes/" element={<RecipeList fetchRecipes={fetchRecipes} recipes={recipes} />} />
-              <Route path="recipes/new/" element={<CreateRecipeForm fetchRecipes={fetchRecipes} />} />
-              {recipes.map((recipe) => (
-                <Route
-                  key={recipe.id}
-                  path={`recipes/${recipe.id}`}
-                  element={
-                    <DisplayRecipeDetails
-                      recipe={recipe}
-                      fetchRecipes={fetchRecipes}
-                    />
-                  }
-                />
-              ))}
-              <Route path="calendar" element={<MealCalendar recipes={recipes} />} />
-            </Routes>
-          </AuthProvider>
-        </BrowserRouter>
-      </div>
-
+    <div className="App">
+      <BrowserRouter>
+        <AuthProvider>
+          <GetToken />
+          <Nav />
+          <Routes>
+            <Route path="signup" element={<SignupForm />} />
+            <Route path="/" element={<MealList recipes={recipes} />} />
+            <Route path="login" element={<LoginForm />} />
+            <Route path="groceries" element={<GroceryList recipes={recipes} />} />
+            <Route path="recipes/" element={<RecipeList fetchRecipes={fetchRecipes} recipes={recipes} />} />
+            <Route path="recipes/new/" element={<CreateRecipeForm fetchRecipes={fetchRecipes} />} />
+            {recipes.map((recipe) => (
+              <Route
+                key={recipe.id}
+                path={`recipes/${recipe.id}`}
+                element={
+                  <DisplayRecipeDetails
+                    recipe={recipe}
+                    fetchRecipes={fetchRecipes}
+                  />
+                }
+              />
+            ))}
+            <Route path="calendar" element={<MealCalendar recipes={recipes} />} />
+          </Routes>
+        </AuthProvider>
+      </BrowserRouter>
     </div>
   );
 }
