@@ -111,7 +111,7 @@ export function useToken() {
   }
 
   async function signup(username, password) {
-    const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`;
+    const url = `${process.env.API_HOST}/accounts`;
     const response = await fetch(url, {
       method: "post",
       body: JSON.stringify({
@@ -129,7 +129,7 @@ export function useToken() {
   }
 
   async function update(username, password) {
-    const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`;
+    const url = `${process.env.API_HOST}/accounts`;
     const response = await fetch(url, {
       method: "patch",
       body: JSON.stringify({
@@ -158,7 +158,7 @@ export const useUser = (token) => {
     }
 
     async function get_account() {
-      const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts/{account_id}`;
+      const url = `${process.env.API_HOST}/accounts/{account_id}`;
       const response = await fetch(url, {
         credentials: "include",
       });
