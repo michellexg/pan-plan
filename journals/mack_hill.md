@@ -81,9 +81,12 @@ Today, I worked on:
 ## Mar 6, 2023
 
 Today, I worked on:
-    -
+    - Worked on README
+    - test day
+    - worked on a bit of styling in front end
 
 ## Mar 7, 2023
 
 Today, I worked on:
-    -
+    - finished up the README
+    - worked on bug fixing deployment
