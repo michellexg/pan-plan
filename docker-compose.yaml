@@ -18,12 +18,12 @@ services:
       - 15432:5432
   panplan-service:
     build:
-      context: ./panplan_service
+      context: ./panplan-service
       dockerfile: Dockerfile.dev
     ports:
       - 8000:8000
     volumes:
-      - ./panplan_service:/app
+      - ./panplan-service:/app
     environment:
       DATABASE_URL: postgresql://panplan:password@postgres/panplan
       WAIT_HOSTS: postgres:5432
