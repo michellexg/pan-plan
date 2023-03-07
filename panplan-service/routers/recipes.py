@@ -40,3 +40,12 @@ def get_one_recipe(
 def get_all_recipes(repo: RecipeRepository = Depends()):
     recipes = repo.get_recipes()
     return {"recipes": recipes}
+
+
+@router.delete("/{user_id}/recipes/{recipe_id}", response_model=bool)
+def delete_recipe(
+    recipe_id: int,
+    user_id: int,
+    repo: RecipeRepository = Depends(),
+) -> bool:
+    return repo.delete_recipe(user_id, recipe_id)

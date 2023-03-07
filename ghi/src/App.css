@@ -14,17 +14,8 @@
 }
 .App {
   text-align: center;
-}
-
-.App-header {
-  background-color: #282c34;
+  background-image: url("./assets/panplanbackground.png");
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .logo {
@@ -35,7 +26,7 @@
 }
 
 .Nav {
-  background-color: #b0e5ff;
+  background-color: #68846D;
   height: 100px;
   display: flex;
   flex-direction: row;
@@ -87,15 +78,58 @@ input[type="password"] {
 }
 
 .card {
-  width: 300px;
   padding: 12px 20px;
-  margin-left: auto;
-  margin-right: auto;
+  /* margin-left: auto;
+  margin-right: auto; */
+  margin-top: 30px;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #b0e5ff;
+  background-color: #d0dcc6;
   box-sizing: border-box;
   border-radius: 4px;
-  box-shadow: 0px 0px 10px black;
+  box-shadow: 0px 0px 10px #415345;
+}
+
+.card-title {
+  color: #415345;
+}
+
+.btn-add-meal {
+  background-color: #415345;
+  border: #415345;
+}
+
+.btn-meal {
+  background-color: #a5bda5;
+  border: 0;
+  color: #2f3e33;
+}
+
+.btn-meal:hover {
+  background-color: #a5bda5;
+}
+
+.btn-add-meal:hover {
+  background-color: #415345;
+}
+
+.btn-add-meal:focus {
+  background-color: #415345;
+}
+
+.modal-title {
+  color: white;
+}
+.modal-header {
+  background-color: #415345;
+}
+
+.modal-body {
+  background-color: #a5bda5;
+}
+
+.modal-body select {
+  background-color: #d0dcc6;
 }

@@ -8,7 +8,7 @@ function Nav() {
   return (
     <>
       <div className="container-sm">
-        <nav id="sidebarMenu" className="collapse d-lg-block sidebar collapse bg-white">
+        <nav id="sidebarMenu" className="collapse d-lg-block sidebar bg-white">
           <div className="subnav w-100 h-5 p-3 shadow mb-5 mt-0 navbar position-sticky">
             <div className="list-group list-group-flush mx-3 mt-4">
               <h1 className="text-black">PanPlan</h1>
@@ -35,6 +35,11 @@ function Nav() {
                 <li className="nav-item">
                   <NavLink className="nav-link text-dark" to="/recipes">
                     Recipes
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link text-dark" to="/Groceries">
+                    Groceries
                   </NavLink>
                 </li>
                 <li className="nav-item">

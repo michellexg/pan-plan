@@ -1,8 +1,44 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import Card from "react-bootstrap/esm/Card";
 import { NavLink } from "react-router-dom";
+import Nav from 'react-bootstrap/Nav';
+
 
 function RecipeList(props) {
+
+  const [creatorID, setCreatorID] = useState([])
+  const fetchToken = async () => {
+      const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/token`
+      const fetchConfig = {
+        method: 'get',
+        credentials: 'include',
+      }
+      const response = await fetch(url,fetchConfig)
+      if (response.ok) {
+        const data = await response.json()
+        setCreatorID(data.account.id)
+      }
+    }
+
+    useEffect(() => {
+    fetchToken()
+  }, [])
+
+  const handleDelete = async (event) => {
+    const value = event.target.value
+
+    const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/${creatorID}/recipes/${value}`
+    const fetchConfig = {
+      method: 'delete',
+      credentials: 'include'
+    }
+    const response = await fetch(url, fetchConfig)
+    if (response.ok) {
+      props.fetchRecipes()
+    }
+  }
+
+
   const [searchName, setSearchName] = useState("");
   return (
     <div>
@@ -32,16 +68,27 @@ function RecipeList(props) {
         .map((recipe, key) => {
           return (
             <div className="col-3" key={key} style={{padding: "20px"}}>
-            <Card className="text-center" style={{ width: "18rem", height: "18rem" }}>
+            <Card className="text-center" style={{ width: "19rem", height: "19rem" }}>
               <Card.Header>{recipe.name}</Card.Header>
               <Card.Body>
-                <Card.Img variant="top" src={recipe.image_url} />
+                <Card.Img variant="top" src={recipe.image_url} style={{ width: "100%", height: "170px" }} />
               </Card.Body>
               <Card.Footer className="text-muted">
                 {recipe.creator.username}
-                <NavLink to={`/recipes/${recipe.id}`}>
-                  Details
-                </NavLink>
+                <Nav.Item>
+                  <NavLink to={`/recipes/${recipe.id}`}>
+                    Details
+                  </NavLink>
+                  {creatorID === recipe.creator.id ?
+                  <span>
+                    <span> | </span>
+                    <button onClick={handleDelete} value={recipe.id}>
+                      Delete
+                    </button>
+                  </span>
+                  : <span></span>}
+
+                </Nav.Item>
               </Card.Footer>
             </Card>
             </div>
