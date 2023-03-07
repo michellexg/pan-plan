@@ -24,7 +24,7 @@ function App() {
   const [recipes, setRecipes] = useState([]);
 
   const fetchRecipes = async () => {
-    const url = "http://localhost:8000/recipes";
+    const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/recipes`;
     const response = await fetch(url);
 
     if (response.ok) {

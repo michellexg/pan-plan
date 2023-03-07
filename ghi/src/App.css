@@ -120,6 +120,11 @@ a {
   color: #2f3e33;
 }
 
+.navbar-brand {
+  font-family: Monaco, "Courier New", monospace;
+  font-weight: bold;
+}
+
 .card {
   padding: 12px 20px;
   margin-top: 30px;

@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import jwt_decode from "jwt-decode";
 import { useToken } from './Auth';
 
-function GroceryList({recipes}){
-    console.log("Prop recipes",{recipes});
-
+function GroceryList({ recipes }) {
     const [groceries, setGroceries] = useState([]);
     const [token] = useToken();
 
@@ -32,17 +30,14 @@ function GroceryList({recipes}){
                     })
                     const recUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/recipes`;
                     let recipes_from_recipes = await fetch(recUrl, fetchConfig);
-                    console.log("recipes", recipes);
-                    if(recipes_from_recipes.ok) {
+                    if (recipes_from_recipes.ok) {
                         const rec = await recipes_from_recipes.json();
-                        console.log(rec) //log********
-                        rec.recipes_from_recipes.forEach((recipe) => {
-                            if(recipeIds.includes(recipes_from_recipes.id)) {
-                                for (let ingredient of recipes_from_recipes.ingredients.split('@#$')){
-                                        groceryItem.push(ingredient)
+                        rec.recipes.forEach((recipe) => {
+                            if (recipeIds.includes(recipe.id)) {
+                                for (let ingredient of recipe.ingredients.split('@#$')) {
+                                    groceryItem.push(ingredient)
                                 }
                             }
-                            console.log(groceryItem)
                         });
                         setGroceries(groceryItem);
                     }
@@ -54,15 +49,14 @@ function GroceryList({recipes}){
         };
         getGroceries();
     }, [accountId]);
-    console.log("groceries",groceries) //log********
     return (
         <ul>
-            {groceries.map((grocery_li) => {
+            {groceries.map((grocery_li, idx) => {
                 return (
-                    <li className='groceryitem'>{grocery_li}</li>
+                    <li className='groceryitem' key={idx}>{grocery_li}</li>
                 )
             })}
         </ul>
-)
+    )
 }
 export default GroceryList
