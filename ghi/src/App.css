@@ -1,5 +1,32 @@
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
 .App {
-  text-align: center;
+  position: relative;
+  /* text-align: center; */
+  min-height: 100vh;
+}
+
+.bg::before {
+  content: "";
+  background-image: url("./assets/panplanbackground.png");
+  background-size: contain;
+  background-repeat: repeat-y;
+  background-position: center;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0.5;
 }
 
 .App-header {
@@ -12,10 +39,9 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-.App {
-  text-align: center;
-  background-image: url("./assets/panplanbackground.png");
-  min-height: 100vh;
+
+.navbar {
+  background-color: #415345;
 }
 
 .logo {
@@ -25,8 +51,16 @@
   text-align: center;
 }
 
+.logo-title {
+  font-family: Monaco, "Courier New", monospace;
+  font-weight: bold;
+  font-size: 30px;
+  text-align: center;
+  color: #415345;
+}
+
 .Nav {
-  background-color: #68846D;
+  background-color: #68846d;
   height: 100px;
   display: flex;
   flex-direction: row;
@@ -37,50 +71,62 @@
 }
 
 .wrapper {
-  width: 300px;
+  width: 350px;
   padding: 12px 20px;
   margin: 50px auto 30px auto;
   display: flex;
   flex-direction: column;
-  -ms-flex-align: center;
-  background-color: #b0e5ff;
+  background-color: #d0dcc6;
   box-sizing: border-box;
   border-radius: 20px;
   box-shadow: 0px 0px 10px black;
 }
 
 input[type="title"] {
-  width: 200px;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
   border-radius: 4px;
 }
 
+label {
+  padding-left: 10px;
+}
+
 input[type="username"] {
-  width: 200px;
   padding: 12px 15px;
-  margin: 8px auto 4px auto;
+  margin: 8px auto 8px auto;
   box-sizing: border-box;
-  border: 2px solid #b0e5ff;
+  border: 2px solid #d0dcc6;
   border-radius: 10px;
   align-self: center;
 }
 
 input[type="password"] {
-  width: 200px;
   padding: 12px 15px;
   margin: 8px auto 4px auto;
   box-sizing: border-box;
-  border: 2px solid #b0e5ff;
+  border: 2px solid #d0dcc6;
   border-radius: 10px;
   align-self: center;
 }
 
+.login-button {
+  background-color: #415345;
+  border-color: #415345;
+}
+
+a {
+  color: #2f3e33;
+}
+
+.navbar-brand {
+  font-family: Monaco, "Courier New", monospace;
+  font-weight: bold;
+}
+
 .card {
   padding: 12px 20px;
-  /* margin-left: auto;
-  margin-right: auto; */
   margin-top: 30px;
   margin-bottom: 30px;
   display: flex;
@@ -90,6 +136,7 @@ input[type="password"] {
   box-sizing: border-box;
   border-radius: 4px;
   box-shadow: 0px 0px 10px #415345;
+  position: relative;
 }
 
 .card-title {

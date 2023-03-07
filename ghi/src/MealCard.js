@@ -131,7 +131,6 @@ function MealCard({ date_int, recipes }) {
                     </Button> :
                     <Button className='btn btn-secondary' href="login">Add a meal</Button>}
 
-
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Add a meal!</Modal.Title>
@@ -155,10 +154,10 @@ function MealCard({ date_int, recipes }) {
                                     )
                                 })}
                             </select>
-                            <Button className='btn-add-meal my-3' onClick={handleClose}>
+                            <Button className='btn-add-meal my-3' onClick={handleClose} type="submit">
                                 Save Changes
                             </Button>
-                            <button className='btn btn-secondary m-3' onClick={handleClose}>Cancel</button>
+                            <Button className='btn btn-secondary m-3' onClick={handleClose}>Cancel</Button>
                         </form>
                     </Modal.Body>
                 </Modal>
