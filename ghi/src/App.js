@@ -8,6 +8,7 @@ import LoginForm from "./LoginForm";
 import CreateRecipeForm from "./common/CreateRecipeForm";
 import DisplayRecipeDetails from "./common/RecipeDetails";
 import SignupForm from "./SignupForm.js";
+import MealCalendar from "./common/Calendar";
 import MealList from "./MealList.js";
 import GroceryList from "./Groceries";
 
@@ -21,6 +22,7 @@ function GetToken() {
 
 function App() {
   const [recipes, setRecipes] = useState([]);
+
   const fetchRecipes = async () => {
     const url = "http://localhost:8000/recipes";
     const response = await fetch(url);
@@ -46,20 +48,9 @@ function App() {
               <Route path="signup" element={<SignupForm />} />
               <Route path="/" element={<MealList recipes={recipes} />} />
               <Route path="login" element={<LoginForm />} />
-              <Route
-                path="groceries"
-                element={<GroceryList recipes={recipes} />}
-              />
-              <Route
-                path="recipes/"
-                element={
-                  <RecipeList fetchRecipes={fetchRecipes} recipes={recipes} />
-                }
-              />
-              <Route
-                path="recipes/new/"
-                element={<CreateRecipeForm fetchRecipes={fetchRecipes} />}
-              />
+              <Route path="groceries" element={<GroceryList recipes={recipes} />} />
+              <Route path="recipes/" element={<RecipeList fetchRecipes={fetchRecipes} recipes={recipes} />} />
+              <Route path="recipes/new/" element={<CreateRecipeForm fetchRecipes={fetchRecipes} />} />
               {recipes.map((recipe) => (
                 <Route
                   key={recipe.id}
@@ -72,10 +63,12 @@ function App() {
                   }
                 />
               ))}
+              <Route path="calendar" element={<MealCalendar recipes={recipes} />} />
             </Routes>
           </AuthProvider>
         </BrowserRouter>
       </div>
+
     </div>
   );
 }
