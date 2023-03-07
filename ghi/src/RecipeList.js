@@ -8,7 +8,7 @@ function RecipeList(props) {
 
   const [creatorID, setCreatorID] = useState([])
   const fetchToken = async () => {
-      const url = 'http://localhost:8000/token'
+      const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/token`
       const fetchConfig = {
         method: 'get',
         credentials: 'include',
@@ -27,7 +27,7 @@ function RecipeList(props) {
   const handleDelete = async (event) => {
     const value = event.target.value
 
-    const url = `http://localhost:8000/${creatorID}/recipes/${value}`
+    const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/${creatorID}/recipes/${value}`
     const fetchConfig = {
       method: 'delete',
       credentials: 'include'

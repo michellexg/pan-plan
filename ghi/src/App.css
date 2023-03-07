@@ -18,17 +18,6 @@
   min-height: 100vh;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
 .logo {
   max-width: 100px;
   height: auto;
@@ -37,7 +26,7 @@
 }
 
 .Nav {
-  background-color: #b0e5ff;
+  background-color: #68846D;
   height: 100px;
   display: flex;
   flex-direction: row;

@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import jwt_decode from "jwt-decode";
 import { useToken } from './Auth';
-import Card from "react-bootstrap/esm/Card"
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 
 function GroceryList({recipes}){
+    console.log("Prop recipes",{recipes});
 
-    const [recipe, setRecipe] = useState('');
     const [groceries, setGroceries] = useState([]);
     const [token] = useToken();
 
@@ -17,8 +14,6 @@ function GroceryList({recipes}){
         const account_id = decoded.account.id;
         accountId = account_id
     }
-
-    var allGroceries;
 
     useEffect(() => {
         const getGroceries = async () => {
@@ -31,23 +26,19 @@ function GroceryList({recipes}){
                 const response = await fetch(url, fetchConfig);
                 if (response.ok) {
                     const allGroceries = await response.json();
-                    console.log("all groceries", allGroceries) //log********
                     const recipeIds = [];
                     allGroceries.forEach((meal) => {
                         recipeIds.push(meal.recipe_id.id);
                     })
                     const recUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/recipes`;
-                    console.log(recUrl) //log********
-                    recipes = await fetch(recUrl, fetchConfig);
+                    let recipes_from_recipes = await fetch(recUrl, fetchConfig);
                     console.log("recipes", recipes);
-                    if(recipes.ok) {
-                        const rec = await recipes.json();
+                    if(recipes_from_recipes.ok) {
+                        const rec = await recipes_from_recipes.json();
                         console.log(rec) //log********
-                        rec.recipes.forEach((recipe) => {
-                            if(recipeIds.includes(recipe.id)) {
-                                console.log("Including", recipe.ingredients.split('@#$')); //log********
-                                var ingredients_list = (recipe.ingredients.split('@#$'));
-                                for (let ingredient of recipe.ingredients.split('@#$')){
+                        rec.recipes_from_recipes.forEach((recipe) => {
+                            if(recipeIds.includes(recipes_from_recipes.id)) {
+                                for (let ingredient of recipes_from_recipes.ingredients.split('@#$')){
                                         groceryItem.push(ingredient)
                                 }
                             }
@@ -56,7 +47,7 @@ function GroceryList({recipes}){
                         setGroceries(groceryItem);
                     }
                 } else {
-                    console.error(response) //log********
+                    console.error(response)
                 }
             }
 
