@@ -22,7 +22,6 @@ function App() {
 
   const fetchRecipes = async () => {
     const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/recipes`;
-
     const response = await fetch(url);
 
     if (response.ok) {
@@ -36,34 +35,36 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <BrowserRouter>
-        <AuthProvider>
-          <GetToken />
-          <Nav />
-          <Routes>
-            <Route path="signup" element={<SignupForm />} />
-            <Route path="/" element={<MealList recipes={recipes} />} />
-            <Route path="login" element={<LoginForm />} />
-            <Route path="groceries" element={<GroceryList recipes={recipes} />} />
-            <Route path="recipes/" element={ <RecipeList fetchRecipes={fetchRecipes} recipes={recipes} />} />
-            <Route path="recipes/new/" element={<CreateRecipeForm fetchRecipes={fetchRecipes} />} />
-            {recipes.map((recipe) => (
-              <Route
-                key={recipe.id}
-                path={`recipes/${recipe.id}`}
-                element={
-                  <DisplayRecipeDetails
-                    recipe={recipe}
-                    fetchRecipes={fetchRecipes}
-                  />
-                }
-              />
-            ))}
-            <Route path="calendar" element={<MealCalendar recipes={recipes} />} />
-          </Routes>
-        </AuthProvider>
-      </BrowserRouter>
+    <div className="bg">
+      <div className="App">
+        <BrowserRouter>
+          <AuthProvider>
+            <GetToken />
+            <Nav />
+            <Routes>
+              <Route path="signup" element={<SignupForm />} />
+              <Route path="/" element={<MealList recipes={recipes} />} />
+              <Route path="login" element={<LoginForm />} />
+              <Route path="groceries" element={<GroceryList recipes={recipes} />} />
+              <Route path="recipes/" element={<RecipeList fetchRecipes={fetchRecipes} recipes={recipes} />} />
+              <Route path="recipes/new/" element={<CreateRecipeForm fetchRecipes={fetchRecipes} />} />
+              {recipes.map((recipe) => (
+                <Route
+                  key={recipe.id}
+                  path={`recipes/${recipe.id}`}
+                  element={
+                    <DisplayRecipeDetails
+                      recipe={recipe}
+                      fetchRecipes={fetchRecipes}
+                    />
+                  }
+                />
+              ))}
+              <Route path="calendar" element={<MealCalendar recipes={recipes} />} />
+            </Routes>
+          </AuthProvider>
+        </BrowserRouter>
+      </div>
     </div>
   );
 }
