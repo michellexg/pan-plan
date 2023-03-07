@@ -11,9 +11,6 @@ import SignupForm from "./SignupForm.js";
 import MealList from "./MealList.js";
 import GroceryList from "./Groceries";
 
-const domain = /https:\/\/[^/]+/;
-const basename = process.env.PUBLIC_URL.replace(domain, "");
-
 function GetToken() {
   useToken();
   return null;
@@ -37,7 +34,7 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter basename={basename}>
+      <BrowserRouter>
         <AuthProvider>
           <GetToken />
           <Nav />
