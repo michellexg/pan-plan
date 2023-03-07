@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import jwt_decode from "jwt-decode";
 import { useToken } from './Auth';
-import Card from "react-bootstrap/esm/Card"
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 
 function GroceryList({recipes}){
 
