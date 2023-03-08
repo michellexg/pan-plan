@@ -2,6 +2,8 @@ import Card from 'react-bootstrap/Card';
 import { useState, useEffect } from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
 import { NavLink, useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+
 
 
 function DisplayRecipeDetails(props) {
@@ -45,7 +47,7 @@ function DisplayRecipeDetails(props) {
 
   return (
     <div className='container justify-content-center'>
-      <Card className="recipe-detail-card" style={{ width: '50%' }}>
+      <Card className="recipe-detail-card" style={{ width: "75%", height: "75%" }}>
         <Card.Img variant="top" src={props.recipe.image_url} style={{ width: '100%', height: '100%' }} />
         <Card.Body>
           <Card.Title>{props.recipe.name}</Card.Title>
@@ -59,20 +61,38 @@ function DisplayRecipeDetails(props) {
               : <span></span>}
           </Card.Text>
         </Card.Body>
-        <ListGroup className="list-group-flush">
-          <div className='m-2'>Ingredients</div>
+        <ListGroup className="list-group-flush" as="ol" numbered>
+          <div className='m-2 fw-bold'>Ingredients</div>
 
           {splitIngredients.map((ingredient) => (
-            <ListGroup.Item key={ingredient}>{ingredient}</ListGroup.Item>
+            <ListGroup.Item
+            style={{ width: '100%', height: '100%', textAlign: "left" }}
+            as="li"
+            key={ingredient}
+            className='px-3 rounded-3 mb-2 detail-list'
+            noborders="true"
+            >
+              {ingredient}
+          </ListGroup.Item>
           ))}
-          <div className='m-2'>Steps</div>
+        </ListGroup>
+      <ListGroup className="list-group-flush" as="ol" numbered>
+        <div className='m-2 fw-bold'>Steps</div>
 
           {splitSteps.map((step) => (
-            <ListGroup.Item key={step}>{step}</ListGroup.Item>
+            <ListGroup.Item
+            key={step}
+            style={{ width: '100%', height: '100%', textAlign: "left" }}
+            as="li"
+            className='px-3 rounded-3 mb-2 detail-list'
+            noborders="true"
+            >
+              {step}
+          </ListGroup.Item>
           ))}
         </ListGroup>
         <Card.Body>
-          <NavLink to="recipes">Back to recipes</NavLink>
+          <NavLink to="recipes"><Button className="btn btn-secondary">Back to recipes</Button></NavLink>
         </Card.Body>
       </Card>
     </div>
