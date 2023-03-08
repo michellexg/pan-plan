@@ -64,16 +64,16 @@ function GroceryList({ recipes }) {
             {groceries.map((grocery_li, idx) => {
 
                 return (
-                    // <div className='container justify-content-center'>
+                    <div className='me-auto'>
 
-                    <Card className="grocery" style={{ width: "75%", height: "75%" }}>
+                    <Card className="grocery" style={{ width: "50%"}}>
                     <li key={idx}>
                     <div>
                         <Checkbox label={grocery_li} style="me-auto"></Checkbox>
                     </div>
                     </li>
                     </Card>
-                    // </div>
+                    </div>
                 )
             })}
         </ul>

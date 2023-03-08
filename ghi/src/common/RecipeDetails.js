@@ -92,7 +92,9 @@ function DisplayRecipeDetails(props) {
           ))}
         </ListGroup>
         <Card.Body>
-          <NavLink to="recipes"><Button className="btn btn-secondary">Back to recipes</Button></NavLink>
+          <NavLink to="recipes">
+            <Button className="btn btn-secondary">Back to recipes</Button>
+          </NavLink>
         </Card.Body>
       </Card>
     </div>
