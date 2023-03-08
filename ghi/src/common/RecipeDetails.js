@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 
 
 
@@ -92,7 +93,7 @@ function DisplayRecipeDetails(props) {
           ))}
         </ListGroup>
         <Card.Body>
-          <Button className="btn btn-secondary" href='./recipes'>Back to recipes</Button>
+          <Link to='recipes'><Button className="btn btn-secondary">Back to recipes</Button></Link>
         </Card.Body>
       </Card>
     </div>
