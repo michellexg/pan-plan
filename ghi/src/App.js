@@ -37,7 +37,7 @@ function App() {
   return (
     <div className="bg">
       <div className="App">
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
           <AuthProvider>
             <GetToken />
             <Nav />
