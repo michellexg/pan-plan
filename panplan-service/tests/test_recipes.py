@@ -15,7 +15,6 @@ class FakeRecipeRepository:
         result.update(recipe)
         return result
 
-
 def test_get_all_recipes():
 
     # Arrange
