@@ -52,7 +52,7 @@ function RecipeList(props) {
             setSearchName(event.target.value);
           }}
         />
-        <Button className="m-3 create-recipe" href="/new">Create New Recipe</Button>
+        <Button className="m-3 create-recipe" href="./recipes/new/">Create New Recipe</Button>
       </div>
 
       <div className="recipe-list">
@@ -75,9 +75,11 @@ function RecipeList(props) {
                 </Card.Body>
                 <Card.Footer>
                   <Nav.Item>
-                    <Button href={`/recipes/${recipe.id}`} className="btn-add-meal">
+                    {/* <NavLink to={`/recipes/${recipe.id}`}> */}
+                    <Button className="btn-add-meal" href={`/recipes/${recipe.id}`}>
                       Details
                     </Button>
+                    {/* </NavLink> */}
                     {creatorID === recipe.creator.id ?
                       <span>
                         <span> | </span>

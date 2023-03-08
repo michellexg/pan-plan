@@ -4,7 +4,7 @@ import { useToken } from './Auth';
 import Card from "react-bootstrap/esm/Card"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { Trash3 } from 'react-bootstrap-icons';
 
 
@@ -115,9 +115,11 @@ function MealCard({ date_int, recipes }) {
                 {meals.map((meal) => {
                     return (
                         <Card.Text key={meal.id}>
-                            <Button className='btn-meal' href={`recipes/${meal.recipe_id.id}`}>
+                            {/* <NavLink to={`/recipes/${meal.recipe_id.id}`}> */}
+                            <Button className='btn-meal' href={`./recipes/${meal.recipe_id.id}`}>
                                 {meal.recipe_id.name}
                             </Button>
+                            {/* </NavLink> */}
                             {' '}
                             <Link onClick={() => handleDelete(meal.id)}>
                                 <Trash3 size={15} color="red" />
@@ -129,7 +131,7 @@ function MealCard({ date_int, recipes }) {
                     <Button className='btn-add-meal' onClick={handleShow}>
                         Add a meal
                     </Button> :
-                    <Button className='btn btn-secondary' href="login">Add a meal</Button>}
+                    <Button className='btn btn-secondary' href="./login">Add a meal</Button>}
 
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
@@ -162,7 +164,7 @@ function MealCard({ date_int, recipes }) {
                     </Modal.Body>
                 </Modal>
             </Card.Body>
-        </Card>
+        </Card >
     )
 }
 

@@ -34,10 +34,13 @@ function App() {
     fetchRecipes();
   }, []);
 
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, '');
+
   return (
     <div className="bg">
       <div className="App">
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <BrowserRouter basename={basename}>
           <AuthProvider>
             <GetToken />
             <Nav />
