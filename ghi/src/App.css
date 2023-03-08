@@ -1,4 +1,4 @@
-.App-header {
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -7,29 +7,33 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+} */
 
-.App {
-  position: relative;
-  /* text-align: center; */
-  min-height: 100vh;
-}
-
-.bg::before {
+/* .bg::before {
   content: "";
   background-image: url("./assets/panplanbackground.png");
-  background-size: contain;
-  background-repeat: repeat-y;
+  background-size: cover;
+  background-repeat: repeat;
   background-position: center;
+  background-attachment: scroll;
   position: absolute;
   top: 0px;
   right: 0px;
   bottom: 0px;
   left: 0px;
   opacity: 0.5;
+} */
+
+.App {
+  content: "";
+  background-image: url("./assets/panplanbackgroundtrans.png");
+  background-size: cover;
+  background-repeat: repeat-y;
+  background-position: center;
+  min-height: 100vh;
 }
 
-.App-header {
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -38,7 +42,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+} */
 
 .navbar {
   background-color: #415345;
@@ -66,7 +70,6 @@
   flex-direction: row;
   font-size: calc(10px + 2vmin);
   color: white;
-
   box-shadow: 0px 0px 15px black;
 }
 
@@ -80,13 +83,6 @@
   box-sizing: border-box;
   border-radius: 20px;
   box-shadow: 0px 0px 10px black;
-}
-
-input[type="title"] {
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  border-radius: 4px;
 }
 
 label {
@@ -141,6 +137,7 @@ a {
 
 .card-title {
   color: #415345;
+  text-align: center;
 }
 
 .detail-list {
@@ -182,4 +179,55 @@ a {
 
 .modal-body select {
   background-color: #d0dcc6;
+}
+
+.recipe-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.recipe-card {
+  padding: 12px 20px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #d0dcc6;
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0px 0px 10px #415345;
+  position: relative;
+  width: 19rem;
+  height: 20rem;
+}
+
+.search-recipe {
+  padding: 12px 15px;
+  /* margin: 8px auto 8px auto; */
+  margin-left: 10px;
+  box-sizing: border-box;
+  border: 2px solid #d0dcc6;
+  border-radius: 10px;
+  align-self: center;
+}
+
+.create-recipe {
+  background-color: #415345;
+  border-color: #415345;
+  margin-right: 10px;
+}
+
+.card-image {
+  border-radius: 10px;
+  width: 100%;
+  height: 170px;
+}
+
+.container {
+  text-align: center;
+}
+
+.recipe-detail-card {
+  margin: 30px auto 30px auto;
 }

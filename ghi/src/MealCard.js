@@ -115,7 +115,7 @@ function MealCard({ date_int, recipes }) {
                 {meals.map((meal) => {
                     return (
                         <Card.Text key={meal.id}>
-                            <Button className='btn-meal' href={`/recipes/${meal.recipe_id.id}`}>
+                            <Button className='btn-meal' href={`recipes/${meal.recipe_id.id}`}>
                                 {meal.recipe_id.name}
                             </Button>
                             {' '}
