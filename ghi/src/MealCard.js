@@ -4,7 +4,7 @@ import { useToken } from './Auth';
 import Card from "react-bootstrap/esm/Card"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { Trash3 } from 'react-bootstrap-icons';
 
 
