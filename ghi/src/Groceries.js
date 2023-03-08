@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import jwt_decode from "jwt-decode";
 import { useToken } from './Auth';
+import Checkbox from './common/Checkbox';
 
 function GroceryList({ recipes }) {
     const [groceries, setGroceries] = useState([]);
@@ -12,6 +13,8 @@ function GroceryList({ recipes }) {
         const account_id = decoded.account.id;
         accountId = account_id
     }
+
+    let ourStorage = window.localStorage;
 
     useEffect(() => {
         const getGroceries = async () => {
@@ -48,12 +51,22 @@ function GroceryList({ recipes }) {
 
         };
         getGroceries();
-    }, [accountId]);
+    }, [accountId]);    
+
+    groceries.map((grocery_li, idx) => ourStorage.setItem(grocery_li, false))
+
+    console.log(localStorage)
+    
     return (
         <ul>
             {groceries.map((grocery_li, idx) => {
+
                 return (
-                    <li className='groceryitem' key={idx}>{grocery_li}</li>
+                    <li key={idx}>
+                    <div>
+                        <Checkbox label={grocery_li}></Checkbox>
+                    </div>
+                    </li>
                 )
             })}
         </ul>
