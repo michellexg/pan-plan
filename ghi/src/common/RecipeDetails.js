@@ -66,7 +66,7 @@ function DisplayRecipeDetails(props) {
 
           {splitIngredients.map((ingredient) => (
             <ListGroup.Item
-            style={{ width: 'flex', height: '100%', textAlign: "left" }}
+            style={{ width: '100%', height: '100%', textAlign: "left" }}
             as="li"
             key={ingredient}
             className='px-3 rounded-3 mb-2 detail-list'
@@ -82,7 +82,7 @@ function DisplayRecipeDetails(props) {
           {splitSteps.map((step) => (
             <ListGroup.Item
             key={step}
-            style={{ width: 'flex', height: '100%', textAlign: "left" }}
+            style={{ width: '100%', height: '100%', textAlign: "left" }}
             as="li"
             className='px-3 rounded-3 mb-2 detail-list'
             noborders="true"
