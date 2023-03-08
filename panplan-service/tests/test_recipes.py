@@ -4,6 +4,7 @@ from main import app
 
 client = TestClient(app)
 
+
 class FakeRecipeRepository:
     def get_recipes(self):
         return []
@@ -14,6 +15,7 @@ class FakeRecipeRepository:
             }
         result.update(recipe)
         return result
+
 
 def test_get_all_recipes():
 
