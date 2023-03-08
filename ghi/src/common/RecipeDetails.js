@@ -93,7 +93,7 @@ function DisplayRecipeDetails(props) {
           ))}
         </ListGroup>
         <Card.Body>
-          <Link to='recipes'><Button className="btn btn-secondary">Back to recipes</Button></Link>
+          <Link to='../../recipes'><Button className="btn btn-secondary">Back to recipes</Button></Link>
         </Card.Body>
       </Card>
     </div>

@@ -75,7 +75,7 @@ function RecipeList(props) {
                 </Card.Body>
                 <Card.Footer>
                   <Nav.Item>
-                    <Link to={`recipes/${recipe.id}`}>
+                    <Link to={`${recipe.id}`}>
                       <Button className="btn-add-meal">
                         Details
                       </Button>
