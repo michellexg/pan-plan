@@ -3,9 +3,9 @@ stages:
   - build
   - deploy
 
-# variables:
-#   DATABASE_URL: ""
-#   SIGNING_KEY: ""
+variables:
+  #   DATABASE_URL: ""
+  SIGNING_KEY: ""
 # Run flake8 to check for code quality
 lint-test-job:
   image: python:3-bullseye
