@@ -2,25 +2,26 @@ import { useState, useEffect } from "react";
 import Card from "react-bootstrap/esm/Card";
 import { NavLink } from "react-router-dom";
 import Nav from 'react-bootstrap/Nav';
+import Button from 'react-bootstrap/Button'
 
 
 function RecipeList(props) {
 
   const [creatorID, setCreatorID] = useState([])
   const fetchToken = async () => {
-      const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/token`
-      const fetchConfig = {
-        method: 'get',
-        credentials: 'include',
-      }
-      const response = await fetch(url,fetchConfig)
-      if (response.ok) {
-        const data = await response.json()
-        setCreatorID(data.account.id)
-      }
+    const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/token`
+    const fetchConfig = {
+      method: 'get',
+      credentials: 'include',
     }
+    const response = await fetch(url, fetchConfig)
+    if (response.ok) {
+      const data = await response.json()
+      setCreatorID(data.account.id)
+    }
+  }
 
-    useEffect(() => {
+  useEffect(() => {
     fetchToken()
   }, [])
 
@@ -41,60 +42,56 @@ function RecipeList(props) {
 
   const [searchName, setSearchName] = useState("");
   return (
-    <div>
-      <div style={{padding: "20px"}}>
-      <input
-        type="text"
-        placeholder="Search recipe by name"
-        onChange={(event) => {
-          setSearchName(event.target.value);
-        }}
-      />
+    <div className="container">
+      <div className="d-flex justify-content-between">
+        <input
+          type="text"
+          placeholder="Search recipe by name"
+          className="search-recipe"
+          onChange={(event) => {
+            setSearchName(event.target.value);
+          }}
+        />
+        <Button className="m-3 create-recipe" href="/new">Create New Recipe</Button>
       </div>
-      <NavLink to="new" style={{padding: "20px"}}>Create new recipe</NavLink>
-      <div style={{padding: "20px"}}></div>
 
-      <div className="container">
-        <div className="row">
-          {props.recipes
-        .filter((val) => {
-          if (searchName === "") {
-            return val;
-          } else if (val.name.includes(searchName)) {
-            return val;
-          }
-          return false;
-        })
-        .map((recipe, key) => {
-          return (
-            <div className="col-3" key={key} style={{padding: "20px"}}>
-            <Card className="text-center" style={{ width: "19rem", height: "19rem" }}>
-              <Card.Header>{recipe.name}</Card.Header>
-              <Card.Body>
-                <Card.Img variant="top" src={recipe.image_url} style={{ width: "100%", height: "170px" }} />
-              </Card.Body>
-              <Card.Footer className="text-muted">
-                {recipe.creator.username}
-                <Nav.Item>
-                  <NavLink to={`/recipes/${recipe.id}`}>
-                    Details
-                  </NavLink>
-                  {creatorID === recipe.creator.id ?
-                  <span>
-                    <span> | </span>
-                    <button onClick={handleDelete} value={recipe.id}>
-                      Delete
-                    </button>
-                  </span>
-                  : <span></span>}
+      <div className="recipe-list">
+        {props.recipes
+          .filter((val) => {
+            if (searchName === "") {
+              return val;
+            } else if (val.name.includes(searchName)) {
+              return val;
+            }
+            return false;
+          })
+          .map((recipe, key) => {
+            return (
+              <Card className="recipe-card" key={key}>
+                <Card.Body>
+                  <Card.Title>{recipe.name}</Card.Title>
+                  <Card.Subtitle className="text-muted m-1">Creator: {recipe.creator.username}</Card.Subtitle>
+                  <Card.Img variant="top" src={recipe.image_url} className="card-image" />
+                </Card.Body>
+                <Card.Footer>
+                  <Nav.Item>
+                    <Button href={`/recipes/${recipe.id}`} className="btn-add-meal">
+                      Details
+                    </Button>
+                    {creatorID === recipe.creator.id ?
+                      <span>
+                        <span> | </span>
+                        <button onClick={handleDelete} value={recipe.id} className="btn btn-danger">
+                          Delete
+                        </button>
+                      </span>
+                      : <span></span>}
 
-                </Nav.Item>
-              </Card.Footer>
-            </Card>
-            </div>
-          );
-        })}
-        </div>
+                  </Nav.Item>
+                </Card.Footer>
+              </Card>
+            );
+          })}
       </div>
     </div>
   );
