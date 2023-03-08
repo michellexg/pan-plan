@@ -75,11 +75,11 @@ function RecipeList(props) {
                 </Card.Body>
                 <Card.Footer>
                   <Nav.Item>
-                    <NavLink to={`/recipes/${recipe.id}`}>
-                      <Button className="btn-add-meal">
-                        Details
-                      </Button>
-                    </NavLink>
+                    {/* <NavLink to={`/recipes/${recipe.id}`}> */}
+                    <Button className="btn-add-meal" href={`/recipes/${recipe.id}`}>
+                      Details
+                    </Button>
+                    {/* </NavLink> */}
                     {creatorID === recipe.creator.id ?
                       <span>
                         <span> | </span>
