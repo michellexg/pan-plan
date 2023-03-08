@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route, BrowserRouter } from "react-router-dom";
 import { AuthProvider, useToken } from "./Auth";
 import RecipeList from "./RecipeList.js";
 import "./App.css";
@@ -37,7 +37,7 @@ function App() {
   return (
     <div className="bg">
       <div className="App">
-        <HashRouter>
+        <BrowserRouter>
           <AuthProvider>
             <GetToken />
             <Nav />
@@ -63,7 +63,7 @@ function App() {
               <Route path="calendar" element={<MealCalendar recipes={recipes} />} />
             </Routes>
           </AuthProvider>
-        </HashRouter>
+        </BrowserRouter>
       </div>
     </div>
   );
