@@ -74,7 +74,7 @@ function CreateRecipeForm(props){
       data.steps = combinedSteps
       data.creator_id = creatorID
 
-      const url = 'http://localhost:8000/recipes'
+      const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/recipes`;
       const fetchConfig = {
         method: 'post',
         body: JSON.stringify(data),
@@ -95,7 +95,7 @@ function CreateRecipeForm(props){
     }
 
     const fetchToken = async () => {
-      const url = 'http://localhost:8000/token'
+      const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/token`;
       const fetchConfig = {
         method: 'get',
         credentials: 'include',
