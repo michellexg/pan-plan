@@ -7,8 +7,10 @@ from queries.recipes import (
 
 client = TestClient(app)
 
+
 def fake_get_current_account_data():
     return True
+
 
 class FakeRecipeRepository:
     def get_recipes(self):
@@ -20,6 +22,7 @@ class FakeRecipeRepository:
             }
         result.update(recipe)
         return result
+
 
 def test_create_recipe():
     # Arrange
