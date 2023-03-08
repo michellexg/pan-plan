@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import jwt_decode from "jwt-decode";
 import { useToken } from './Auth';
 import Checkbox from './common/Checkbox';
+import Card from 'react-bootstrap/Card';
 
 function GroceryList({ recipes }) {
     const [groceries, setGroceries] = useState([]);
@@ -51,22 +52,28 @@ function GroceryList({ recipes }) {
 
         };
         getGroceries();
-    }, [accountId]);    
+    }, [accountId]);
 
     groceries.map((grocery_li, idx) => ourStorage.setItem(grocery_li, false))
 
     console.log(localStorage)
-    
+
     return (
         <ul>
+            <div className='container fw-bold'>Groceries</div>
             {groceries.map((grocery_li, idx) => {
 
                 return (
+                    // <div className='container justify-content-center'>
+
+                    <Card className="grocery" style={{ width: "75%", height: "75%" }}>
                     <li key={idx}>
                     <div>
-                        <Checkbox label={grocery_li}></Checkbox>
+                        <Checkbox label={grocery_li} style="me-auto"></Checkbox>
                     </div>
                     </li>
+                    </Card>
+                    // </div>
                 )
             })}
         </ul>
