@@ -40,7 +40,7 @@ function App() {
   return (
     <div className="bg">
       <div className="App">
-        <BrowserRouter>
+        <BrowserRouter basename={basename}>
           <AuthProvider>
             <GetToken />
             <Nav />
