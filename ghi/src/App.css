@@ -143,6 +143,9 @@ a {
   color: #415345;
 }
 
+.detail-list {
+  background-color: #d0dcc6;
+}
 .btn-add-meal {
   background-color: #415345;
   border: #415345;
