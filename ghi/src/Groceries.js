@@ -64,19 +64,19 @@ function GroceryList({ recipes }) {
         <Card className="recipe-detail-card" style={{ width: "50%"}}>
             <Card.Body>
                 <Card.Title>Groceries</Card.Title>
+                <ListGroup className="list-group-flush" as="ol" numbered >
                 {groceries.map((grocery_li, idx) => {
                     return (
-                        <div className='me-auto'>
-                            <ListGroup className="list-group-flush" as="ol" numbered key={idx}>
-                                <div className='m-2'>
-                                    <ListGroup.Item as="li">
-                                    <Checkbox label={grocery_li} style="me-auto"></Checkbox>
+                        // <div className='me-auto'>
+                                // <div className='m-2'>
+                                    <ListGroup.Item as="li" className=' detail-list'>
+                                    <Checkbox label={grocery_li} key={idx}></Checkbox>
                                     </ListGroup.Item>
-                                </div>
-                            </ListGroup>
-                        </div>
-                    )
-                })}
+                                // </div>
+                            // </div>
+                            )
+                        })}
+                        </ListGroup>
             </Card.Body>
         </Card>
     )

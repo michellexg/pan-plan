@@ -63,7 +63,6 @@ function DisplayRecipeDetails(props) {
         </Card.Body>
         <ListGroup className="list-group-flush" as="ol" numbered>
           <div className='m-2 fw-bold'>Ingredients</div>
-
           {splitIngredients.map((ingredient) => (
             <ListGroup.Item
               style={{ width: '100%', height: '100%', textAlign: "left" }}
