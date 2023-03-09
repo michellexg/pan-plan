@@ -36,10 +36,6 @@ class AccountRepository:
             account: AccountIn,
             hashed_password: str
             ) -> Union[AccountOutWithPassword, Error]:
-        # hashed_password = authenticator.hash_password(account.password)
-        # print(hashed_password)
-        # props = account.dict()
-        # props["password"] = hashed_password
         try:
             # connect the database
             with pool.connection() as conn:
