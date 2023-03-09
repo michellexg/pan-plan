@@ -131,7 +131,10 @@ function MealCard({ date_int, recipes }) {
                     <Button className='btn-add-meal' onClick={handleShow}>
                         Add a meal
                     </Button> :
-                    <Button className='btn btn-secondary' href="./login">Add a meal</Button>}
+                    <Link to="login">
+                        <Button className='btn btn-secondary' href="./login">Add a meal</Button>
+                    </Link>
+                }
 
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
