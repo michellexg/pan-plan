@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Card from "react-bootstrap/esm/Card";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button'
 
@@ -52,7 +52,7 @@ function RecipeList(props) {
             setSearchName(event.target.value);
           }}
         />
-        <Button className="m-3 create-recipe" href="/new">Create New Recipe</Button>
+        <Button className="m-3 create-recipe" href="./recipes/new/">Create New Recipe</Button>
       </div>
 
       <div className="recipe-list">
@@ -75,9 +75,11 @@ function RecipeList(props) {
                 </Card.Body>
                 <Card.Footer>
                   <Nav.Item>
-                    <Button href={`recipes/${recipe.id}`} className="btn-add-meal">
-                      Details
-                    </Button>
+                    <Link to={`${recipe.id}`}>
+                      <Button className="btn-add-meal">
+                        Details
+                      </Button>
+                    </Link>
                     {creatorID === recipe.creator.id ?
                       <span>
                         <span> | </span>

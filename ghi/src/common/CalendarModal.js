@@ -13,7 +13,7 @@ function AddRecipeModal(props){
     const handleSubmit = async event => {
         event.preventDefault();
         const data = {}
-        data.date_int = 1
+        data.date_int = 10
         data.date = props.date
         data.recipe_id = parseInt(recipe)
         data.account_id = props.accountId

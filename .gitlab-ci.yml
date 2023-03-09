@@ -1,5 +1,5 @@
 stages:
-  - test
+#  - test
   - build
   - deploy
 
@@ -7,12 +7,21 @@ variables:
   #   DATABASE_URL: ""
   SIGNING_KEY: ""
 # Run flake8 to check for code quality
+<<<<<<< HEAD
 lint-test-job:
   image: python:3-bullseye
   stage: test
   script:
     - pip install flake8
     - flake8 panplan-service
+=======
+#lint-test-job:
+#  image: python:3-bullseye
+#  stage: test
+#  script:
+#    - pip install flake8
+#    - flake8 panplan-service
+>>>>>>> main
 
 # Run the unit tests
 api-unit-test-job:

@@ -115,9 +115,11 @@ function MealCard({ date_int, recipes }) {
                 {meals.map((meal) => {
                     return (
                         <Card.Text key={meal.id}>
-                            <Button className='btn-meal' href={`recipes/${meal.recipe_id.id}`}>
-                                {meal.recipe_id.name}
-                            </Button>
+                            <Link to={`recipes/${meal.recipe_id.id}`}>
+                                <Button className='btn-meal'>
+                                    {meal.recipe_id.name}
+                                </Button>
+                            </Link>
                             {' '}
                             <Link onClick={() => handleDelete(meal.id)}>
                                 <Trash3 size={15} color="red" />
@@ -129,7 +131,7 @@ function MealCard({ date_int, recipes }) {
                     <Button className='btn-add-meal' onClick={handleShow}>
                         Add a meal
                     </Button> :
-                    <Button className='btn btn-secondary' href="login">Add a meal</Button>}
+                    <Button className='btn btn-secondary' href="./login">Add a meal</Button>}
 
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
@@ -162,7 +164,7 @@ function MealCard({ date_int, recipes }) {
                     </Modal.Body>
                 </Modal>
             </Card.Body>
-        </Card>
+        </Card >
     )
 }
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route, BrowserRouter } from "react-router-dom";
 import { AuthProvider, useToken } from "./Auth";
 import RecipeList from "./RecipeList.js";
 import "./App.css";
@@ -34,11 +34,13 @@ function App() {
     fetchRecipes();
   }, []);
 
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, '');
 
   return (
     <div className="bg">
       <div className="App">
-        <BrowserRouter>
+        <BrowserRouter basename={basename}>
           <AuthProvider>
             <GetToken />
             <Nav />
