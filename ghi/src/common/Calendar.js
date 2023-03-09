@@ -9,6 +9,8 @@ import AddRecipeModal from "./CalendarModal";
 import { useNavigate } from "react-router-dom";
 import { Trash3 } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button'
+import "react-multi-date-picker/styles/colors/green.css"
+
 
 function MealCalendar(props) {
 
@@ -136,7 +138,6 @@ function MealCalendar(props) {
         }
         const response = await fetch(url, fetchConfig);
         if (response.ok) {
-            console.log('deleted')
             fetchMeals()
         } else {
             console.error(response)
@@ -147,7 +148,9 @@ function MealCalendar(props) {
 
     return (
         <div>
-            <Calendar value={values} onChange={setValues} range rangeHover />
+            <center style={{padding: "20px"}}>
+            <Calendar className="green" value={values} onChange={setValues} range rangeHover />
+            </center>
 
             <div className="container">
                 <div className="row">

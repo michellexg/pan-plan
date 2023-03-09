@@ -17,7 +17,11 @@ function RecipeList(props) {
     const response = await fetch(url, fetchConfig)
     if (response.ok) {
       const data = await response.json()
+      if (data === null){
+        setCreatorID([])
+      } else {
       setCreatorID(data.account.id)
+      }
     }
   }
 
