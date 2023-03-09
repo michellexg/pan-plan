@@ -50,12 +50,14 @@ function LoginForm(props) {
 						aria-describedby="password"
 						placeholder="Enter Password"
 					/>
+					<div className="d-grid">
 					<Button variant="success"
-						className="my-3"
+						size="lg"
 						onClick={handleSubmit}
 					>
 						Login
 					</Button>
+					</div>
 				</form>
 				<div className="text-center fs-6">
 					<a href="./signup">Not a user? Sign up now</a>

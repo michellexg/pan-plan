@@ -3,6 +3,8 @@ import jwt_decode from "jwt-decode";
 import { useToken } from './Auth';
 import Checkbox from './common/Checkbox';
 import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+
 
 function GroceryList({ recipes }) {
     const [groceries, setGroceries] = useState([]);
@@ -59,24 +61,24 @@ function GroceryList({ recipes }) {
     console.log(localStorage)
 
     return (
-        <ul>
-            <div className='container fw-bold'>Groceries</div>
-            {groceries.map((grocery_li, idx) => {
-
-                return (
-                    <div className='me-auto'>
-
-                    <Card className="grocery" style={{ width: "50%"}}>
-                    <li key={idx}>
-                    <div>
-                        <Checkbox label={grocery_li} style="me-auto"></Checkbox>
-                    </div>
-                    </li>
-                    </Card>
-                    </div>
-                )
-            })}
-        </ul>
+        <Card className="recipe-detail-card" style={{ width: "50%"}}>
+            <Card.Body>
+                <Card.Title>Groceries</Card.Title>
+                {groceries.map((grocery_li, idx) => {
+                    return (
+                        <div className='me-auto'>
+                            <ListGroup className="list-group-flush" as="ol" numbered key={idx}>
+                                <div className='m-2'>
+                                    <ListGroup.Item as="li">
+                                    <Checkbox label={grocery_li} style="me-auto"></Checkbox>
+                                    </ListGroup.Item>
+                                </div>
+                            </ListGroup>
+                        </div>
+                    )
+                })}
+            </Card.Body>
+        </Card>
     )
 }
 export default GroceryList
