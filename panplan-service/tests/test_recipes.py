@@ -15,7 +15,7 @@ class FakeRecipeRepository:
             }
         result.update(recipe)
         return result
-    
+
     def test_delete_recipe(self, recipe):
 
         app.dependency_overrides[RecipeRepository] = FakeRecipeRepository
