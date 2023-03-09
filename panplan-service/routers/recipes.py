@@ -26,19 +26,27 @@ def create_recipe(
 
     return repo.create_recipe(recipe)
 
-@router.put("/{user_id}/recipes/{recipe_id}", response_model=RecipeOutWithAccountDict)
+@router.put("/{user_id}/recipes/{recipe_id}", response_model=Union[RecipeOut, Error])
 def update_recipe(
     recipe_id: int,
     recipe: EditRecipe,
     repo: RecipeRepository = Depends(),
-    account_data: dict = Depends(authenticator.get_current_account_data),
-):
-    get = repo.get_one_recipe(recipe_id)
-    creator = get["user_id"]
-    if account_data["id"] == creator:
-        return repo.update_recipe(recipe, recipe_id)
-    else:
-        raise HTTPException(status_code=401, detail="not working")
+) -> Union[Error, RecipeOut]:
+    return repo.update_recipe(recipe, recipe_id)
+
+# @router.put("/{user_id}/recipes/{recipe_id}", response_model=RecipeOutWithAccountDict)
+# def update_recipe(
+#     recipe_id: int,
+#     recipe: EditRecipe,
+#     repo: RecipeRepository = Depends(),
+#     account_data: dict = Depends(authenticator.get_current_account_data),
+# ):
+#     get = repo.get_one_recipe(recipe_id)
+#     creator = get["creator_id"]
+#     if account_data["id"] == creator:
+#         return repo.update_recipe(recipe, recipe_id)
+#     else:
+#         raise HTTPException(status_code=401, detail="not working")
 
 @router.get("/recipes/{id}")  # , response_model=Optional[RecipeOut])
 def get_one_recipe(
