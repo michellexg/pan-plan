@@ -1,11 +1,13 @@
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends, Response, HTTPException
 from typing import Union
 from queries.recipes import (
     Error,
     RecipeOut,
+    RecipeOutWithAccountDict,
     RecipeRepository,
     RecipeIn,
-    RecipesOut
+    RecipesOut,
+    EditRecipe
 )
 from .auth import authenticator
 
@@ -24,13 +26,19 @@ def create_recipe(
 
     return repo.create_recipe(recipe)
 
-@router.put("/{user_id}/recipes/{recipe_id}", response_model=Union[RecipeOut, Error])
+@router.put("/{user_id}/recipes/{recipe_id}", response_model=RecipeOutWithAccountDict)
 def update_recipe(
     recipe_id: int,
-    recipe: RecipeIn,
+    recipe: EditRecipe,
     repo: RecipeRepository = Depends(),
-) -> Union[Error, RecipeOut]:
-    return repo.update_recipe(recipe, recipe_id)
+    account_data: dict = Depends(authenticator.get_current_account_data),
+):
+    get = repo.get_one_recipe(recipe_id)
+    creator = get["user_id"]
+    if account_data["id"] == creator:
+        return repo.update_recipe(recipe, recipe_id)
+    else:
+        raise HTTPException(status_code=401, detail="not working")
 
 @router.get("/recipes/{id}")  # , response_model=Optional[RecipeOut])
 def get_one_recipe(

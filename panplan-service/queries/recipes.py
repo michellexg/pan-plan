@@ -26,6 +26,12 @@ class RecipeOut(BaseModel):
     creator_id: int
 
 
+class EditRecipe(BaseModel):
+    name: str
+    image_url: str
+    ingredients: str
+    steps: str
+
 # Created new recipe out class including account dict,
 #      this method allows us to associate
 #      username with recipe easily
