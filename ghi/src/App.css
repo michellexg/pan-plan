@@ -220,6 +220,7 @@ a {
   background-color: #415345;
   border-color: #415345;
   margin-right: 10px;
+  color: white;
 }
 
 .create-recipe:hover {
@@ -246,4 +247,9 @@ a {
 .recipe-img {
   width: 100%;
   max-height: 500px;
+}
+
+
+.groc-list {
+  width: 500px;
 }
