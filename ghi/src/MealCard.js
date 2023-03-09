@@ -132,7 +132,7 @@ function MealCard({ date_int, recipes }) {
                         Add a meal
                     </Button> :
                     <Link to="login">
-                        <Button className='btn btn-secondary' href="./login">Add a meal</Button>
+                        <Button className='btn btn-secondary'>Add a meal</Button>
                     </Link>
                 }
 
