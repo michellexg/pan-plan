@@ -5,6 +5,7 @@ from queries.recipes import (
     RecipeOut,
     RecipeRepository,
     RecipeIn,
+    RecipesOut
 )
 from .auth import authenticator
 
@@ -23,6 +24,13 @@ def create_recipe(
 
     return repo.create_recipe(recipe)
 
+@router.put("/{user_id}/recipes/{recipe_id}", response_model=Union[RecipeOut, Error])
+def update_recipe(
+    recipe_id: int,
+    recipe: RecipeIn,
+    repo: RecipeRepository = Depends(),
+) -> Union[Error, RecipeOut]:
+    return repo.update_recipe(recipe, recipe_id)
 
 @router.get("/recipes/{id}")  # , response_model=Optional[RecipeOut])
 def get_one_recipe(
@@ -36,7 +44,7 @@ def get_one_recipe(
     return recipe
 
 
-@router.get("/recipes")  # , response_model=Union[RecipesOut, Error])
+@router.get("/recipes", response_model=Union[RecipesOut, Error])
 def get_all_recipes(repo: RecipeRepository = Depends()):
     recipes = repo.get_recipes()
     return {"recipes": recipes}

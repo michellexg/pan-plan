@@ -71,6 +71,35 @@ class RecipeRepository:
         except Exception:
             return {"message": "Create did not work"}
 
+    def update_recipe(self, recipe_id: int, recipe: RecipeIn) -> Union[RecipeOut, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE recipes
+                        SET name = %s
+                            , image_url = %s
+                            , ingredients = %s
+                            , steps = %s
+                        WHERE id = %s
+                        AND creator_id = %s
+                        """,
+                        [
+                            recipe.name,
+                            recipe.image_url,
+                            recipe.ingredients,
+                            recipe.steps,
+                            recipe.creator_id,
+
+                        ],
+                    )
+                    return self.recipe_in_to_out(recipe_id, recipe)
+
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update recipe"}
+
     def recipe_in_to_out(self, id: int, recipe: RecipeIn):
         old_data = recipe.dict()
         return RecipeOut(id=id, **old_data)
