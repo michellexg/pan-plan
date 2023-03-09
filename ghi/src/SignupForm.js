@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import PanPlannerG from './assets/PanPlannerG.png'
 import { useToken } from "./Auth";
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 // import login from './Auth'
 
 
@@ -64,7 +65,7 @@ function SignupForm(props) {
 					</div>
 					{/* <Button className="m-3 login-button" href="/login">Log In</Button> */}
 					<div className="text-center fs-6">
-						<a href="./login">Already have an account? Log in now</a>
+						<Link to="../login">Already have an account? Log in now</Link>
 					</div>
 				</form>
 			</div>

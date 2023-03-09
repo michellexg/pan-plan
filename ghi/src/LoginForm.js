@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import PanPlannerG from './assets/PanPlannerG.png'
 import { useToken } from "./Auth";
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 
 function LoginForm(props) {
 	const [username, setUsername] = useState("");
@@ -59,7 +60,7 @@ function LoginForm(props) {
 						</Button>
 					</div>
 					<div className="text-center fs-6">
-						<a href="./signup">Not a user? Sign up now</a>
+						<Link to="../signup">Not a user? Sign up now</Link>
 					</div>
 				</form>
 			</div>
