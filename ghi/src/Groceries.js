@@ -18,8 +18,6 @@ function GroceryList({ recipes }) {
         accountId = account_id
     }
 
-    let ourStorage = window.localStorage;
-
     useEffect(() => {
         const getGroceries = async () => {
             if (accountId) {
@@ -57,9 +55,6 @@ function GroceryList({ recipes }) {
         getGroceries();
     }, [accountId]);
 
-    groceries.map((grocery_li, idx) => ourStorage.setItem(grocery_li, false))
-
-    console.log(localStorage)
 
     return (
         <>

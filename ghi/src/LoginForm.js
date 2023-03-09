@@ -18,7 +18,6 @@ function LoginForm(props) {
 			alert('Incorrect login information')
 			// isLoggedIn(false);
 		}
-		console.log(true);
 		navigate('/')
 	}
 

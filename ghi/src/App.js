@@ -51,7 +51,7 @@ function App() {
               <Route path="groceries/" element={<GroceryList recipes={recipes} />} />
               <Route path="recipes/" element={<RecipeList fetchRecipes={fetchRecipes} recipes={recipes} />} />
               <Route path="recipes/new/" element={<CreateRecipeForm fetchRecipes={fetchRecipes} />} />
-              {recipes === [] ? console.log("recipe is empty") : recipes.map((recipe) => (
+              {recipes === [] ? recipes = [] : recipes.map((recipe) => (
                 <Route
                   key={recipe.id}
                   path={`recipes/${recipe.id}/`}
