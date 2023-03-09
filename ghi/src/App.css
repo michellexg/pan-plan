@@ -218,6 +218,11 @@ a {
   margin-right: 10px;
 }
 
+.create-recipe:hover {
+  background-color: #415345;
+  border-color: #415345;
+}
+
 .card-image {
   border-radius: 10px;
   width: 100%;

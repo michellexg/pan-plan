@@ -50,16 +50,18 @@ function LoginForm(props) {
 						aria-describedby="password"
 						placeholder="Enter Password"
 					/>
-					<Button variant="success"
-						className="my-3"
-						onClick={handleSubmit}
-					>
-						Login
-					</Button>
+					<div className="d-flex justify-content-center">
+						<Button variant="success"
+							className="my-3"
+							onClick={handleSubmit}
+						>
+							Login
+						</Button>
+					</div>
+					<div className="text-center fs-6">
+						<a href="./signup">Not a user? Sign up now</a>
+					</div>
 				</form>
-				<div className="text-center fs-6">
-					<a href="./signup">Not a user? Sign up now</a>
-				</div>
 			</div>
 		</>
 	);
