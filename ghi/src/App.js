@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route, BrowserRouter } from "react-router-dom";
 import { AuthProvider, useToken } from "./Auth";
 import RecipeList from "./RecipeList.js";
 import "./App.css";
@@ -34,24 +34,27 @@ function App() {
     fetchRecipes();
   }, []);
 
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, '');
+
   return (
     <div className="bg">
       <div className="App">
-        <BrowserRouter>
+        <BrowserRouter basename={basename}>
           <AuthProvider>
             <GetToken />
             <Nav />
             <Routes>
-              <Route path="signup" element={<SignupForm />} />
+              <Route path="signup/" element={<SignupForm />} />
               <Route path="/" element={<MealList recipes={recipes} />} />
-              <Route path="login" element={<LoginForm />} />
-              <Route path="groceries" element={<GroceryList recipes={recipes} />} />
+              <Route path="login/" element={<LoginForm />} />
+              <Route path="groceries/" element={<GroceryList recipes={recipes} />} />
               <Route path="recipes/" element={<RecipeList fetchRecipes={fetchRecipes} recipes={recipes} />} />
               <Route path="recipes/new/" element={<CreateRecipeForm fetchRecipes={fetchRecipes} />} />
-              {recipes.map((recipe) => (
+              {recipes === [] ? recipes = [] : recipes.map((recipe) => (
                 <Route
                   key={recipe.id}
-                  path={`recipes/${recipe.id}`}
+                  path={`recipes/${recipe.id}/`}
                   element={
                     <DisplayRecipeDetails
                       recipe={recipe}

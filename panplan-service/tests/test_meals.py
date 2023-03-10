@@ -37,7 +37,6 @@ def test_get_all_meals():
     app.dependency_overrides = {}
 
     # Assert
-    print(response.json())
     assert response.status_code == 200
     assert response.json() == []
 

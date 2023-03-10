@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import PanPlannerG from './assets/PanPlannerG.png'
 import { useToken } from "./Auth";
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 
 function LoginForm(props) {
 	const [username, setUsername] = useState("");
@@ -18,7 +19,6 @@ function LoginForm(props) {
 			alert('Incorrect login information')
 			// isLoggedIn(false);
 		}
-		console.log(true);
 		navigate('/')
 	}
 
@@ -50,16 +50,18 @@ function LoginForm(props) {
 						aria-describedby="password"
 						placeholder="Enter Password"
 					/>
-					<Button variant="success"
-						className="my-3"
-						onClick={handleSubmit}
-					>
-						Login
-					</Button>
+					<div className="d-flex justify-content-center">
+						<Button variant="success"
+							className="my-3"
+							onClick={handleSubmit}
+						>
+							Login
+						</Button>
+					</div>
+					<div className="text-center fs-6">
+						<Link to="../signup">Not a user? Sign up now</Link>
+					</div>
 				</form>
-				<div className="text-center fs-6">
-					<a href="./signup">Not a user? Sign up now</a>
-				</div>
 			</div>
 		</>
 	);

@@ -180,7 +180,6 @@ class RecipeRepository:
                     )
                     record = result.fetchone()
                     if record is None:
-                        print("recipe not found")
                         return False
                     else:
                         db.execute(

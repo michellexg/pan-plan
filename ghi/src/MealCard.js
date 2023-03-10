@@ -103,75 +103,66 @@ function MealCard({ date_int, recipes }) {
     getMeals();
   }, [newMeal, accountId, date_int, deleted]);
 
-  return (
-    <Card className="text-center" style={{ width: "18rem", height: "20rem" }}>
-      <Card.Body>
-        <Card.Title>{day}</Card.Title>
-        {meals.map((meal) => {
-          return (
-            <Card.Text key={meal.id}>
-              <Button
-                className="btn-meal"
-                href={`recipes/${meal.recipe_id.id}`}
-              >
-                {meal.recipe_id.name}
-              </Button>{" "}
-              <Link onClick={() => handleDelete(meal.id)}>
-                <Trash3 size={15} color="red" />
-              </Link>
-            </Card.Text>
-          );
-        })}
-        {token ? (
-          <Button className="btn-add-meal" onClick={handleShow}>
-            Add a meal
-          </Button>
-        ) : (
-          <Button className="btn btn-secondary" href="login">
-            Add a meal
-          </Button>
-        )}
-
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Add a meal!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <form onSubmit={handleSubmit}>
-              <select
-                onChange={handleRecipe}
-                value={recipe}
-                required
-                type="text"
-                name="recipe"
-                id="recipe"
-                className="form-select"
-              >
-                <option>Choose a recipe</option>
-                {recipes.map((recipe) => {
-                  return (
-                    <option key={recipe.id} value={recipe.id}>
-                      {recipe.name}
-                    </option>
-                  );
+        <Card className="text-center" style={{ width: '18rem', height: '20rem' }}>
+            <Card.Body>
+                <Card.Title>{day}</Card.Title>
+                {meals.map((meal) => {
+                    return (
+                        <Card.Text key={meal.id}>
+                            <Link to={`recipes/${meal.recipe_id.id}`}>
+                                <Button className='btn-meal'>
+                                    {meal.recipe_id.name}
+                                </Button>
+                            </Link>
+                            {' '}
+                            <Link onClick={() => handleDelete(meal.id)}>
+                                <Trash3 size={15} color="red" />
+                            </Link>
+                        </Card.Text>
+                    )
                 })}
-              </select>
-              <Button
-                className="btn-add-meal my-3"
-                onClick={handleClose}
-                type="submit"
-              >
-                Save Changes
-              </Button>
-              <Button className="btn btn-secondary m-3" onClick={handleClose}>
-                Cancel
-              </Button>
-            </form>
-          </Modal.Body>
-        </Modal>
-      </Card.Body>
-    </Card>
-  );
+                {token ?
+                    <Button className='btn-add-meal' onClick={handleShow}>
+                        Add a meal
+                    </Button> :
+                    <Link to="login">
+                        <Button className='btn btn-secondary'>Add a meal</Button>
+                    </Link>
+                }
+
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Add a meal!</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <form onSubmit={handleSubmit}>
+                            <select
+                                onChange={handleRecipe}
+                                value={recipe}
+                                required
+                                type="text"
+                                name="recipe"
+                                id="recipe"
+                                className="form-select">
+                                <option >Choose a recipe</option>
+                                {recipes.map(recipe => {
+                                    return (
+                                        <option key={recipe.id} value={recipe.id}>
+                                            {recipe.name}
+                                        </option>
+                                    )
+                                })}
+                            </select>
+                            <Button className='btn-add-meal my-3' onClick={handleClose} type="submit">
+                                Save Changes
+                            </Button>
+                            <Button className='btn btn-secondary m-3' onClick={handleClose}>Cancel</Button>
+                        </form>
+                    </Modal.Body>
+                </Modal>
+            </Card.Body>
+        </Card >
+    )
 }
 
 export default MealCard;

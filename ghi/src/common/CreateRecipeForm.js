@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import Button from 'react-bootstrap/Button'
 
 function CreateRecipeForm(props){
 
@@ -74,7 +75,7 @@ function CreateRecipeForm(props){
       data.steps = combinedSteps
       data.creator_id = creatorID
 
-      const url = 'http://localhost:8000/recipes'
+      const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/recipes`;
       const fetchConfig = {
         method: 'post',
         body: JSON.stringify(data),
@@ -95,7 +96,7 @@ function CreateRecipeForm(props){
     }
 
     const fetchToken = async () => {
-      const url = 'http://localhost:8000/token'
+      const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/token`;
       const fetchConfig = {
         method: 'get',
         credentials: 'include',
@@ -114,7 +115,7 @@ function CreateRecipeForm(props){
     return (
         <div className="my-5 container">
             <div className="offset-3 col-6">
-              <div className="shadow p-4 mt-4">
+              <div className="modal-body p-4 mt-4">
                 <h2 className="text-center">Create a new recipe</h2>
                 <form onSubmit={handleSubmit} id="create-recipe-form">
                   <div className="form-floating mb-3">
@@ -150,7 +151,7 @@ function CreateRecipeForm(props){
                     )
                   })
                   }
-                  <button className="btn btn-primary">Create</button>
+                  <button className="btn m-3 create-recipe">Create</button>
                 </form>
               </div>
             </div>

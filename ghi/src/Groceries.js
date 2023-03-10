@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import jwt_decode from "jwt-decode";
 import { useToken } from './Auth';
+import Checkbox from './common/Checkbox';
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+
+
 
 function GroceryList({ recipes }) {
     const [groceries, setGroceries] = useState([]);
@@ -49,14 +54,28 @@ function GroceryList({ recipes }) {
         };
         getGroceries();
     }, [accountId]);
+
+
     return (
-        <ul>
-            {groceries.map((grocery_li, idx) => {
-                return (
-                    <li className='groceryitem' key={idx}>{grocery_li}</li>
-                )
-            })}
-        </ul>
+        <>
+            <Card className='groc-list container'>
+            {/* <div className = "my-5 container groc-list modal-body"> */}
+                <Card.Title>Groceries</Card.Title>
+                <Card.Body>
+                <ListGroup>
+                    {groceries.map((grocery_li, idx) => {
+                        return (
+                            <ListGroup.Item className="px-3 mb-2 detail-list" >
+                                <div key={idx}>
+                                    <Checkbox label={grocery_li}></Checkbox>
+                                </div>
+                            </ListGroup.Item>
+                        )
+                    })}
+                </ListGroup>
+                </Card.Body>
+            </Card>
+        </>
     )
 }
 export default GroceryList
