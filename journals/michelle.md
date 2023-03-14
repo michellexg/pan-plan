@@ -1,3 +1,62 @@
+## March 8, 2023
+
+### Worked on
+
+- CSS and bootstrap styling
+
+## March 7, 2023
+
+### Worked on
+
+- CSS and bootstrap styling
+
+## March 6, 2023
+
+### Worked on
+
+- CSS and bootstrap styling
+
+## March 3, 2023
+
+### Worked on
+
+- CSS and bootstrap styling
+
+## March 2, 2023
+
+### Worked on
+
+- Unit test
+- CSS and bootstrap styling
+
+## March 1, 2023
+
+### Worked on
+
+- Unit test
+- Deployment
+
+## Feburary 28, 2023
+
+### Worked on
+
+- Complete the pop-up window to show list of recipes
+- Fixed the bug that now enable to add a recipe to specific day
+
+## Feburary 27, 2023
+
+### Worked on
+
+- Add a modal to meal list page
+- Enable to add a recipe to specific day
+
+## Feburary 24, 2023
+
+### Worked on
+
+- Front end pages
+- Create meal list page
+
 ## Feburary 23, 2023
 
 ### Worked on

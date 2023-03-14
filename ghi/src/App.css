@@ -158,6 +158,10 @@ a {
   background-color: #a5bda5;
 }
 
+.btn-meal:focus {
+  background-color: #415345;
+}
+
 .btn-add-meal:hover {
   background-color: #415345;
 }
@@ -216,6 +220,12 @@ a {
   background-color: #415345;
   border-color: #415345;
   margin-right: 10px;
+  color: white;
+}
+
+.create-recipe:hover {
+  background-color: #415345;
+  border-color: #415345;
 }
 
 .card-image {
@@ -230,4 +240,16 @@ a {
 
 .recipe-detail-card {
   margin: 30px auto 30px auto;
+  width: 50%;
+  max-height: 50%;
+}
+
+.recipe-img {
+  width: 100%;
+  max-height: 500px;
+}
+
+
+.groc-list {
+  width: 500px;
 }

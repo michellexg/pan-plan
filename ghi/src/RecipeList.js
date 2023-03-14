@@ -17,7 +17,11 @@ function RecipeList(props) {
     const response = await fetch(url, fetchConfig)
     if (response.ok) {
       const data = await response.json()
+      if (data === null){
+        setCreatorID([])
+      } else {
       setCreatorID(data.account.id)
+      }
     }
   }
 
@@ -52,7 +56,9 @@ function RecipeList(props) {
             setSearchName(event.target.value);
           }}
         />
-        <Button className="m-3 create-recipe" href="./recipes/new/">Create New Recipe</Button>
+        <Link to="new/">
+          <Button className="m-3 create-recipe">Create New Recipe</Button>
+        </Link>
       </div>
 
       <div className="recipe-list">

@@ -24,12 +24,12 @@ function Nav() {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/recipes">
+                <NavLink className="nav-link" to="recipes/">
                   Recipes
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/Groceries">
+                <NavLink className="nav-link" to="groceries/">
                   Groceries
                 </NavLink>
               </li>
@@ -40,14 +40,14 @@ function Nav() {
               </li>
               <li className="nav-item">
                 {!token && (
-                  <NavLink className="nav-link" to="signup">
+                  <NavLink className="nav-link" to="signup/">
                     SignUp
                   </NavLink>
                 )}
               </li>
               <li className="nav-item">
                 {!token && (
-                  <NavLink className="nav-link" to="login">
+                  <NavLink className="nav-link" to="login/">
                     Login
                   </NavLink>
                 )}

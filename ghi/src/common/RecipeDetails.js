@@ -48,8 +48,8 @@ function DisplayRecipeDetails(props) {
 
   return (
     <div className='container justify-content-center'>
-      <Card className="recipe-detail-card" style={{ width: "75%", height: "75%" }}>
-        <Card.Img variant="top" src={props.recipe.image_url} style={{ width: '100%', height: '100%' }} />
+      <Card className="recipe-detail-card">
+        <Card.Img className="recipe-img" variant="top" src={props.recipe.image_url} />
         <Card.Body>
           <Card.Title>{props.recipe.name}</Card.Title>
           <Card.Text>

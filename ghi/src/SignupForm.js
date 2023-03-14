@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import PanPlannerG from './assets/PanPlannerG.png'
 import { useToken } from "./Auth";
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 // import login from './Auth'
 
 
@@ -37,7 +38,7 @@ function SignupForm(props) {
 						className="form-control"
 						id="username"
 						aria-describedby="username"
-						placeholder="Enter username"
+						placeholder="Enter Username"
 					/>
 					<label htmlFor="Password">Password</label>
 					<input
@@ -59,8 +60,13 @@ function SignupForm(props) {
 						aria-describedby="confirm-password"
 						placeholder="Confirm Password"
 					/>
-					<Button variant="success" className="my-3" type="submit">Sign up</Button>
-					<Button className="m-3 login-button" href="/login">Log In</Button>
+					<div className="d-flex justify-content-center">
+						<Button variant="success" className="my-3" type="submit">Sign up</Button>
+					</div>
+					{/* <Button className="m-3 login-button" href="/login">Log In</Button> */}
+					<div className="text-center fs-6">
+						<Link to="../login">Already have an account? Log in now</Link>
+					</div>
 				</form>
 			</div>
 		</>

@@ -21,8 +21,6 @@ def create_recipe(
     repo: RecipeRepository = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data),
 ):
-    # response.status_code = 400
-    print(account_data)
 
     return repo.create_recipe(recipe)
 
