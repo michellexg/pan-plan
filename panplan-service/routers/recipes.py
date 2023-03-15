@@ -27,10 +27,10 @@ def create_recipe(
 @router.put("/{user_id}/recipes/{recipe_id}", response_model=Union[RecipeOut, Error])
 def update_recipe(
     recipe_id: int,
-    recipe: EditRecipe,
+    recipe: RecipeIn,
     repo: RecipeRepository = Depends(),
 ) -> Union[Error, RecipeOut]:
-    return repo.update_recipe(recipe, recipe_id)
+    return repo.update_recipe(recipe_id, recipe)
 
 # @router.put("/{user_id}/recipes/{recipe_id}", response_model=RecipeOutWithAccountDict)
 # def update_recipe(
