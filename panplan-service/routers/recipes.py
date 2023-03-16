@@ -24,7 +24,7 @@ def create_recipe(
 
     return repo.create_recipe(recipe)
 
-@router.put("/{user_id}/recipes/{recipe_id}", response_model=Union[RecipeOut, Error])
+@router.put("/recipes/{recipe_id}", response_model=Union[RecipeOut, Error])
 def update_recipe(
     recipe_id: int,
     recipe: RecipeIn,
@@ -46,7 +46,7 @@ def update_recipe(
 #     else:
 #         raise HTTPException(status_code=401, detail="not working")
 
-@router.get("/recipes/{id}")  # , response_model=Optional[RecipeOut])
+@router.get("/recipes/{recipe_id}")  # , response_model=Optional[RecipeOut])
 def get_one_recipe(
     recipe_id: int,
     response: Response,
@@ -64,7 +64,7 @@ def get_all_recipes(repo: RecipeRepository = Depends()):
     return {"recipes": recipes}
 
 
-@router.delete("/{user_id}/recipes/{recipe_id}", response_model=bool)
+@router.delete("/recipes/{recipe_id}", response_model=bool)
 def delete_recipe(
     recipe_id: int,
     user_id: int,
